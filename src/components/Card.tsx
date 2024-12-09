@@ -9,7 +9,7 @@ const Card = () => {
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6 -m-4">
           {/* Product Card 1 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -18,7 +18,7 @@ const Card = () => {
                 alt="Syltherine" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -30% 
@@ -44,7 +44,7 @@ const Card = () => {
 
           {/* Product Card 2 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -53,7 +53,7 @@ const Card = () => {
                 alt="Leviosa" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
              
             </div>
@@ -73,7 +73,7 @@ const Card = () => {
           </div>
           {/* Product Card 3 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} //  setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -82,7 +82,7 @@ const Card = () => {
                 alt="Lolito" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -50% 
@@ -107,7 +107,7 @@ const Card = () => {
           </div>
           {/* Product Card 4 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -116,7 +116,7 @@ const Card = () => {
                 alt="Respira" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New

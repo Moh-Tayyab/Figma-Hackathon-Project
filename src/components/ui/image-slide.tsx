@@ -1,6 +1,6 @@
 "use client";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { FaAngleRight } from "react-icons/fa";
 
 interface ImageSlidesProps {
   images: string[];
@@ -49,14 +49,35 @@ export const ImageSlides: React.FC<ImageSlidesProps> = ({ images }) => {
               currentSlide === index ? "flex" : "hidden"
             } transition-transform duration-[600ms] ease-in-out justify-center items-center`}
           >
-            <img
+            <Image
               src={image}
               alt={`Slide ${index + 1}`}
               className="block w-[372px] h-[486px] object-cover "
+              width={372} // Ensure you set width
+              height={486} // Ensure you set height
               style={{ maxHeight: "600px" }}
             />
           </div>
         ))}
+      </div>
+
+      {/* Navigation buttons */}
+      <div className="absolute top-1/2 left-0 z-10">
+        <button
+          onClick={prevSlide}
+          className="text-white p-2"
+        >
+          
+        </button>
+      </div>
+
+      <div className="absolute top-1/2 right-0 z-10">
+        <button
+          onClick={nextSlide}
+          className=""
+        >
+
+        </button>
       </div>
     </div>
   );

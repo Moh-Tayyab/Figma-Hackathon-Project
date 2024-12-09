@@ -1,30 +1,23 @@
 import React from 'react'
 import Image from 'next/image'
-import { IoIosArrowForward } from 'react-icons/io'
+//import Link from 'next/link'
+import Services from '@/components/Services'
+import SubHero from '@/components/SubHero2'
+import Card from '@/components/Card'
+//import { IoIosArrowForward } from 'react-icons/io'
 
 const Home = () => {
   return (
-    <section className="">
-      <div className="container px-5 py-24 mx-auto">
-        {/* Banner Section */}
-    <div className="relative">
-        <Image src="/frames/shop.png" alt="Shop Banner" width={1440} height={316} />
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-          <h1 className="text-black1 text-[48px] font-medium leading-[72px] font-poppins">
-            Shop
-          </h1>
-          <ul className="flex items-center space-x-2 mt-4">
-            <li className="text-black1 text-2xl">Shop</li>
-            <IoIosArrowForward className="w-4 h-4" />
-            <li className="text-black1 text-2xl">Home</li>
-          </ul>
-        </div>
-      </div>
+    <>
+    {/*subhero Section */}
+    <SubHero />
+    <section className="font-poppins">
+      <div className=" px-5 pt-32 mx-auto">
         {/* Wrapper div for flex grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6 -m-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6 ">
           {/* Product Card 1 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -33,7 +26,7 @@ const Home = () => {
                 alt="Syltherine" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -30% 
@@ -59,7 +52,7 @@ const Home = () => {
 
           {/* Product Card 2 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -68,7 +61,7 @@ const Home = () => {
                 alt="Leviosa" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
              
             </div>
@@ -88,7 +81,7 @@ const Home = () => {
           </div>
           {/* Product Card 3 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} //  setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -97,7 +90,7 @@ const Home = () => {
                 alt="Lolito" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -50% 
@@ -122,7 +115,7 @@ const Home = () => {
           </div>
           {/* Product Card 4 */}
           <div
-            className="border rounded-lg shadow-sm bg-bg2 m-4"
+            className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
@@ -131,7 +124,7 @@ const Home = () => {
                 alt="Respira" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New
@@ -154,6 +147,11 @@ const Home = () => {
         </div>
       </div>
     </section>
+    <Card />
+    <Card />
+    <Card />
+    <Services />
+   </>
   )
 }
 

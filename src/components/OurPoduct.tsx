@@ -27,7 +27,7 @@ const OurPoduct = () => {
                 alt="Grifo" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className="object-cover"
               />
 
             </div>
@@ -56,7 +56,7 @@ const OurPoduct = () => {
                 alt="Muggo" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New
@@ -87,7 +87,7 @@ const OurPoduct = () => {
                 alt="Pingky" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                -50%
@@ -121,7 +121,7 @@ const OurPoduct = () => {
                 alt="Potty" 
                 width={285}
                 height={301}
-                className="rounded-t-lg object-cover"
+                className=" object-cover"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New

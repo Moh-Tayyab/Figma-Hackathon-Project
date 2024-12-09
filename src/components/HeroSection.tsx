@@ -20,7 +20,7 @@ const HeroSection = () => {
     <div className="container px-5 py-24 mx-auto flex">
       <div className="lg:w-1/3 md:w-1/2 bg-[#FFF3E3] rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
         <h3 className='font-poppins text-[16px] font-semibold leading[24px] 3% '>New Arrival</h3>
-        <h2 className="text-primary font-poppins text-lg mb-1 font-bold text-[42px] leading-[65px]">
+        <h2 className="text-primary font-poppins  mb-1 font-bold text-[38px] leading-[65px]">
         Discover Our 
         <br/>
         New Collection

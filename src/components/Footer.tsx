@@ -8,9 +8,9 @@ const Footer = () => {
         <div className="flex flex-wrap md:text-left text-center order-first">
           {/* Logo and Address Section */}
           <div className="w-full md:w-[25%] mb-6 md:mb-0">
-            <a className="flex items-center md:justify-start justify-center">
+            <Link href={'/'} className="flex items-center md:justify-start justify-center">
               <h2 className="text-[24px] font-[700] leading-[36px]">Funiro.</h2>
-            </a>
+            </Link>
             <p className="mt-4 text-[16px] font-[400] leading-[24px]">
               400 University Drive Suite 200 Coral <br /> Gables, FL 33134 USA
             </p>
@@ -26,7 +26,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:underline">
+                <Link href="/shop" className="hover:underline">
                   Shop
                 </Link>
               </li>
@@ -36,7 +36,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:underline">
+                <Link href="/contact" className="hover:underline">
                   Contact
                 </Link>
               </li>

@@ -52,19 +52,19 @@ const Header = () => {
             Home
           </Link>
           <Link
-            href="/about"
+            href="/shop"
             className="text-Text2 hover:underline font-normal font-poppins text-[16px]"
           >
             Shop
           </Link>
           <Link
-            href="/contact"
+            href="/blog"
             className="text-Text2 hover:underline font-normal font-poppins text-[16px]"
           >
             Blog
           </Link>
           <Link
-            href="/signup"
+            href="/contact"
             className="text-Text2 hover:underline font-normal font-poppins text-[16px]"
           >
             Contact
@@ -73,13 +73,14 @@ const Header = () => {
 
         {/* Search and Icons */}
         <div className="hidden lg:flex gap-8 items-center">
-          <Link href={'/login'}>
+          <Link href={'/'}>
             <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-Button1" />
           </Link>
           <Link href={'/'}>
+          
             <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110" />
           </Link>
-          <Link href={'/whishList'}>
+          <Link href={'/'}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110 hover:text-Button2 " />
           </Link>
           <Link href={'/cart'}>
