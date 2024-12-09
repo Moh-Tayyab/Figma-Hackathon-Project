@@ -66,7 +66,7 @@ const Card = () => {
               </p> 
               <div className="flex items-center justify-between mt-2">
                 <span className="text-[20px] leading-[30px] font-[600px] font-poppins text-text2 w-[131px] h-[30px]">
-                  Rp 2,500,000
+                  Rp 2.500.000
                 </span> 
               </div>
             </div>
