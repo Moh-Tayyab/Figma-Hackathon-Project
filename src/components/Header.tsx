@@ -32,13 +32,12 @@ const Header = () => {
         </div>
 
         {/* Toggle Button for Small Screens */}
-        <button
-          className="lg:hidden text-2xl text-Text2 focus:outline-none"
-          onClick={toggleMenu}
-        >
-          {menuOpen ? <HiX /> : <HiMenuAlt3 />}
-        </button>
-
+<button
+  className={`lg:hidden text-black bg-[#F9F1E7] p-2 rounded focus:outline-none transition`}
+  onClick={toggleMenu}
+>
+  {menuOpen ? <HiX className="text-black" /> : <HiMenuAlt3 className="text-black" />}
+</button>
         {/* Navigation Links */}
         <nav
           className={`${
@@ -46,7 +45,7 @@ const Header = () => {
           } lg:flex lg:ml-4 absolute top-16 left-1 w-full flex-col items-center gap-6 bg-white py-4 shadow-md lg:relative lg:flex-row lg:gap-16 lg:top-0 lg:shadow-none`}
         >
           <Link
-            href="/"
+            href="#"
             className="text-Text2 hover:underline font-normal font-poppins text-[16px]"
           >
             Home
