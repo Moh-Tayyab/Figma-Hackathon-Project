@@ -47,7 +47,7 @@ const Services = () => {
         <div className="flex items-start gap-5">
           {/* Icon */}
           <Image
-            src="/Vector.png"
+            src="/shiping.png"
             alt="benefit 1"
             width={30}
             height={24}

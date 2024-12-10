@@ -63,9 +63,8 @@ const Contact = () => {
           <label htmlFor="message">Message</label>
           <textarea
             id="message"
-            className="border-[#9F9F9F] border-2 p-3 rounded-md w-[570px] h-[90px]"
+            className="border-[#9F9F9F] border-2 p-4 rounded-md w-[570px] h-[90px]"
             placeholder="Hi! I’d like to ask about..."
-            rows="4"
           />
           <button className="bg-[#B88E2F] text-white p-3 w-[7rem] rounded-md">
             Submit

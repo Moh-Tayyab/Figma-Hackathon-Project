@@ -1,6 +1,14 @@
 import Image from 'next/image';
 import React from 'react';
-import { ImageSlides } from './ui/image-slide';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  //CarouselPrevious,
+} from "@/components/ui/carousel"
+
+//import { ImageSlides } from './ui/image-slide';
 
 const Category = () => {
   return (
@@ -35,9 +43,38 @@ const Category = () => {
           />
           {/* Second Image */}
           <div className='w-[372px] h-[486px]'>
-            <ImageSlides
+          <Carousel>
+  <CarouselContent>
+    
+    <CarouselItem> <Image
+            className="object-cover object-center"
+            alt="hero"
+            width={272}
+            height={446}
+            src="/img_2.png"
+          /></CarouselItem>
+    <CarouselItem> <Image
+            className="object-cover object-center"
+            alt="hero"
+            width={272}
+            height={446}
+            src="/img_3.png"
+          /></CarouselItem>
+          <CarouselItem> <Image
+            className="object-cover object-center"
+            alt="hero"
+            width={272}
+            height={446}
+            src="/image 100.png"
+          /></CarouselItem>
+  </CarouselContent>
+  {/* <CarouselPrevious />  */}
+ <CarouselNext /> 
+</Carousel>
+
+            {/* <ImageSlides
               images={["/imge_1.png", "/img_2.png", "/img_3.png", "/image 100.png"]}
-            />
+            /> */}
           </div>
         </div>
       </div>

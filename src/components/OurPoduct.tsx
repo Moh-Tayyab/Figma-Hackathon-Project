@@ -117,7 +117,7 @@ const OurPoduct = () => {
           >
             <div className="relative" style={{ width: "285px", height: "301px" }}>
               <Image
-                src="/shop/images.png" 
+                src="/shop/Images.png" 
                 alt="Potty" 
                 width={285}
                 height={301}
