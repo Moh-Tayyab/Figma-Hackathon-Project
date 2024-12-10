@@ -209,14 +209,14 @@ export default function CheckoutPage() {
                   shipped until the funds have cleared in our account.
                 </p>
                 <div className="flex-row flex gap-2 pt-6">
-                  <button className="w-4 h-4 border-black rounded-full border" />
+                  <button className="w-4 h-4 border-black rounded-full border hover:bg-black" />
                   <h2 className="font-[500px] text-[#9F9F9F] text-[16px] leading-6">
                     {" "}
                     Direct Bank Transfer
                   </h2>{" "}
                 </div>
                 <div className="flex-row flex gap-2 py-2">
-                  <button className="w-4 h-4 border-black rounded-full border" />
+                  <button className="w-4 h-4 border-black rounded-full border hover:bg-black" />
                   <h2 className="font-[500px] text-[#9F9F9F] text-[16px] leading-6">
                     {" "}
                     Cash On Delivery
