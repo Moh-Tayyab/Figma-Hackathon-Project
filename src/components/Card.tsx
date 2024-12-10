@@ -18,7 +18,7 @@ const Card = () => {
                 alt="Syltherine" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -30% 
@@ -53,7 +53,7 @@ const Card = () => {
                 alt="Leviosa" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover hover:scale-110"
               />
              
             </div>
@@ -82,7 +82,7 @@ const Card = () => {
                 alt="Lolito" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -50% 
@@ -116,7 +116,7 @@ const Card = () => {
                 alt="Respira" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New

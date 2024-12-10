@@ -1,6 +1,8 @@
 import Image from "next/image";
 import SubHero from "@/components/SubHero";
 import { AiFillDelete } from "react-icons/ai";
+import Link from "next/link";
+import Services from "@/components/Services";
 
 export default function Cart() {
   return (
@@ -22,12 +24,15 @@ export default function Cart() {
           <div className="flex flex-col gap-4 p-4">
             {/* Product Row */}
             <div className="flex justify-evenly items-center gap-4 mt-4">
+              <Link href= {'/singleproduct'}>
               <Image
                 src="/Group 146.png"
                 width={50}
                 height={50}
                 alt="Asgaard sofa"
+                className="hover:scale-110 hover:cursor-pointer"
               />
+              </Link>
               <p>Asgaard sofa</p>
               <p>Rs. 250,000.00</p>
             
@@ -37,7 +42,7 @@ export default function Cart() {
                 defaultValue={1}
               />
               <p>Rs. 250,000.00</p>
-              <AiFillDelete className="w-6 h-6 text-primary"/>
+              <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer"/>
             </div>
 
            
@@ -53,7 +58,7 @@ export default function Cart() {
             <p className="text-[#B88E2F]">
               <span className="text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">Total:</span> Rs. 250,000.00
             </p>
-            <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5">
+            <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
               Check Out
             </button>
           </div>
@@ -62,30 +67,7 @@ export default function Cart() {
       
 
       {/* Features Section */}
-      <div className="mb-3 mt-10 flex justify-evenly items-center p-4 w-full bg-[#F9F1E7]">
-        {[
-          { imgSrc: "/Vector (1).png", title: "High Quality", desc: "Crafted from top materials" },
-          { imgSrc: "/guarantee.png", title: "Warranty Protection", desc: "Over 2 years" },
-          { imgSrc: "/vector.png", title: "Free Shipping", desc: "Order over 150 $" },
-          { imgSrc: "/Vector (1).png", title: "24/7 Support", desc: "Dedicated support" },
-        ].map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-row gap-3 items-start w-[20%] h-[230px] justify-center pt-20"
-          >
-            <Image
-              src={item.imgSrc}
-              width={40}
-              height={40}
-              alt={item.title}
-            />
-            <div>
-              <h4 className="font-bold ">{item.title}</h4>
-              <p>{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Services />
     </>
   );
 }

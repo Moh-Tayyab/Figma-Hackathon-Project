@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-//import Link from 'next/link'
+import Link from 'next/link'
 import Services from '@/components/Services'
 import SubHero from '@/components/SubHero2'
 import Card from '@/components/Card'
@@ -11,6 +11,7 @@ const Home = () => {
     <>
     {/*subhero Section */}
     <SubHero />
+    <Link href={'/singleproduct'}>
     <section className="font-poppins">
       <div className=" px-5 pt-32 mx-auto">
         {/* Wrapper div for flex grid */}
@@ -26,7 +27,7 @@ const Home = () => {
                 alt="Syltherine" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -30% 
@@ -61,7 +62,7 @@ const Home = () => {
                 alt="Leviosa" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
              
             </div>
@@ -90,7 +91,7 @@ const Home = () => {
                 alt="Lolito" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                 -50% 
@@ -124,7 +125,7 @@ const Home = () => {
                 alt="Respira" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New
@@ -149,7 +150,7 @@ const Home = () => {
     </section>
     <Card />
     <Card />
-    <Card />
+    <Card /> </Link>
     <Services />
    </>
   )

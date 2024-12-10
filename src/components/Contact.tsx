@@ -66,7 +66,7 @@ const Contact = () => {
             className="border-[#9F9F9F] border-2 p-4 rounded-md w-[570px] h-[90px]"
             placeholder="Hi! I’d like to ask about..."
           />
-          <button className="bg-[#B88E2F] text-white p-3 w-[7rem] rounded-md">
+          <button className="bg-[#B88E2F] text-white p-3 w-[7rem] rounded-md hover:scale-110">
             Submit
           </button>
         </form>

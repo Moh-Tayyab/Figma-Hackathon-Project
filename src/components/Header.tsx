@@ -80,7 +80,7 @@ const Header = () => {
           
             <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110" />
           </Link>
-          <Link href={'/'}>
+          <Link href={'/checkout'}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110 hover:text-Button2 " />
           </Link>
           <Link href={'/cart'}>

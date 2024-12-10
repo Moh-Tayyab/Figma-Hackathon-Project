@@ -14,7 +14,6 @@ export default function Home() {
       <OurProduct />
       <Category />
      <FuniroFurniture />
-    
     </main>
   );
 }

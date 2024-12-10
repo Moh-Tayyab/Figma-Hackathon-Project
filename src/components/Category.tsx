@@ -7,6 +7,7 @@ import {
   CarouselNext,
   //CarouselPrevious,
 } from "@/components/ui/carousel"
+import Link from 'next/link';
 
 //import { ImageSlides } from './ui/image-slide';
 
@@ -25,9 +26,11 @@ const Category = () => {
           Our designer already made a lot of beautiful prototipe of rooms that inspire you
           </p>
           <div className="flex justify-center">
+            <Link href={'/blog'}> 
             <button className="inline-flex text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:scale-110 ">
             Explore More
             </button>
+            </Link>
           </div>
         </div>
   
@@ -35,7 +38,7 @@ const Category = () => {
         <div className="flex flex-row gap-4">
           {/* First Image */}
           <Image
-            className="object-cover object-center"
+            className="object-cover object-center  hover:scale-110"
             alt="hero"
             width={404}
             height={582}
@@ -47,7 +50,7 @@ const Category = () => {
   <CarouselContent>
     
     <CarouselItem> <Image
-            className="object-cover object-center"
+            className="object-cover object-center  hover:scale-110"
             alt="hero"
             width={272}
             height={446}
@@ -61,7 +64,7 @@ const Category = () => {
             src="/img_3.png"
           /></CarouselItem>
           <CarouselItem> <Image
-            className="object-cover object-center"
+            className="object-cover object-center  hover:scale-110"
             alt="hero"
             width={272}
             height={446}

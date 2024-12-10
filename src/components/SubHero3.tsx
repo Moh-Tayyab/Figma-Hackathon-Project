@@ -24,7 +24,7 @@ const SubHero = () => {
             className="mb-2"
           />
           <h1 className="text-black1 text-[28px] sm:text-[48px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
-            shop
+            Checkout
           </h1>
           <ul className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-[16px] sm:text-[20px]">
             <Link
@@ -38,7 +38,7 @@ const SubHero = () => {
               href={'/Checkout'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
             >
-              Shop
+              Checkout
             </Link>
           </ul>
         </div>

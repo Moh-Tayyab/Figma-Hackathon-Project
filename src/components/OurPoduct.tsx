@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Card from './Card'
+import Link from 'next/link'
 
 
 
@@ -15,6 +16,7 @@ const OurPoduct = () => {
         <Card />
       </div>
       {/* card flex wrap */}
+      <Link href= {'/singleproduct'}>
       <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-6 -m-4">
         {/* Product Card 1 */}
         <div
@@ -27,7 +29,7 @@ const OurPoduct = () => {
                 alt="Grifo" 
                 width={285}
                 height={301}
-                className="object-cover"
+                className="object-cover hover:scale-110"
               />
 
             </div>
@@ -50,18 +52,20 @@ const OurPoduct = () => {
             className=" bg-bg2 m-4"
             style={{ width: "285px", height: "446px" }} // Explicitly setting card dimensions
           >
+            
             <div className="relative" style={{ width: "285px", height: "301px" }}>
+
               <Image
                 src="/shop/image 6.png" 
                 alt="Muggo" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New
               </div>
-            </div>
+            </div> 
             <div className="p-4" style={{ height: "145px" }}>
               <h3 className="text-2xl leading-[28.8px] font-[600px] font-poppins w-[123px] h-[29px] text-text2">
               Muggo
@@ -87,7 +91,7 @@ const OurPoduct = () => {
                 alt="Pingky" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                -50%
@@ -121,7 +125,7 @@ const OurPoduct = () => {
                 alt="Potty" 
                 width={285}
                 height={301}
-                className=" object-cover"
+                className=" object-cover  hover:scale-110"
               />
               <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
                 New
@@ -141,12 +145,13 @@ const OurPoduct = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div></Link>
         {/*button */}
         <div className="flex justify-center mt-8">
-          <button className="px-10 py-3 rounded-sm text-primary border-primary border text-[16px] leading-[24px] bg-primary1 font-poppins hover:scale-100">
+          <Link href={'/shop'}>
+          <button className="px-10 py-3 rounded-sm text-primary border-primary border text-[16px] leading-[24px] bg-primary1 font-poppins  hover:scale-110">
             Show More
-          </button>
+          </button></Link>
         </div>
     </div>
     </section>

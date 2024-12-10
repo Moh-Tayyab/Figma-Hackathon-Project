@@ -21,7 +21,7 @@ const FuniroFurniture = () => {
             src="/funiro/1.png"
             width={451}
             height={312}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -32,7 +32,7 @@ const FuniroFurniture = () => {
             src="/funiro/2.png"
             width={295}
             height={292}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -43,7 +43,7 @@ const FuniroFurniture = () => {
             src="/funiro/3.png"
             width={290}
             height={348}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -54,7 +54,7 @@ const FuniroFurniture = () => {
             src="/funiro/4.png"
             width={290}
             height={348}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -65,7 +65,7 @@ const FuniroFurniture = () => {
             src="/funiro/5.png"
             width={425}
             height={433}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -76,7 +76,7 @@ const FuniroFurniture = () => {
             src="/funiro/6.png"
             width={344}
             height={242}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
 
@@ -87,7 +87,7 @@ const FuniroFurniture = () => {
             src="/funiro/7.png"
             width={178}
             height={242}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
         {/* Image 8 */}
@@ -97,7 +97,7 @@ const FuniroFurniture = () => {
             src="/funiro/7.png"
             width={178}
             height={242}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full  hover:scale-110"
           />
         </div>
       </div>
