@@ -20,7 +20,7 @@ const Header = () => {
       <div className="flex items-center justify-between px-5 py-4 lg:px-[20px]">
         {/* Logo */}
         <div className="flex flex-row gap-3 items-center pr-20">
-          <Image src="/logo1.png" alt="Logo" width={100} height={100} />
+          <Image src="/logo1.png" alt="Logo" width={50} height={32} />
           <Link href="/">
             <h1 className="text-3xl font-inter font-bold text-Text2 cursor-pointer lg:pr-20 hover:text-[#f7e9d9]">
               Furniro
