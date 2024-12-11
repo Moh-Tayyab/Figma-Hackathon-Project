@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -16,24 +17,27 @@ const SubHero = () => {
           className="w-full h-auto"
         />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+          {/* Logo */}
           <Image
             src="/logo1.png"
             alt="Logo"
             width={50}
             height={32}
-            className="mb-2"
+            className="mb-2 "
           />
-          <h1 className="text-black1 text-[28px] sm:text-[48px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
+          {/* Title */}
+          <h1 className="text-black1 text-[20px] sm:text-[28px] md:text-[48px] font-medium leading-[28px] sm:leading-[40px] md:leading-[72px] font-poppins hover:scale-110 transition-transform">
             Checkout
           </h1>
-          <ul className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-[16px] sm:text-[20px]">
+          {/* Breadcrumb */}
+          <ul className="flex items-center justify-center space-x-2 mt-4 text-[14px] sm:text-[16px] md:text-[20px]">
             <Link
               href={'/'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
             >
               Home
             </Link>
-            <IoIosArrowForward className="w-4 h-4" />
+            <IoIosArrowForward className="w-3 h-3 sm:w-4 sm:h-4" />
             <Link
               href={'/Checkout'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"

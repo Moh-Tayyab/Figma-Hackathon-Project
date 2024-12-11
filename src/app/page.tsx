@@ -8,7 +8,6 @@ import FuniroFurniture from '@/components/FuniroFurniture';
 export default function Home() {
   return (
     <main>
-
       <HeroSection />
       <BrowseRange />
       <OurProduct />
