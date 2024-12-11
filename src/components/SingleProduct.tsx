@@ -122,9 +122,9 @@ const SingleProduct = () => {
               </button>
             </div>
             <ul className="text-sm lg:text-base text-[#9F9F9F] gap-5">
-              <li>SKU: SS001</li>
-              <li>Category: Sofas</li>
-              <li>Tags: Sofa, Chair, Home, Shop</li>
+              <li className='pt-5'>SKU: SS001</li>
+              <li className='py-5'>Category: Sofas</li>
+              <li className='pb-5'>Tags: Sofa, Chair, Home, Shop</li>
               <li className="flex items-center gap-2">
                 Share: <FaFacebook className="text-black" /> <FaLinkedin className="text-black" />{' '}
                 <FaTwitter className="text-black" />
