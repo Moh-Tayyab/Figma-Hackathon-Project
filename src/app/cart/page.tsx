@@ -58,9 +58,11 @@ export default function Cart() {
             <p className="text-[#B88E2F]">
               <span className="text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">Total:</span> Rs. 250,000.00
             </p>
+            <Link href={'/checkout'} >
             <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
               Check Out
             </button>
+            </Link>
           </div>
       </div>
     </section>
