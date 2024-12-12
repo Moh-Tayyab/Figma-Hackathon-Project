@@ -4,11 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-import { MdOutlineShoppingCart } from "react-icons/md";
+//import { MdOutlineShoppingCart } from "react-icons/md";
 import { TbUserExclamation } from "react-icons/tb";
 //import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import ShoppingCart from "@/components/ShoppingCart";
 
 const Header = () => {
   const [menuOpen] = useState(false);
@@ -48,9 +49,12 @@ const Header = () => {
                   <Link href={"/checkout"}>
                     <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
                   </Link>
-                  <Link href={"/cart"}>
+<ShoppingCart />
+                  {/* <Link href={"/shoppingcart"}>
                     <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
-                  </Link>
+                  </Link> */}
+
+
                 </div>
                 <li className="font-bold font-helvetica text-[#FFF3E3] text-[14px] sm:text-[16px]">
                   <Link href="/">Home</Link>
@@ -107,9 +111,10 @@ const Header = () => {
           <Link href={"/checkout"}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
           </Link>
-          <Link href={"/cart"}>
+          <ShoppingCart />
+          {/* <Link href={"/cart"}>
             <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </header>

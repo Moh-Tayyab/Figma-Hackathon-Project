@@ -3,6 +3,7 @@ import BrowseRange from '@/components/BrowseRange';
 import OurProduct from '@/components/OurPoduct'; 
 import Category from '@/components/Category';
 import FuniroFurniture from '@/components/FuniroFurniture';
+import ShoppingCart from '@/components/ShoppingCart';
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <OurProduct />
       <Category />
      <FuniroFurniture />
+     <ShoppingCart />
     </main>
   );
 }
