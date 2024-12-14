@@ -1,0 +1,52 @@
+.card:hover img {
+    opacity: 0.8;
+  }
+  
+  .card:hover .content {
+    opacity: 1;
+    background-color: aqua;
+  }
+  .live{
+    background-color: rgb(67, 67, 255);
+    height: 36px;
+    width: 100px;
+    margin-top: 20px;
+    border-radius: 3px;
+    font-weight: bolder;
+    color: white;
+  }
+.live:hover{
+    transition: ease-in-out 0.4s;
+    width: 200px;
+    background-color: rgb(0, 0, 245);
+}
+.live:active{
+    transition:0.2s;
+    
+    background-color: rgb(0, 0, 70);
+}
+.heading{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.pera{
+    font-weight: 500;
+    font-size: small;
+}
+
+@media(max-width: 1115px){
+    .grid_containar{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media(max-width: 905px){
+    .grid_containar{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media(max-width: 610px){
+    .grid_containar{
+        grid-template-columns: 1fr;
+    }
+}

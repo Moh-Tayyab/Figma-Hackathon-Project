@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
-
+import { PiCirclesFourFill } from "react-icons/pi";
+import { TbAlignLeft2 } from "react-icons/tb";
 const SubHero = () => {
   return (
     <section>
@@ -43,8 +44,43 @@ const SubHero = () => {
           </ul>
         </div>
       </div>
+
+      <div className="w-full h-20 bg-[#F9F1E7]">
+  <div className="flex flex-row items-center lg:justify-between px-4 md:space-x-4 md:px-8 lg:px-12">
+
+    {/* Left Section */}
+    <div className="flex flex-wrap items-center space-x-4 pt-4 md:pt-6">
+      <TbAlignLeft2 className="w-6 h-6" />
+      <h2 className="text-sm md:text-base font-normal leading-5 text-black">Filter</h2>
+      <PiCirclesFourFill className="w-6 h-6" />
+      <span className="border-[#9F9F9F] border-l-2 h-6"></span>
+      <p className="text-xs md:text-sm">Showing 1–16 of 32 results</p>
+    </div>
+
+    {/* Right Section */}
+    <div className="flex flex-wrap items-center space-x-2 pt-4 md:pt-6">
+      <h2 className="text-xs md:text-sm">Show</h2>
+      <input
+        type="number"
+        min="1"
+        max="32"
+        defaultValue="16"
+        className="bg-white text-[#9F9F9F] text-center text-xs md:text-sm py-1 md:py-2"
+      />
+      <h2 className="text-xs md:text-sm">Sort by</h2>
+      <select className="bg-white text-[#9F9F9F] text-center text-xs md:text-sm py-1 px-4 md:py-2 md:px-6">
+        <option value="1">Default</option>
+        <option value="2">Rating</option>
+        <option value="3">Newest</option>
+      </select>
+    </div>
+
+  </div>
+</div>
+
+
     </section>
   );
 };
 
-export default SubHero;
+export default SubHero; 

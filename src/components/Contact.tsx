@@ -1,3 +1,4 @@
+
 import React from 'react';
 //import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";
@@ -6,7 +7,7 @@ import { TbPhoneFilled, TbClockHour4Filled } from "react-icons/tb";
 const Contact = () => {
   return (
     <section className="text-[#000000] font-poppins overflow-hidden">
-      <div className="container px-5 py-24 mx-auto sm:w-1/2">
+      <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-12">
 
           {/* Contact Information */}
@@ -36,37 +37,37 @@ const Contact = () => {
             </div>
           </div>
 
-           {/* Contact Form */}
-           <div className="mt-8 px-4 flex justify-center sm:justify-center sm:items-center sm:text-center sm:mx-auto sm:pl-12 md:w-1/2">
-            <form className="flex flex-col gap-4 max-w-md sm:px-4 sm:py-6 sm:border sm:rounded-lg sm:shadow-md">
-              <label htmlFor="name" className="text-sm sm:text-base">Name</label>
+          {/* Contact Form */}
+          <div className="mt-8 px-4 flex justify-center w-full md:w-1/2">
+            <form className="flex flex-col gap-4 lg:w-full lg:max-w-md">
+              <label htmlFor="name">Name</label>
               <input
                 id="name"
                 type="text"
-                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full sm:p-3"
+                className="border-[#9F9F9F] border-2 py-2 p-2 rounded-md w-full"
                 placeholder="Abc"
               />
-               <label htmlFor="email" className="text-sm sm:text-base">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
-                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full sm:p-3"
+                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full"
                 placeholder="Abc@def.com"
               />
-              <label htmlFor="subject" className="text-sm sm:text-base">Subject</label>
+              <label htmlFor="subject">Subject</label>
               <input
                 id="subject"
                 type="text"
-                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full sm:p-3"
+                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full"
                 placeholder="This is Optional"
               />
-              <label htmlFor="message" className="text-sm sm:text-base">Message</label>
+              <label htmlFor="message">Message</label>
               <textarea
                 id="message"
-                className="border-[#9F9F9F] border-2 p-4 rounded-md w-full h-24 sm:p-3 sm:h-30"
+                className="border-[#9F9F9F] border-2 p-4 rounded-md w-full h-24"
                 placeholder="Hi! I’d like to ask about..."
               />
-              <button className="bg-[#B88E2F] text-white p-3 w-28 rounded-md hover:scale-110 sm:p-4 sm:w-full">
+              <button className="bg-[#B88E2F] text-white p-3 w-28 rounded-md hover:scale-110">
                 Submit
               </button>
             </form>
