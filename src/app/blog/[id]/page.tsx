@@ -1,81 +1,51 @@
-import { Metadata } from "next";
 import posts from "@/blogdetails/data.json";
 import Image from "next/image";
-import { Clock4, User, CalendarDays } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import Comments from "@/components/Comments";
-import BlogAnimation from "@/components/animations/BlogAnimation";
+import { FaCalendar, FaUser } from "react-icons/fa";
+import { BiNotepad } from "react-icons/bi";
 
-type Props = {
+// Define the type for the page props
+interface PageProps {
   params: {
     id: string;
   };
-};
+}
 
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
-  await new Promise((ressolve) => {
-    setTimeout(() => {
-      ressolve(`${params.id}`);
-    }, 100);
-  });
-  return {
-    title: {
-      absolute: `F | Blog ${params.id}`,
-    },
-  };
-};
+export default function Page({ params }: PageProps) {
+  // Find the post with the matching ID
+  const post = posts.find((p) => p.id === params.id);
 
-export default function AllBlog({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
-  const post = posts.find((p) => p.id === id);
+  // Handle case where post is not found
+  if (!post) {
+    return <div>Post not found</div>;
+  }
 
-  if (!post) return <Skeleton />;
   return (
     <div className="pt-20 w-full">
       <div className="max-w-screen-md mx-auto py-20 px-10">
-        <BlogAnimation>
-          <h1 className="md:text-5xl sm:text-4xl text-2xl font-bold">{post.tittle}</h1>
-          <div className="my-6 text-slate-600 flex flex-col sm:flex-row gap-6">
-            <div className="flex gap-2">
-              <User />
-              <span>{post.author}</span>
-            </div>
-            <div className="flex gap-2">
-              <CalendarDays />
-              <span>4</span> <span>Oct, 2022</span>
-            </div>
-            <div className="flex gap-2">
-              <Clock4 />
-              <span>4 min read</span>
-            </div>
+        <h1 className="md:text-5xl sm:text-4xl text-2xl font-bold">{post.tittle}</h1>
+        <div className="my-6 text-slate-600 flex flex-col sm:flex-row gap-6">
+          <div className="flex gap-2">
+            <FaUser />
+            <span>{post.author}</span>
           </div>
-        </BlogAnimation>
-        <BlogAnimation>
-          <Image
-            src={post.src}
-            alt={post.tittle}
-            height={2000}
-            loading="lazy"
-            width={2000}
-            objectFit="cover"
-            objectPosition="center"
-            className="w-full  rounded-lg object-cover my-4"
-          />
-
-          <BlogAnimation>
-            <p className="text-2xl leading-relaxed py-10">{post.content}</p>
-          </BlogAnimation>
-        </BlogAnimation>
-        <BlogAnimation>
-          <div className="mt-20">
-          <Comments blogId={post.id} />
+          <div className="flex gap-2">
+            <FaCalendar />
+            <span>4</span> <span>Oct, 2022</span>
           </div>
-        </BlogAnimation>
+          <div className="flex gap-2">
+            <BiNotepad />
+            <span>Handmade</span>
+          </div>
+        </div>
+        <Image
+          src={post.src}
+          alt={post.tittle}
+          height={500}
+          width={817}
+          loading="lazy"
+          className="w-full object-cover object-center rounded-md"
+        />
+        <p className="text-2xl leading-relaxed py-10">{post.content}</p>
       </div>
     </div>
   );
