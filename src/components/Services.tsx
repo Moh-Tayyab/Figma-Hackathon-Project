@@ -18,7 +18,7 @@ const Services = () => {
             <h2 className="font-[600] text-[#242424] font-popins text-[20px] leading-[37px]">
               High Quality
             </h2>
-            <p className="text-[#898989] text-[16px] font-poppins leading-[30px] pt-2">
+            <p className="text-[#898989] text-[16px] font-poppins leading-[30px]">
               Crafted from top materials
             </p>
           </div>
@@ -37,7 +37,7 @@ const Services = () => {
             <h2 className="font-[600] text-[#242424] font-popins text-[20px] leading-[37px]">
               Warranty Protection
             </h2>
-            <p className="text-[#898989] text-[16px] font-poppins leading-[30px] pt-2">
+            <p className="text-[#898989] text-[16px] font-poppins leading-[30px]">
               Over 2 years
             </p>
           </div>
@@ -56,7 +56,7 @@ const Services = () => {
             <h2 className="font-[600] text-[#242424] font-popins text-[20px] leading-[37px]">
               FREE SHIPPING
             </h2>
-            <p className="text-[#898989] text-[16px] font-poppins leading-[30px] pt-2">
+            <p className="text-[#898989] text-[16px] font-poppins leading-[30px]">
               Order over $150
             </p>
           </div>
@@ -75,7 +75,7 @@ const Services = () => {
             <h2 className="font-[600] text-[#242424] font-popins text-[20px] leading-[37px]">
               24 / 7 Support
             </h2>
-            <p className="text-[#898989] text-[16px] font-poppins leading-[30px] pt-2">
+            <p className="text-[#898989] text-[16px] font-poppins leading-[30px]">
               Dedicated support
             </p>
           </div>

@@ -8,10 +8,11 @@ import { BiNotepad } from "react-icons/bi";
 import Blog from "@/components/Blog";
 import { FaSearch } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import Services from "@/components/Services";
 //import { CalendarDays } from "lucide-react";
 
 const Page = () => {
-  const post = posts[5];
+  const post = posts[6];
   return (
     <>
     
@@ -58,19 +59,19 @@ const Page = () => {
 
     
     <section className="pt-16" id="popular-articles">
-  <div className="max-w-screen-xl mx-auto mt-12 px-4 md:px-7">
+  <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4">
     {/* Large Image Blog */}
-    <div className="flex flex-col xl:flex-row gap-8">
+    <div className="flex flex-col xl:flex-row gap-12">
       {/* Left Section */}
-      <div className="flex flex-col xl:max-w-xl gap-6">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col xl:max-w-2xl gap-8">
+        <div className="flex flex-col gap-6">
           {/* Blog Image */}
           <Link href={`/blog/${post.id}`} className="block">
             <Image
               src={post.src}
               alt={`Blog ${post.id}`}
-              height={500}
-              width={817}
+              height={600}
+              width={1000}
               loading="lazy"
               className="w-full object-cover object-center rounded-md"
             />
@@ -104,21 +105,23 @@ const Page = () => {
 
           {/* Read More Link */}
           <Link href={`/blog/${post.id}`}>
-            <p className="underline mt-4 font-poppins text-sm sm:text-[16px] text-black mb-4">
+          <div>
+            <button className="border-b-2 border-black mt-4 font-poppins text-sm sm:text-[16px] text-black mb-4">
               Read More
-            </p>
+            </button>
+            </div>
           </Link>
         </div>
       </div>
 
       {/* Right Section */}
-      <div className="w-full xl:w-auto flex flex-col gap-6">
+      <div className="w-full xl:w-auto flex flex-col gap-8 xl:ml-12">
         {/* Search Bar */}
-        <div className="flex items-center border border-black rounded-md">
+        <div className="flex items-center border border-black rounded-md p-2">
           <input
             type="text"
             placeholder="Search"
-            className="w-full p-3 text-sm"
+            className="w-full p-3 text-sm outline-none"
           />
           <FaSearch className="w-8 h-8 mr-4 hover:cursor-pointer" />
         </div>
@@ -127,41 +130,41 @@ const Page = () => {
         <h2 className="text-black text-lg sm:text-2xl font-poppins font-medium">
           Categories
         </h2>
-        <div className="flex flex-row">
-        <ul className="flex flex-col gap-5">
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            Craft 
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            Design
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            Handmade
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            Interior
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            Wood
-          </li>
-        </ul>
-        <ul className="flex flex-col gap-5 ml-24">
-        <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            2
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            8
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            7
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            1
-          </li>
-          <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
-            6
-          </li>
-        </ul>
+        <div className="flex flex-row gap-4 sm:gap-12">
+          <ul className="flex flex-col gap-5">
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              Craft
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              Design
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              Handmade
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              Interior
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              Wood
+            </li>
+          </ul>
+          <ul className="flex flex-col gap-5">
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              2
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              8
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              7
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              1
+            </li>
+            <li className="text-sm sm:text-[20px] text-[#9F9F9F] font-normal leading-[1.5]">
+              6
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -169,8 +172,7 @@ const Page = () => {
 </section>
 
 
-    {/* Blog List */}
-    <section className="pt-16 mb-12" id="popular-articles">
+<section className="pt-16 mb-12" id="popular-articles">
   <div className="max-w-screen-xl mx-auto px-4 md:px-7">
     {/* Large Image Blog */}
     <div className="flex flex-col xl:flex-row gap-12">
@@ -181,9 +183,9 @@ const Page = () => {
             <Link href={`/blog/${post.id}`} className="">
               <Image
                 src={post.src}
-                alt="Blog-1"
-                height={500}
-                width={817}
+                alt={`Blog ${post.id}`}
+                height={700}
+                width={1100}
                 loading="lazy"
                 className="w-full h-auto object-cover rounded-md"
               />
@@ -209,17 +211,18 @@ const Page = () => {
               {post.content}
             </p>
             <Link href={`/blog/${post.id}`}>
-            <div>
-              <p className="border-b-2 border-black mt-4 font-poppins text-sm md:text-[16px] text-black">
-                Read More
-              </p></div>
+              <div>
+                <button className="border-b-2 border-black mt-4 font-poppins text-sm md:text-[16px] text-black">
+                  Read More
+                </button>
+              </div>
             </Link>
           </div>
         ))}
       </div>
 
       {/* Right Section (Small Image Blogs) */}
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 xl:pl-16">
         <h2 className="text-[20px] md:text-[24px] font-poppins font-semibold mb-6">
           Recent Posts
         </h2>
@@ -231,10 +234,10 @@ const Page = () => {
             <Image
               src={post.src}
               alt={post.tittle}
-              height={80}
-              width={80}
+              height={100}
+              width={100}
               loading="lazy"
-              className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover"
+              className="w-24 h-24 md:w-28 md:h-28 rounded-md object-cover"
             />
             <div className="flex flex-col justify-center items-center sm:items-start text-center sm:text-start">
               <h1 className="text-sm md:text-base font-poppins mt-2 mb-2">
@@ -254,9 +257,26 @@ const Page = () => {
     </div>
   </div>
 </section>
-
-    
   <Blog />
+{/*Buttons */}
+<div className=" text-center flex-row space-x-4 mt-4 w-auto">
+  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg">
+    1
+  </button>
+
+  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg">
+    2
+  </button>
+
+  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg">
+    3
+  </button>
+
+  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg">
+    Next
+  </button>
+</div>
+  <Services />
     </>
   );
 };

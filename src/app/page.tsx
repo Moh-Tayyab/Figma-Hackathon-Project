@@ -4,8 +4,6 @@ import OurProduct from '@/components/OurPoduct';
 import Category from '@/components/Category';
 import FuniroFurniture from '@/components/FuniroFurniture';
 
-
-
 export default function Home() {
   return (
     <main>

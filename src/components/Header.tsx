@@ -23,7 +23,7 @@ const Header = () => {
         <div className="flex flex-row gap-3 items-center pr-20">
           <Image src="/logo1.png" alt="Logo" width={50} height={32} />
           <Link href="/">
-            <h1 className="text-3xl font-inter font-bold text-Text2 cursor-pointer lg:pr-20 hover:text-[#f7e9d9]">
+            <h1 className="text-3xl font-inter font-bold text-Text2 cursor-pointer lg:pr-20">
               Furniro
             </h1>
           </Link>
@@ -80,22 +80,22 @@ const Header = () => {
           } lg:flex lg:ml-4 absolute top-16 left-1 w-full flex-col items-center gap-6 bg-white py-4 shadow-md lg:relative lg:flex-row lg:gap-16 lg:top-0 lg:shadow-none`}>
           <Link
             href="#"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-[#f7e9d9]">
+            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
             Home
           </Link>
           <Link
             href="/shop"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-[#f7e9d9]">
+            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
             Shop
           </Link>
           <Link
             href="/blog"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-[#f7e9d9]">
+            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
             Blog
           </Link>
           <Link
             href="/contact"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-[#f7e9d9]">
+            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
             Contact
           </Link>
         </nav>
@@ -103,13 +103,13 @@ const Header = () => {
         {/* Search and Icons */}
         <div className="hidden lg:flex gap-8 items-center">
           <Link href={"/"}>
-            <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
+            <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary" />
           </Link>
           <Link href={"/"}>
-            <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-[#f7e9d9]" />
+            <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
           </Link>
           <Link href={"/checkout"}>
-            <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
+            <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
           </Link>
           <ShoppingCart />
           {/* <Link href={"/cart"}>

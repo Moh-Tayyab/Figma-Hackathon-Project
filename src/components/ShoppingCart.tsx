@@ -18,7 +18,7 @@ const ShoppingCart = () => {
     <div className="">
       <Sheet>
         <SheetTrigger asChild>
-          <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9] hover:cursor-pointer" />
+          <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-primary hover:cursor-pointer" />
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>

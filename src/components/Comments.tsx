@@ -62,7 +62,7 @@ const Comments: FC<CommentsProps> = ({ blogId }) => {
       />
 
       <button
-        className="bg-zinc-800 text-white w-36 py-2 px-4 rounded-xl border-none outline-none hover:bg-zinc-700 active:bg-zinc-800"
+        className="bg-primary text-white w-36 py-2 px-4 rounded-xl border-none outline-none hover:bg-zinc-700 active:bg-zinc-800"
         onClick={handleAddComment}
       >
         Add Comment
