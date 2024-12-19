@@ -3,6 +3,8 @@ import BrowseRange from '@/components/BrowseRange';
 import OurProduct from '@/components/OurPoduct'; 
 import Category from '@/components/Category';
 import FuniroFurniture from '@/components/FuniroFurniture';
+import TipsAndTrick from '@/components/TipsAndTrick';
+
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
       <BrowseRange />
       <OurProduct />
       <Category />
+      <TipsAndTrick />
      <FuniroFurniture />
     </main>
   );

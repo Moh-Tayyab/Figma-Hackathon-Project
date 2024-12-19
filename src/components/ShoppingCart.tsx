@@ -23,7 +23,7 @@ const ShoppingCart = () => {
         <SheetContent>
           <SheetHeader>
             <SheetTitle>
-              <div className="flex flex-col md:flex-row gap-4 justify-between items-center pb-10 pt-2 border-b-2 border-[#9F9F9F]">
+              <div className="flex flex-col md:flex-row gap-4 justify-between items-center pb-8 pt-2 border-b-2 border-[#9F9F9F]">
                 <h2 className="font-poppins text-[20px] md:text-[24px] leading-9 font-semibold">Shopping Cart</h2>
                 <div className="flex items-center gap-2">
                   <BsBagX size={24} className="text-[#9F9F9F] hover: cursor-pointer" />
@@ -86,7 +86,7 @@ const ShoppingCart = () => {
             </h3>
           </div>
           <SheetFooter>
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-center py-10">
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-center py-8">
               <Link href="/cart" passHref>
                 <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-8 border hover:text-white hover:bg-primary">
                   Cart
@@ -94,12 +94,12 @@ const ShoppingCart = () => {
               </Link>
 
               <Link href="/checkout" passHref>
-                <Button className="bg-white text-black hover:scale-110 rounded-full border-black py-1 px-4 border hover:text-white hover:bg-primary">
+                <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-4 border hover:text-white hover:bg-primary">
                   Checkout
                 </Button>
               </Link>
               <Link href="/comparsion" passHref>
-                <Button className="bg-white text-black hover:scale-110 rounded-full border-black py-1 px-4 border hover:text-white hover:bg-primary">
+                <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-4 border hover:text-white hover:bg-primary">
                   Comparison
                 </Button>
               </Link>

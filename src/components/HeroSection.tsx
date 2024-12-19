@@ -1,18 +1,24 @@
-import React from 'react'
-import Image from 'next/image'
+//import Image from 'next/image'
+import Link from 'next/link';
+import { ImagesSlider } from '@/components/ui/image-slide';
 
 const HeroSection = () => {
   return (
     <section className="relative">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <Image
+        {/* <Image
           alt="Hero"
           objectFit="cover"
           layout="fill"
           src="/hero.png"
           className="w-full h-full object-cover"
-        />
+        /> */}
+       <ImagesSlider
+  images={["/hero.png", "slide2.png" ,]}
+>
+  <div>Additional Content</div>
+</ImagesSlider> 
       </div>
 
       {/* Content */}
@@ -30,9 +36,10 @@ const HeroSection = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
           </p>
           <div className="relative mb-4">
+            <Link  href = {'/shop'}>
             <button className="text-primary1 bg-primary py-2 px-6 font-poppins font-bold hover:scale-105 text-sm md:text-[16px] leading-6 md:leading-[24px] transition">
-              Buy Now
-            </button>
+              Explore Shop
+            </button></Link>
           </div>
         </div>
       </div>

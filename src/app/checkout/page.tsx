@@ -239,7 +239,8 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-      <Services />
+      <div className="mt-28 ">
+      <Services /></div>
     </>
   );
 }

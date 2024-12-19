@@ -22,12 +22,12 @@ const SubHero = () => {
             alt="Logo"
             width={50}
             height={32}
-            className="mb-2"
+            className="lg:mb-2 sm:mb-0 "
           />
           <h1 className="text-black1 text-[28px] sm:text-[48px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
             shop
           </h1>
-          <ul className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-[16px] sm:text-[20px]">
+          <ul className="flex flex-wrap items-center justify-center space-x-2 lg:mt-4 sm:mt-1 text-[16px] sm:text-[20px]">
             <Link
               href={'/'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
@@ -36,7 +36,7 @@ const SubHero = () => {
             </Link>
             <IoIosArrowForward className="w-4 h-4" />
             <Link
-              href={'/Checkout'}
+              href={'/shop'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
             >
               Shop
@@ -45,8 +45,8 @@ const SubHero = () => {
         </div>
       </div>
 
-      <div className="w-full h-20 bg-[#F9F1E7]">
-  <div className="flex flex-row items-center lg:justify-between px-4 md:space-x-4 md:px-8 lg:px-12">
+      <div className="w-full h-auto bg-[#F9F1E7]">
+  <div className="flex flex-col lg:flex-row items-center lg:justify-between px-4 space-y-2 lg:space-y-0 md:space-x-4 md:px-8 lg:px-12">
 
     {/* Left Section */}
     <div className="flex flex-wrap items-center space-x-4 pt-4 md:pt-6">
@@ -77,6 +77,7 @@ const SubHero = () => {
 
   </div>
 </div>
+
 
 
     </section>

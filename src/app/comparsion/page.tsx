@@ -108,7 +108,7 @@ const page = () => {
   {/* General Block */}
   <div className='flex flex-wrap lg:flex-nowrap w-full items-start'>
     {/* First Column */}
-    <div className='flex flex-col border-r-2 border-[#727272] px-4 lg:px-16 mb-6 lg:mb-0 w-full lg:w-1/3 '>
+    <div className='flex flex-col border-r-2 border-[#727272] px-4 lg:px-12 mb-6 lg:mb-0 w-full lg:w-1/3 '>
       <h2 className='font-medium text-[28px] leading-[35.8px] w-[175px] h-[35px]'>General</h2>
       <p className='font-[400] text-[20px] leading-[25.5px] py-6 mt-5'>Sales Package</p>
       <p className='font-[400] text-[20px] leading-[25.5px] py-6'>Model Number</p>

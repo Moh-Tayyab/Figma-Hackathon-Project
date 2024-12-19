@@ -23,14 +23,14 @@ const SubHero = () => {
             alt="Logo"
             width={50}
             height={32}
-            className="mb-2 "
+            className="lg:mb-2 sm:mt-0"
           />
           {/* Title */}
-          <h1 className="text-black1 text-[20px] sm:text-[28px] md:text-[48px] font-medium leading-[28px] sm:leading-[40px] md:leading-[72px] font-poppins hover:scale-110 transition-transform">
+          <h1 className="text-black1 text-[20px] sm:text-[28px] md:text-[30px] font-medium leading-[28px] sm:leading-[40px] md:leading-[72px] font-poppins hover:scale-110 transition-transform">
             Checkout
           </h1>
           {/* Breadcrumb */}
-          <ul className="flex items-center justify-center space-x-2 mt-4 text-[14px] sm:text-[16px] md:text-[20px]">
+          <ul className="flex items-center justify-center space-x-2 lg:mt-4 sm:mt-1 text-[14px] sm:text-[16px] md:text-[20px]">
             <Link
               href={'/'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"

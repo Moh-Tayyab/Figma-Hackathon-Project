@@ -13,7 +13,7 @@ type tParams = Promise<{ id: string[] }>;
 
 export default async function AllBlog({ params }: { params: tParams }) {
 
-  const id  = (await params).id as unknown as string
+  const id = (await params).id as unknown as string
 
   
   const post = posts.find((post) => post.id === id);

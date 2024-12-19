@@ -9,7 +9,7 @@ const FuniroFurniture = () => {
         <h3 className="text-lg font-medium text-gray-600">
           Share your setup with
         </h3>
-        <h2 className="text-3xl font-bold text-gray-800">#FuniroFurniture</h2>
+        <h2 className="text-3xl font-bold text-gray-800 text-center">#FuniroFurniture</h2>
       </div>
 
       {/* Image Grid */}

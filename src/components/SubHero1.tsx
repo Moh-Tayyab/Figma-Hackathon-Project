@@ -21,12 +21,12 @@ const SubHero = () => {
             alt="Logo"
             width={50}
             height={32}
-            className="mb-2"
+            className="lg:mb-2 sm:mb-0"
           />
-          <h1 className="text-black1 text-[28px] sm:text-[48px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
+          <h1 className="text-black1 text-[28px] sm:text-[30px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
             Contact
           </h1>
-          <ul className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-[16px] sm:text-[20px]">
+          <ul className="flex flex-wrap items-center justify-center space-x-2 lg:mt-4 sm:mt-1 text-[16px] sm:text-[20px]">
             <Link
               href={'/'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"

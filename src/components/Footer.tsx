@@ -67,7 +67,10 @@ const Footer = () => {
 
           {/* Newsletter Section */}
           <div className="w-full md:w-[35%] px-4">
-            <h2 className="text-[16px] font-[500] leading-[24px] text-[#9F9F9F] mb-6">Newsletter</h2>
+            <h2 className="text-[16px] font-[500] leading-[24px] text-[#9F9F9F] mb-7">Newsletter</h2>
+            <p className="text-[16px] font-[500] leading-[24px] text-[#000000] mb-8">
+            Get Our Latest Update In Your Email. Subscribe now!
+            </p>
             <div className="flex items-center">
               <input
                 type="text"

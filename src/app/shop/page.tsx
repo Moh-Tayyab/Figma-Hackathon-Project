@@ -19,11 +19,11 @@ const Home = () => {
 
     <div className="container px-5 py-10">
       {/* Wrapper div for flex grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-6">
         {/* Map Method to render product cards */}
         {products.slice(0, 16).map((Product) => {
           return (
-            <div key={Product.id} className="bg-bg2 m-4 group">
+            <div key={Product.id} className="bg-bg2 group w-[285px] h-[446px]">
               {" "}
               {/* Add `group` here */}
               <div className="relative">
@@ -96,11 +96,11 @@ const Home = () => {
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     1
   </button>
-
+<Link href={'/shop'}>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     2
   </button>
-
+</Link>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     3
   </button>

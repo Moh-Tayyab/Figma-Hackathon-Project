@@ -79,7 +79,7 @@ const Header = () => {
             menuOpen ? "flex" : "hidden"
           } lg:flex lg:ml-4 absolute top-16 left-1 w-full flex-col items-center gap-6 bg-white py-4 shadow-md lg:relative lg:flex-row lg:gap-16 lg:top-0 lg:shadow-none`}>
           <Link
-            href="#"
+            href="/"
             className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
             Home
           </Link>

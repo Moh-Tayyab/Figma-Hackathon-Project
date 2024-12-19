@@ -1,84 +1,116 @@
 "use client";
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
-interface ImageSlidesProps {
+export const ImagesSlider = ({
+  images,
+  children,
+  overlay = true,
+  overlayClassName,
+  className,
+  autoplay = true,
+  direction = "up",
+}: {
   images: string[];
-}
+  children: React.ReactNode;
+  overlay?: React.ReactNode;
+  overlayClassName?: string;
+  className?: string;
+  autoplay?: boolean;
+  direction?: "up" | "down";
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<string[]>([]);
 
-export const ImageSlides: React.FC<ImageSlidesProps> = ({ images }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1 === images.length ? 0 : prev + 1));
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 === loadedImages.length ? 0 : prevIndex + 1
+    );
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 1 < 0 ? loadedImages.length - 1 : prevIndex - 1
+    );
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000); // Autoplay every 5 seconds
-    return () => clearInterval(interval); // Clean up on unmount
-  }, [currentSlide]);
+    loadImages();
+  }, []);
+
+  const loadImages = () => {
+    const loadPromises = images.map((image) =>
+      new Promise<string>((resolve) => {
+        const img = new Image();
+        img.src = image;
+        img.onload = () => resolve(image);
+        img.onerror = () => console.error(`Failed to load image: ${image}`);
+      })
+    );
+
+    Promise.all(loadPromises).then((results) => {
+      setLoadedImages(results.filter(Boolean) as string[]);
+    });
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") handleNext();
+      else if (event.key === "ArrowLeft") handlePrevious();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    let interval: NodeJS.Timeout;
+    if (autoplay && loadedImages.length > 1) {
+      interval = setInterval(handleNext, 5000);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      clearInterval(interval);
+    };
+  }, [autoplay, loadedImages]);
+
+  const slideVariants = {
+    initial: { scale: 0, opacity: 0, rotateX: 45 },
+    visible: {
+      scale: 1,
+      rotateX: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: [0.645, 0.045, 0.355, 1.0] },
+    },
+    upExit: { opacity: 1, y: "-150%", transition: { duration: 1 } },
+    downExit: { opacity: 1, y: "150%", transition: { duration: 1 } },
+  };
 
   return (
-    <div id="carouselExampleIndicators" className="relative w-full">
-      {/* Carousel indicators */}
-      <div className="absolute bottom-0 left-0 right-0 z-[2] mx-auto mb-4 shadow-lg rounded-lg flex list-none justify-center p-0">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => setCurrentSlide(index)}
-            className={`mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent  bg-clip-padding p-0 -indent-[999px] ${
-              currentSlide === index ? "opacity-100" : "opacity-50"
-            } transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)]`}
-            aria-current={currentSlide === index}
-            aria-label={`Slide ${index + 1}`}
-          ></button>
-        ))}
-      </div>
+    <div
+      className={cn(
+        "overflow-hidden h-full w-full relative flex items-center justify-center",
+        className
+      )}
+      style={{ perspective: "1000px" }}
+    >
+      {loadedImages.length > 0 && children}
+      {overlay && (
+        <div className={cn("absolute inset-0  z-40", overlayClassName)} />
+      )}
 
-      {/* Carousel items */}
-      <div className="relative w-full overflow-hidden">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`relative ${
-              currentSlide === index ? "flex" : "hidden"
-            } transition-transform duration-[600ms] ease-in-out justify-center items-center`}
-          >
-            <Image
-              src={image}
-              alt={`Slide ${index + 1}`}
-              className="block w-[372px] h-[486px] object-cover "
-              width={372} // Ensure you set width
-              height={486} // Ensure you set height
-              style={{ maxHeight: "600px" }}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Navigation buttons */}
-      <div className="absolute top-1/2 left-0 z-10">
-        <button
-          onClick={prevSlide}
-          className="text-white p-2"
-        >
-          
-        </button>
-      </div>
-
-      <div className="absolute top-1/2 right-0 z-10">
-        <button
-          onClick={nextSlide}
-          className=""
-        >
-
-        </button>
-      </div>
+      {loadedImages.length > 0 && (
+        <AnimatePresence>
+          <motion.img
+            key={currentIndex}
+            src={loadedImages[currentIndex]}
+            initial="initial"
+            animate="visible"
+            exit={direction === "up" ? "upExit" : "downExit"}
+            variants={slideVariants}
+            className="image h-full w-full absolute inset-0 object-cover object-center"
+          />
+        </AnimatePresence>
+      )}
     </div>
   );
 };
