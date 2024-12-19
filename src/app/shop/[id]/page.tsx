@@ -29,7 +29,7 @@ export default async function SingleProduct({ params }: { params: tParams }) {
     <div className="flex items-center justify-between gap-4 bg-[#F9F1E7] mx-auto  px-4 py-8">
         <ul className="flex flex-wrap items-center justify-center space-x-2 mt-4 text-[16px] sm:text-[20px]">
           <Link
-            href={'#'}
+            href={'/'}
             className="text-[#9F9F9F] hover:cursor-pointer hover:scale-110 transition-transform"
           >
             Home
