@@ -7,6 +7,9 @@ export const products = [
     originalPrice: "Rp 3.500.00",
     discount: "30%",
     image: "/shop/image 1.png",
+    about: "Our Syltherine Chair is a modern take on the classic cafe chair. Crafted with a sturdy Kikar Wood Frame and featuring Master Molty Foam, it ensures both durability and luxury. Its gently slanted backrest and flared armrests add a touch of sophistication to any space.",
+    Sku: "SS001",
+    Category: "Table"
   },
   {
     id: 2,
@@ -14,6 +17,9 @@ export const products = [
     description: "Stylish cafe chair",
     price: "Rp 2.500.000",
     image: "/shop/image 2.png",
+    about: "Our Leviosa Chair is a modern take on the classic cafe chair. Crafted with a sturdy Kikar Wood Frame and featuring Master Molty Foam, it ensures both durability and luxury. Its gently slanted backrest and flared armrests add a touch of sophistication to any space.",
+    Sku: "SS002", 
+    Category: "Chair"
   },
   {
     id: 3,
@@ -37,7 +43,7 @@ export const products = [
     name: "Grifo",
     description: "Night lamp",
     price: "Rp 1.500.000",
-    image: "/shop/image 6.png"
+    image: "/shop/image 9.png"
   },
   {
     id: 6,
@@ -45,7 +51,7 @@ export const products = [
     description: "Small mug",
     price: "Rp 150.000",
     new: true,
-    image: "/shop/image 7.png"
+    image: "/shop/muggo.png"
   },
   {
     id: 7,
@@ -54,7 +60,7 @@ export const products = [
     price: "Rp 7.000.00",
     originalPrice: "Rp 14.000.00",
     discount: "50%",
-    image: "/shop/image 9.png",
+    image: "/shop/pingky.png",
   },
   {
     id: 8,
@@ -62,7 +68,7 @@ export const products = [
     description: "Minimalist flower pot",
     price: "Rp 500.000",
     new: true,
-    image: "/shop/image5.png",
+    image: "/shop/potty.png",
   },
   {
     id: 9,
@@ -72,6 +78,9 @@ export const products = [
     originalPrice: "Rp 3.500.000",
     discount: "30%",
     image: "/shop/image 1.png",
+    about: "Our Syltherine Chair is a modern take on the classic cafe chair. Crafted with a sturdy Kikar Wood Frame and featuring Master Molty Foam, it ensures both durability and luxury. Its gently slanted backrest and flared armrests add a touch of sophistication to any space.",
+    Sku: "SS009",
+    Category: "Table",
   },
   {
     id: 10,
@@ -82,12 +91,13 @@ export const products = [
   },
   {
     id: 11,
-    name: "Lolito",
-    description: "Luxury big sofa",
+    name: "Michon Sofa",
+    description: "Single Seater Luxury sofa",
+    about:"Our Michon Sofa Chair exudes chic modernity and unparalleled comfort. Crafted with a sturdy Kikar Wood Frame and featuring Master Molty Foam, it ensures both durability and luxury. Its gently slanted tufted backrest and flared armrests add a touch of sophistication to any space.",
     price: "Rp 7.000.000",
     originalPrice: "Rp 14.000.000",
     discount: "50%",
-    image: "/shop/image 3.png",
+    image: "/shop/singlesofa.png",
   },
   {
     id: 12,

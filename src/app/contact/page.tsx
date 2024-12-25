@@ -1,5 +1,5 @@
 import Contact from "@/components/Contact";
-import SubHero from "@/components/SubHero1";
+import SubHero from "@/components/SubHero";
 import Services from '@/components/Services'
 //import Image from "next/image";
 
@@ -7,7 +7,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <SubHero />
+      <SubHero  title = "Contact" home = "Home"/>
 
       {/* Introduction Section */}
       <div className="text-center mt-6 px-16">

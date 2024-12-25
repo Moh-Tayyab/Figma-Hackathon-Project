@@ -1,11 +1,11 @@
 import Services from "@/components/Services";
-import SubHero from "@/components/SubHero3";
+import SubHero from "@/components/SubHero";
 
 export default function CheckoutPage() {
  
   return (
     <>
-    <SubHero />
+     <SubHero  title = "CheckOut" home = "Home"/>
       <div className="container mx-auto px-4 py-24">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-10">

@@ -3,11 +3,15 @@ import SubHero from "@/components/SubHero";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import Services from "@/components/Services";
+//import { useState } from "react"; 
+//import { products } from "@/lib/products";
 
 export default function Cart() {
+  // const [products, setProducts] = useState(products);
+   //const [total, setTotal] = useState(0);
   return (
     <>
-      <SubHero />
+      <SubHero  title = "Cart" home = "Home"/>
 
       {/* Cart Container */}
       <section className="text-gray-600 body-font">

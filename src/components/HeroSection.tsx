@@ -15,9 +15,9 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
         /> */}
        <ImagesSlider
-  images={["/hero.png", "slide2.png" ,]}
+  images={["/hero.png", "slide2.png" , "slide6.png", "slide8.png"]}
 >
-  <div>Additional Content</div>
+  <div>Hero Section</div>
 </ImagesSlider> 
       </div>
 
@@ -38,7 +38,7 @@ const HeroSection = () => {
           <div className="relative mb-4">
             <Link  href = {'/shop'}>
             <button className="text-primary1 bg-primary py-2 px-6 font-poppins font-bold hover:scale-105 text-sm md:text-[16px] leading-6 md:leading-[24px] transition">
-              Explore Shop
+              See Our Product
             </button></Link>
           </div>
         </div>

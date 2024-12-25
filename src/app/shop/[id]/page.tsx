@@ -20,7 +20,7 @@ export default async function SingleProduct({ params }: { params: tParams }) {
       </div>
     );
   }
-  console.log(Product.id);
+  //console.log(Product.id);
 
   return (
     <>
@@ -132,9 +132,10 @@ export default async function SingleProduct({ params }: { params: tParams }) {
             <button className="border border-black px-4 sm:px-6 py-2 sm:py-3 rounded hover:scale-110 transition  sm:w-auto">
               <span className="p-2">-</span> 1 <span className="p-2">+</span>
             </button>
+            <Link href={'/cart'}>
             <button className="border border-black px-4 sm:px-6 py-2 sm:py-3 rounded hover:scale-110 transition  sm:w-auto">
               Add to Cart
-            </button>
+            </button></Link>
             <Link href={'/comparsion'}>
             <button className="border border-black px-4 sm:px-6 py-2 sm:py-3 rounded hover:scale-110 transition  sm:w-auto">
               Compare
@@ -142,8 +143,8 @@ export default async function SingleProduct({ params }: { params: tParams }) {
             </Link>
           </div>
           <ul className="text-sm lg:text-base text-[#9F9F9F] gap-5">
-            <li className='pt-5'>SKU: SS001</li>
-            <li className='py-5'>Category: Sofas</li>
+            <li className='pt-5'>SKU: {Product.Sku}</li>
+            <li className='py-5'>Category: {Product.Category}</li>
             <li className='pb-5'>Tags: Sofa, Chair, Home, Shop</li>
             <li className="flex items-center gap-2">
               Share: <FaFacebook className="text-black" /> <FaLinkedin className="text-black" />{' '}

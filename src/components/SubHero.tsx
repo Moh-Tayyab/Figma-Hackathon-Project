@@ -2,8 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
+import PropTypes from 'prop-types'
 
-const SubHero = () => {
+interface SubHeroProps {
+  title: string;
+  home: string; 
+}
+
+const SubHero :React.FC<SubHeroProps> = (props) => {
   return (
     <section>
       {/* Banner Section */}
@@ -24,21 +30,21 @@ const SubHero = () => {
             className="lg:mb-2 sm:mb-0"
           />
           <h1 className="text-black1 text-[28px] sm:text-[30px] font-medium leading-[40px] sm:leading-[72px] font-poppins hover:scale-110 transition-transform">
-            Cart
+            {props.title}
           </h1>
           <ul className="flex flex-wrap items-center justify-center space-x-2 lg:mt-4 sm:mt-1 text-[16px] sm:text-[20px]">
             <Link
               href={'/'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
             >
-              Home
+             {props.home}
             </Link>
             <IoIosArrowForward className="w-4 h-4" />
             <Link
               href={'/Cart'}
               className="text-black1 hover:cursor-pointer hover:scale-110 transition-transform"
             >
-              Cart
+              {props.title}
             </Link>
           </ul>
         </div>
@@ -48,3 +54,9 @@ const SubHero = () => {
 };
 
 export default SubHero;
+
+
+SubHero.propTypes = {
+  title: PropTypes.string.isRequired,
+  home: PropTypes.string.isRequired,
+};

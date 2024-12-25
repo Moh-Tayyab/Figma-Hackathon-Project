@@ -5,7 +5,7 @@ import { IoMdShare } from "react-icons/io";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import Services from '@/components/Services'
- import SubHero from '@/components/SubHero2'
+ import SubHero from '@/components/SubHero'
 import { products } from '@/lib/products'
  
 // import Card from '@/components/Card'
@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <>
     {/*subhero Section */}
-    <SubHero />
+    <SubHero  title = "Shop" home = "Home"/>
 
     <div className="container px-5 py-10">
       {/* Wrapper div for flex grid */}
