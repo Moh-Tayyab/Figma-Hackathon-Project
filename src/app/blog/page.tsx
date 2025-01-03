@@ -1,4 +1,4 @@
-"use client";
+
 import posts from "@/blogdetails/data.json";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,34 +9,40 @@ import Blog from "@/components/Blog";
 import { FaSearch } from "react-icons/fa";
 import SubHero from "@/components/SubHero";
 import Services from "@/components/Services";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 //import { CalendarDays } from "lucide-react";
 
-const Page = () => {
+const Page = async () => {
+  const data = await client.fetch(`*[_type == "blog"]`);
+
+  //console.log(data);
   const post = posts[6];
+
   return (
     <>
     
         {/* Subhero Section */}
-        <SubHero  title = "Blog" home = "Home"/>
+        <SubHero  title = "Blog" home = "Home" linkUrl="/blog"/>
 
     
     <section className="pt-16" id="popular-articles">
-  <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4">
+  <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4 ">
     {/* Large Image Blog */}
-    <div className="flex flex-col xl:flex-row gap-12">
+    <div className="flex flex-col xl:flex-row  justify-between gap-12 px-4">
       {/* Left Section */}
       <div className="flex flex-col xl:max-w-2xl gap-8">
         <div className="flex flex-col gap-6">
           {/* Blog Image */}
           <Link href={`/blog/${post.id}`} className="block">
-            <Image
-              src={post.src}
-              alt={`Blog ${post.id}`}
+            {/* <Image
+              src={urlFor(data.image).url()}
+              alt={data.slug}
               height={600}
               width={1000}
               loading="lazy"
               className="w-full object-cover object-center rounded-md"
-            />
+            /> */}
           </Link>
 
           {/* Icons */}
@@ -47,7 +53,7 @@ const Page = () => {
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <FaCalendar className="w-4 sm:w-5" />
-              <span>14</span> <span>Oct 2022</span>
+              <span>{data.publishedAt}</span>
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <BiNotepad className="w-4 sm:w-5" />
@@ -77,7 +83,7 @@ const Page = () => {
       </div>
 
       {/* Right Section */}
-      <div className="w-full xl:w-auto flex flex-col gap-8 xl:ml-12">
+      <div className="w-full xl:w-auto flex flex-col gap-8 xl:ml-12 h-[420px] shadow-lg  bg-white p-6 rounded-md border border-gray-300">
         {/* Search Bar */}
         <div className="flex items-center border border-black rounded-md p-2">
           <input
@@ -137,9 +143,9 @@ const Page = () => {
 <section className="pt-16 mb-12" id="popular-articles">
   <div className="max-w-screen-xl mx-auto px-4 md:px-7">
     {/* Large Image Blog */}
-    <div className="flex flex-col xl:flex-row gap-12">
+    <div className="flex flex-col xl:flex-row justify-between gap-12">
       {/* Left Section */}
-      <div className="flex flex-col xl:max-w-xl">
+      <div className="flex flex-col xl:max-w-2xl">
         {posts.slice(0, 1).map((post, index) => (
           <div key={index}>
             <Link href={`/blog/${post.id}`} className="">

@@ -7,7 +7,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <SubHero  title = "Contact" home = "Home"/>
+      <SubHero  title = "Contact" home = "Home" linkUrl="/contact"/>
 
       {/* Introduction Section */}
       <div className="text-center mt-6 px-16">

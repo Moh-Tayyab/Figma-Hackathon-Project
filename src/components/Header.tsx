@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
@@ -9,9 +9,12 @@ import { TbUserExclamation } from "react-icons/tb";
 //import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+//import { CartContext } from "./context/CartContext";
 import ShoppingCart from "@/components/ShoppingCart";
 
 const Header = () => {
+  //const [totalQuantity, setTotalQuantity] = useState(0);
+
   const [menuOpen] = useState(false);
 
   //const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -49,12 +52,12 @@ const Header = () => {
                   <Link href={"/checkout"}>
                     <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
                   </Link>
-<ShoppingCart />
-                  {/* <Link href={"/shoppingcart"}>
-                    <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
-                  </Link> */}
+                   <ShoppingCart /> 
 
-
+                  {/* <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-primary hover:cursor-pointer" />
+                  <span className="absolute text-[12px] top-6 right-12  bg-primary w-[18px] h-[18px] rounded-3xl text-center text-white font-urbanist  font-black">
+                    1
+                  </span> */}
                 </div>
                 <li className="font-bold font-helvetica text-[#FFF3E3] text-[14px] sm:text-[16px]">
                   <Link href="/">Home</Link>
@@ -111,10 +114,9 @@ const Header = () => {
           <Link href={"/checkout"}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
           </Link>
-          <ShoppingCart />
-          {/* <Link href={"/cart"}>
-            <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
-          </Link> */}
+           <ShoppingCart /> 
+          {/* <MdOutlineShoppingCart className="h-[34px] w-[34px] hover:scale-110  hover:cursor-pointer border bg-white border-gray-300 rounded-lg " />
+          <span className='absolute text-[12px] top-7 right-14 bg-primary w-[18px] h-[18px] rounded-3xl text-center text-white font-urbanist  font-black'>{totalQuantity}</span> */}
         </div>
       </div>
     </header>

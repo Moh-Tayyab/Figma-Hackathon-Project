@@ -16,7 +16,7 @@ export default {
   			'4pct': '4%'
   		},
   		fontFamily: {
-  			poppins: ["Poppins", "sans-serif"],
+  			poppins: ["Poppins", "sans-serif", "serif"],
   			inter: ["Inter", "sans-serif"]
   		},
   		colors: {

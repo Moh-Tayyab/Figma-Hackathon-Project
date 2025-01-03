@@ -1,25 +1,27 @@
+"use client";
 import Image from "next/image";
 import SubHero from "@/components/SubHero";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import Services from "@/components/Services";
-//import { useState } from "react"; 
-//import { products } from "@/lib/products";
+import { CartContext } from "@/app/context/CartContext";
+import { useContext } from 'react';
+
+import { urlFor } from "@/sanity/lib/image";
 
 export default function Cart() {
-  // const [products, setProducts] = useState(products);
-   //const [total, setTotal] = useState(0);
+  const { cartItems ,quantity, totalQuantity, onRemove, totalPrice }: any = useContext(CartContext);
   return (
     <>
-      <SubHero  title = "Cart" home = "Home"/>
+      <SubHero  title = "Cart" home = "Home" linkUrl="/cart"/>
 
       {/* Cart Container */}
       <section className="text-gray-600 body-font">
-        <div className="container px-5 py-20 mx-auto flex flex-wrap items-center">
+        <div className="container px-5 py-20 mx-auto flex flex-wrap ">
           {/* Left Section */}
           <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
             {/* Product Details Section */}
-            <div className="producDetails flex justify-around items-center p-4  h-[4rem] bg-[#F9F1E7]">
+            <div className="producDetails flex justify-around  p-4 space-x-2  h-[4rem] bg-[#F9F1E7] rounded-sm">
               <h2>Product</h2>
               <h2>Price</h2>
               <h2>Quantity</h2>
@@ -27,32 +29,36 @@ export default function Cart() {
             </div>
             <div className="flex flex-col gap-4 p-4">
               {/* Product Row */}
-              <div className="flex justify-evenly items-center gap-4 mt-4">
+              {cartItems.map((product: any) => (
+
+              <div key={product._id} className="flex justify-between items-center gap-2 mt-4 px-4">
                 <Link href={"/singleproduct"}>
                   <Image
-                    src="/Group 146.png"
+                    src={urlFor(product.images[0]).url()} 
                     width={50}
                     height={50}
-                    alt="Asgaard sofa"
+                    alt={product.images[0]}
                     className="hover:scale-110 hover:cursor-pointer"
                   />
                 </Link>
-                <p>Asgaard sofa</p>
-                <p>Rs. 250,000.00</p>
+                <p >{product.name}</p>
+                <p>{totalPrice}</p>
 
                 <input
                   type="number"
                   className="w-16 border rounded-md p-1"
-                  defaultValue={1}
+                  defaultValue={totalQuantity}
                 />
-                <p>Rs. 250,000.00</p>
-                <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer" />
-              </div>
+                <p>{totalPrice}</p>
+                <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer" 
+                onClick={() => onRemove(product._id)}
+                />
+              </div>))}
             </div>
           </div>
 
           {/* Right Section */}
-          <div className="lg:w-2/6 md:w-1/2 bg-[#F9F1E7] flex flex-col md:ml-auto w-[293px] h-[290px]  md:mt-0 items-center text-center justify-center mt-32">
+          <div className="lg:w-2/6 md:w-1/2 bg-[#F9F1E7] flex flex-col md:ml-auto w-[293px] h-[290px] rounded-sm  md:mt-0 items-center text-center justify-center mt-32">
             <h2 className="font-poppins text-[32px] leading-[48px] font-semibold  text-black pb-9">
               Cart Totals
             </h2>
@@ -60,13 +66,13 @@ export default function Cart() {
               <span className="pb-4 text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
                 Subtotal:
               </span>{" "}
-              Rs. 250,000.00
+              {totalPrice}
             </p>
             <p className="text-[#B88E2F]">
               <span className="text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
                 Total:
               </span>{" "}
-              Rs. 250,000.00
+              {totalPrice}
             </p>
             <Link href={"/checkout"}>
               <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
