@@ -4,7 +4,10 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/app/context/CartContext";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
 
 // Google Fonts configuration
 const inter = Inter({

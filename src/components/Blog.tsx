@@ -15,7 +15,11 @@ const Blog = () => {
     {/* Large Image Blog */}
     <div className="flex flex-col gap-y-8 xl:flex-row xl:gap-x-8 px-4 md:px-7">
       <div className="flex flex-col xl:w-[746px] gap-y-6">
+<<<<<<< HEAD
         <div className="flex flex-col ">
+=======
+        <div className="flex flex-col gap-y-4">
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
           {/* Blog Image */}
           <Link href={`/blog/${post.id}`} className="block">
             <Image

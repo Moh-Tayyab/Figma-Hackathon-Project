@@ -9,6 +9,7 @@ import Blog from "@/components/Blog";
 import { FaSearch } from "react-icons/fa";
 import SubHero from "@/components/SubHero";
 import Services from "@/components/Services";
+<<<<<<< HEAD
 //import { client } from "@/sanity/lib/client";
 //import { urlFor } from "@/sanity/lib/image";
 //import { groq } from "next-sanity";
@@ -18,32 +19,61 @@ const Page = async () => {
   //const data = await client.fetch(`*[_type=="blog"]`);
 
  // console.log(data);
+=======
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+//import { CalendarDays } from "lucide-react";
+
+const Page = async () => {
+  const data = await client.fetch(`*[_type == "blog"]`);
+
+  //console.log(data);
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
   const post = posts[6];
 
   return (
     <>
         {/* Subhero Section */}
         <SubHero  title = "Blog" home = "Home" linkUrl="/blog"/>
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
     <section className="pt-16" id="popular-articles">
   <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4 ">
     {/* Large Image Blog */}
     <div className="flex flex-col xl:flex-row  justify-between gap-12 px-4">
+<<<<<<< HEAD
        
+=======
+      {/* Left Section */}
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
       <div className="flex flex-col xl:max-w-2xl gap-8">
       {/* {data.map((post: any, index: any) =>  */}
         <div className="flex flex-col">
           
          
           <Link href={`/blog/${post.id}`} className="block">
+<<<<<<< HEAD
             {/* {post.image && ( */}
               <Image
               src={"/blog/b2.png"}
               alt={post.tittle}
+=======
+            {/* <Image
+              src={urlFor(data.image).url()}
+              alt={data.slug}
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
               height={600}
               width={1000}
               className="w-full object-cover object-center rounded-md"
+<<<<<<< HEAD
             />
             {/* )}  */}
+=======
+            /> */}
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
           </Link>
 
           <div className="flex flex-wrap gap-x-4 text-sm sm:text-base">
@@ -53,7 +83,11 @@ const Page = async () => {
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <FaCalendar className="w-4 sm:w-5" />
+<<<<<<< HEAD
               <span>{post.author}</span>
+=======
+              <span>{data.publishedAt}</span>
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <BiNotepad className="w-4 sm:w-5" />

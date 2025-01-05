@@ -1,17 +1,25 @@
 'use client';
+<<<<<<< HEAD
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+=======
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
 
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/app/context/CartContext";
+<<<<<<< HEAD
 import Link from "next/link";
 export default function CheckoutPage() {
   const { cartItems, totalQuantity, totalPrice, }: any = useContext(CartContext);
+=======
+export default function CheckoutPage() {
+  const { cartItems, totalQuantity, totalPrice, removeProduct, clearCart }: any = useContext(CartContext);
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
   const [message, setmessage] = useState<string | undefined>();
 
   const handlesucceeded = () => {
@@ -253,10 +261,14 @@ export default function CheckoutPage() {
               </div>
             </div>
             <div className="justify-center items-center text-center">
+<<<<<<< HEAD
 
               
               
               {/* <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none" 
+=======
+              <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none" 
+>>>>>>> 745cd7210b4f13dcde6f3eb6c0b3a3e0dd6c9451
               onClick
 
               ={handlesucceeded}
