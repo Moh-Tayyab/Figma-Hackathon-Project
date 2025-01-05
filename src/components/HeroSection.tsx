@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { ImagesSlider } from '@/components/ui/image-slide';
 
+
 const HeroSection = () => {
   return (
     <section className="relative">

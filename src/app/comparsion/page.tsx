@@ -1,12 +1,21 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link';
 import Services from '@/components/Services';
+import SubHero from '@/components/SubHero';
+
+import { useState, useContext } from "react";
+import { CartContext } from "@/app/context/CartContext";
+import { urlFor } from '@/sanity/lib/image';
+
 
 const page = () => {
+  const { cartItems, quantity, totalQuantity, onRemove, totalPrice }: any = useContext(CartContext);
   return (
     <>
     {/* First Section */}
+    <SubHero title="Comparison" home="Home" linkUrl="/comparsion" />
  <div className="mx-auto px-4 sm:px-2 py-16">
   <div className="font-poppins flex flex-col gap-6 items-center sm:items-start lg:flex-row lg:justify-between">
     <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
@@ -25,16 +34,19 @@ const page = () => {
     </div>
 
     {/* Product 1 */}
+    {cartItems.length > 0 && (
+      cartItems.map((product: any) => (
+
     <div className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
       <Image
-        src={'/sofa3.png'}
-        alt="Product Image"
+        src={urlFor(product.images[0]).url()}
+        alt={product.images[0]}
         width={270}
         height={177}
         className="rounded-lg bg-[#FAF3EA] object-cover hover:scale-110"
       />
-      <h2 className="text-2xl font-medium leading-[30.36px] pt-3 pb-2">Asgaard Sofa</h2>
-      <p className="font-medium text-[18px] leading-[30.36px] pb-2">Rs. 250,000.00</p>
+      <h2 className="text-2xl font-medium leading-[30.36px] pt-3 pb-2">{product.name}</h2>
+      <p className="font-medium text-[18px] leading-[30.36px] pb-2">{product.orignalPrice}</p>
       <div className="flex items-center mb-4 justify-center sm:justify-start">
         <p className="pr-2">4.7</p>
         {[...Array(4)].map((_, i) => (
@@ -53,7 +65,7 @@ const page = () => {
         <span className="border-l-2 border-[#9F9F9F] h-4 w-1"></span>
         <span className="ml-2 text-[13px] text-[#9F9F9F]">204 Reviews</span>
       </div>
-    </div>
+    </div>)))}
 
     {/* Product 2 */}
     <div className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">

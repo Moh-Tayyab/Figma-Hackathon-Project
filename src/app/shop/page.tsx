@@ -1,90 +1,90 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { IoMdShare } from "react-icons/io";
-import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
+// import { IoMdShare } from "react-icons/io";
+// import { FaArrowRightArrowLeft } from "react-icons/fa6";
+// import { FaRegHeart } from "react-icons/fa";
 import Services from '@/components/Services'
  import SubHero from '@/components/SubHero'
-import { products } from '@/lib/products'
- 
-// import Card from '@/components/Card'
-//import { IoIosArrowForward } from 'react-icons/io'
+import { client } from '@/sanity/lib/client';
+//import { Image as IImage } from 'sanity'
+//import { urlFor } from '@/sanity/lib/image';
+import { groq } from 'next-sanity';
+import Card from '@/components/Card';
+import { PiCirclesFourFill } from "react-icons/pi";
+import { IoReorderThree } from "react-icons/io5";
 
-const Home = () => {
+
+const Product = async () => {
+  const res = await client.fetch(groq `*[_type=="Product"]`);
+//console.log(res) 
   return (
     <>
     {/*subhero Section */}
-    <SubHero  title = "Shop" home = "Home"/>
+    <SubHero  title = "Shop" home = "Home" linkUrl='/shop'/>
+     {/* filter */}
+
+     <div className="p-4 border-b border-gray-200 bg-[#F9F1E7]">
+  <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
+    {/* Left Section */}
+    <div className="flex items-center space-x-4">
+      {/* Filter Button */}
+      <button className="flex items-center px-4 lg:px-6 py-2 rounded-lg text-sm lg:text-base font-medium">
+        <Image src="/filter-icon.png" alt="filter" width={20} height={17} />
+        <span className="ml-4 font-poppins text-base lg:text-xl font-normal leading-6 lg:leading-10">
+          Filter
+        </span>
+      </button>
+
+      {/* View Options */}
+      <div className="flex items-center space-x-2">
+        <button className="rounded-lg p-2 sm:p-3">
+          <PiCirclesFourFill className="w-6 h-6 sm:w-7 sm:h-7 text-black" />
+        </button>
+        <button className="rounded-lg p-2 sm:p-3">
+          <IoReorderThree className="w-6 h-6 sm:w-7 sm:h-7 text-black" />
+        </button>
+      </div>
+
+      {/* Results Text */}
+      <span className="border-l-2 border-[#9F9F9F] pl-3 text-sm sm:text-base lg:text-lg">
+        Showing 1-16 of 32 results
+      </span>
+    </div>
+
+    {/* Right Section */}
+    <div className="flex items-center space-x-4">
+      {/* Show Input */}
+      <div className="flex items-center">
+        <label className="mr-2 text-sm lg:text-base font-medium">Show</label>
+        <input
+          type="number"
+          className="w-12 sm:w-16 px-2 py-1 border border-gray-300 rounded-lg text-sm"
+          value={16}
+          readOnly
+        />
+      </div>
+
+      {/* Sort Dropdown */}
+      <div className="flex items-center">
+        <label className="mr-2 text-sm lg:text-base font-medium">Sort by</label>
+        <select className="px-2 py-1 border border-gray-300 rounded-lg text-sm">
+          <option>Default</option>
+          <option>Price</option>
+          <option>Popularity</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
 
     <div className="container px-5 py-10">
       {/* Wrapper div for flex grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-6">
         {/* Map Method to render product cards */}
-        {products.slice(0, 16).map((Product) => {
-          return (
-            <div key={Product.id} className="bg-bg2 group w-[285px] h-[446px]">
-              {" "}
-              {/* Add `group` here */}
-              <div className="relative">
-                <Image
-                  src={Product.image}
-                  alt={Product.name}
-                  width={170}
-                  height={150}
-                  className="object-cover w-full h-100"
-                />
-                {Product.discount && (
-                  <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
-                    -{Product.discount}
-                  </div>
-                )}
-                {Product.new && (
-                  <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
-                    NEW
-                  </div>
-                )}
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link href={`/shop/${Product.id}`}>
-                    <button className="bg-white text-primary hover:cursor-pointer px-4 py-2 mb-4 rounded">
-                      Add to Cart
-                    </button>
-                  </Link>
-                  <div className="flex space-x-4 text-white">
-                    <button className="hover:text-primary flex items-center">
-                     <IoMdShare />
-                      Share
-                    </button>
-                   <Link href={'/comparsion'}> <button className="hover:text-primary  flex items-center">
-                     <FaArrowRightArrowLeft />
-                      Compare
-                    </button> </Link>
-                    <button className="hover:text-primary  flex items-center">
-                      <FaRegHeart />
-                      Like
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4">
-                <h3 className="text-xl font-semibold font-poppins text-text2">
-                  {Product.name}
-                </h3>
-                <p className="text-sm text-gray4 mt-2">{Product.description}</p>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-lg font-semibold text-text2">
-                  {Product.price}
-                  </span>
-                  {Product.originalPrice && (
-                    <span className="text-sm text-gray4 line-through">
-                      ${Product.originalPrice}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
+        {res.map((product: any, index: any) => {
+           return(
+            <Card key={index} product= {product} />
           );
         })}
       </div>
@@ -117,4 +117,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Product;

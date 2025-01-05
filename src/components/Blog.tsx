@@ -14,15 +14,15 @@ const Blog = () => {
   <div className="max-w-screen-xl mx-auto mt-12">
     {/* Large Image Blog */}
     <div className="flex flex-col gap-y-8 xl:flex-row xl:gap-x-8 px-4 md:px-7">
-      <div className="flex flex-col xl:max-w-xl gap-y-6">
-        <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col xl:w-[746px] gap-y-6">
+        <div className="flex flex-col ">
           {/* Blog Image */}
           <Link href={`/blog/${post.id}`} className="block">
             <Image
               src={post.src}
               alt={`Blog ${post.id}`}
-              height={800} 
-              width={1200}    
+              height={600} 
+              width={1000}    
               loading="lazy"
               className="w-full h-auto object-cover object-center rounded-md sm:w-full md:w-4/5 lg:w-full"
             />

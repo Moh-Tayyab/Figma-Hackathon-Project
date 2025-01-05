@@ -1,4 +1,4 @@
-"use client";
+
 import posts from "@/blogdetails/data.json";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,45 +9,51 @@ import Blog from "@/components/Blog";
 import { FaSearch } from "react-icons/fa";
 import SubHero from "@/components/SubHero";
 import Services from "@/components/Services";
+//import { client } from "@/sanity/lib/client";
+//import { urlFor } from "@/sanity/lib/image";
+//import { groq } from "next-sanity";
 //import { CalendarDays } from "lucide-react";
 
-const Page = () => {
+const Page = async () => {
+  //const data = await client.fetch(`*[_type=="blog"]`);
+
+ // console.log(data);
   const post = posts[6];
+
   return (
     <>
-    
         {/* Subhero Section */}
-        <SubHero  title = "Blog" home = "Home"/>
-
-    
+        <SubHero  title = "Blog" home = "Home" linkUrl="/blog"/>
     <section className="pt-16" id="popular-articles">
-  <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4">
+  <div className="max-w-screen-xl mx-auto mt-12 md:px-7 px-4 ">
     {/* Large Image Blog */}
-    <div className="flex flex-col xl:flex-row gap-12">
-      {/* Left Section */}
+    <div className="flex flex-col xl:flex-row  justify-between gap-12 px-4">
+       
       <div className="flex flex-col xl:max-w-2xl gap-8">
-        <div className="flex flex-col gap-6">
-          {/* Blog Image */}
+      {/* {data.map((post: any, index: any) =>  */}
+        <div className="flex flex-col">
+          
+         
           <Link href={`/blog/${post.id}`} className="block">
-            <Image
-              src={post.src}
-              alt={`Blog ${post.id}`}
+            {/* {post.image && ( */}
+              <Image
+              src={"/blog/b2.png"}
+              alt={post.tittle}
               height={600}
               width={1000}
-              loading="lazy"
               className="w-full object-cover object-center rounded-md"
             />
+            {/* )}  */}
           </Link>
 
-          {/* Icons */}
           <div className="flex flex-wrap gap-x-4 text-sm sm:text-base">
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <FaUser className="w-4 sm:w-5" />
-              <span>Admin</span>
+              <span></span>
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <FaCalendar className="w-4 sm:w-5" />
-              <span>14</span> <span>Oct 2022</span>
+              <span>{post.author}</span>
             </p>
             <p className="my-4 text-[#9F9F9F] flex items-center gap-x-1">
               <BiNotepad className="w-4 sm:w-5" />
@@ -55,17 +61,17 @@ const Page = () => {
             </p>
           </div>
 
-          {/* Blog Title */}
+          
           <h1 className="text-lg sm:text-[30px] font-medium leading-[1.5] font-poppins mb-4">
             {post.tittle}
           </h1>
 
-          {/* Blog Content */}
+          
           <p className="text-sm sm:text-[15px] text-[#9F9F9F] font-poppins leading-relaxed mb-3 mt-4">
             {post.content}
           </p>
 
-          {/* Read More Link */}
+          
           <Link href={`/blog/${post.id}`}>
           <div>
             <button className="border-b-2 border-black mt-4 font-poppins text-sm sm:text-[16px] text-black mb-4">
@@ -74,10 +80,11 @@ const Page = () => {
             </div>
           </Link>
         </div>
-      </div>
-
+      {/* )} */}
+      </div> 
+  
       {/* Right Section */}
-      <div className="w-full xl:w-auto flex flex-col gap-8 xl:ml-12">
+      <div className="w-full xl:w-auto flex flex-col gap-8 xl:ml-12 h-[420px] shadow-lg  bg-white p-6 rounded-md border border-gray-300">
         {/* Search Bar */}
         <div className="flex items-center border border-black rounded-md p-2">
           <input
@@ -137,9 +144,9 @@ const Page = () => {
 <section className="pt-16 mb-12" id="popular-articles">
   <div className="max-w-screen-xl mx-auto px-4 md:px-7">
     {/* Large Image Blog */}
-    <div className="flex flex-col xl:flex-row gap-12">
+    <div className="flex flex-col xl:flex-row justify-between gap-12">
       {/* Left Section */}
-      <div className="flex flex-col xl:max-w-xl">
+      <div className="flex flex-col xl:max-w-2xl">
         {posts.slice(0, 1).map((post, index) => (
           <div key={index}>
             <Link href={`/blog/${post.id}`} className="">
@@ -221,7 +228,7 @@ const Page = () => {
 </section>
   <Blog />
 {/*Buttons */}
-<div className=" text-center flex-row space-x-4 mt-4 w-auto">
+<div className=" text-center flex-row space-x-4 py-8 w-auto">
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg">
     1
   </button>

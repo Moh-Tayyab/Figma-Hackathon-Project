@@ -3,7 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
+import { CartProvider } from "@/app/context/CartContext";
 
 
 // Google Fonts configuration
@@ -17,8 +17,11 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "E-Commerce Website",
-  description: "E-commerce website built with Next.js, React, and TypeScript.",
+  title: "Furniro",
+  description: "Furniro: A cutting-edge eCommerce platform developed using Next.js, React, and TypeScript.",
+  icons:{
+    icon:['/logo1.png'],
+  }
 };
 
 export default function RootLayout({
@@ -31,9 +34,11 @@ export default function RootLayout({
       <body
         className={`${poppins.className} ${inter.className} bg-primary1 max-w-7xl container mx-auto`} // Added correct font classes
       >
-        <Header />
-        {children}
-       <Footer />
+        <CartProvider>
+          <Header />
+          <div> {children} </div>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

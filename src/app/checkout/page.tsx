@@ -1,11 +1,29 @@
+'use client';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
-
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "@/app/context/CartContext";
+import Link from "next/link";
 export default function CheckoutPage() {
+  const { cartItems, totalQuantity, totalPrice, }: any = useContext(CartContext);
+  const [message, setmessage] = useState<string | undefined>();
+
+  const handlesucceeded = () => {
+    setTimeout(() => {
+      setmessage("Your Order was successfully placed");
+    }, 2000);
+  };
+
  
   return (
     <>
-     <SubHero  title = "CheckOut" home = "Home"/>
+     <SubHero  title = "CheckOut" home = "Home" linkUrl="/checkout"/>
       <div className="container mx-auto px-4 py-24">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-10">
@@ -162,14 +180,17 @@ export default function CheckoutPage() {
             
           </div>
           {/*place order */}
+
           <div className="px-8 py-8 h-[700px]">
             <div className="flex-row flex justify-between">
-              <div className="flex flex-col ">
+              {cartItems.map((product: any) => (
+              <div  key={product._id} className="flex flex-col ">
+
                 <h2 className="text-[24px] leading-6 text-black font-[500px]  mb-4">
                   Product
                 </h2>
                 <p className="text-[16px] leading-6 text-[#9F9F9F] font-[400px] mb-4">
-                  Asgaard sofa <span className="text-black ml-2">x 1</span>
+                {product.name} <span className="text-black ml-2">x {totalQuantity}</span>
                 </p>
                 <p className="text-[16px] leading-6 text-black font-[400px] mb-4">
                   Subtotal{" "}
@@ -177,19 +198,19 @@ export default function CheckoutPage() {
                 <p className="text-[16px] leading-6 text-black font-[400px] mb-4">
                   Total
                 </p>
-              </div>
+              </div>))}
               <div className="flex flex-col">
                 <h2 className=" text-[24px] leading-6 text-black font-[500px] mb-4">
                   Subtotal
                 </h2>
                 <p className="text-[16px] leading-6 text-black font-[300px] mb-4">
-                  Rs. 250,000.00
+                 {totalPrice}
                 </p>
                 <p className="text-[16px] leading-6 text-black font-[300px] mb-4">
-                  Rs. 250,000.00
+                 {totalPrice}
                 </p>
                 <p className="text-xl font-semibold text-primary mb-4">
-                  Rs. 250,000.00
+                  {totalPrice}
                 </p>
               </div>
             </div>
@@ -232,9 +253,33 @@ export default function CheckoutPage() {
               </div>
             </div>
             <div className="justify-center items-center text-center">
-              <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none">
+
+              
+              
+              {/* <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none" 
+              onClick
+
+              ={handlesucceeded}
+              >
                 Place order
-              </button>
+              </button> */}
+              <Popover>
+  <PopoverTrigger>
+  
+    <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none"
+     onClick={handlesucceeded}
+    >
+      Place order
+    </button>
+  </PopoverTrigger>
+  <PopoverContent>
+  <Link href="/orders"> 
+   view orders
+    </Link>
+    </PopoverContent>
+</Popover>
+
+            
             </div>
           </div>
         </div>

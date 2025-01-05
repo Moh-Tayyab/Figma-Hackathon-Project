@@ -7,7 +7,7 @@ import { TbPhoneFilled, TbClockHour4Filled } from "react-icons/tb";
 const Contact = () => {
   return (
     <section className="text-[#000000] font-poppins overflow-hidden">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container px-4 py-24 mx-auto">
         <div className="flex flex-wrap -m-12">
 
           {/* Contact Information */}
@@ -44,27 +44,27 @@ const Contact = () => {
               <input
                 id="name"
                 type="text"
-                className="border-[#9F9F9F] border-2 py-2 p-2 rounded-md w-full"
+                className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Abc"
               />
               <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
-                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full"
+                className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Abc@def.com"
               />
               <label htmlFor="subject">Subject</label>
               <input
                 id="subject"
                 type="text"
-                className="border-[#9F9F9F] border-2 p-2 rounded-md w-full"
+                className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="This is Optional"
               />
               <label htmlFor="message">Message</label>
               <textarea
                 id="message"
-                className="border-[#9F9F9F] border-2 p-4 rounded-md w-full h-24"
+                className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary h-24"
                 placeholder="Hi! I’d like to ask about..."
               />
               <button className="bg-[#B88E2F] text-white p-3 w-28 rounded-md hover:scale-110">
