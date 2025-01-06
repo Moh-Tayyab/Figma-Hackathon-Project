@@ -4,7 +4,6 @@ import OurProduct from '@/components/OurPoduct';
 import Category from '@/components/Category';
 import FuniroFurniture from '@/components/FuniroFurniture';
 import TipsAndTrick from '@/components/TipsAndTrick';
-
 export default async function Home() {
   return (
     <main>

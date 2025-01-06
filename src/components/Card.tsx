@@ -9,7 +9,7 @@ const Card = ( {product}: any) => {
   //console.log(product);
   return (
     <>
-    <div className="bg-white group w-[285px] h-[440px] rounded-lg shadow-md overflow-hidden border-gray-200 border">
+    <div className="bg-white group w-[285px] h-[420px] rounded-lg shadow-md overflow-hidden border-gray-200 border">
     {" "}
     {/* Add `group` here */}
     <div className="relative">

@@ -16,7 +16,7 @@ export const product = defineType({
       name: "description",
       title: "Product Description",
       type: "string",
-    },
+    },{name: "sku", title: "Sku", type: "string"},
     {
       name: "orignalPrice",
       title: "Orignal Price",
@@ -26,8 +26,16 @@ export const product = defineType({
       name: "fakePrice",
       title: "Fake Price",
       type: "number",
+    },{
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
+
+      description: "Add relevant tags to this product",
     },
     {name: "new", title: "New", type: "boolean"},
+    {name: "about", title: "About", type: "text"},
     {
       name: "discount",
       title: "Discount",

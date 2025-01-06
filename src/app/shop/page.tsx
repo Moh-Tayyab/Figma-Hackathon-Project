@@ -1,14 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-// import { IoMdShare } from "react-icons/io";
-// import { FaArrowRightArrowLeft } from "react-icons/fa6";
-// import { FaRegHeart } from "react-icons/fa";
 import Services from '@/components/Services'
  import SubHero from '@/components/SubHero'
 import { client } from '@/sanity/lib/client';
-//import { Image as IImage } from 'sanity'
-//import { urlFor } from '@/sanity/lib/image';
 import { groq } from 'next-sanity';
 import Card from '@/components/Card';
 import { PiCirclesFourFill } from "react-icons/pi";
@@ -16,7 +11,22 @@ import { IoReorderThree } from "react-icons/io5";
 
 
 const Product = async () => {
-  const res = await client.fetch(groq `*[_type=="Product"]`);
+  const res = await client.fetch(groq `*[_type=="Product"] {
+    slug,
+    images,
+    name,
+    orignalPrice,
+    fakePrice,
+    about,
+    sku,
+    new,
+    tags,
+    discount,
+    description,
+    category -> {
+      name
+    }
+  }`);
 //console.log(res) 
   return (
     <>
@@ -82,7 +92,7 @@ const Product = async () => {
       {/* Wrapper div for flex grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-6">
         {/* Map Method to render product cards */}
-        {res.map((product: any, index: any) => {
+        {res.map((product: any, index: any) => { 
            return(
             <Card key={index} product= {product} />
           );

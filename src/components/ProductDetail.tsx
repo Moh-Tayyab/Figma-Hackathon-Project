@@ -5,7 +5,7 @@ import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { urlFor } from "@/sanity/lib/image";
 import { AiFillStar, AiOutlineMinus, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
-import { useState, useContext } from "react";
+import {  useContext } from "react";
 import { CartContext } from "@/app/context/CartContext";
 const ProductDetail = ({ product }: any) => {
   
@@ -53,22 +53,23 @@ const ProductDetail = ({ product }: any) => {
           {/* Left Section */}
           <div className="flex lg:flex-col lg:h-[391px] lg:justify-start gap-4 mb-6 lg:mb-0">
             {product.images?.map((item: any, i: number) => (
-              <Image
+              product.images && (<Image
+              key={i}
                 //loader={()=>urlForImage(product.images[i]).url()}
                 src={urlFor(product.images && product.images[i]).url()}
-                alt={product.images[i]}
+                alt={product.slug || product.images}
                 width={90}
                 height={90}
                 className="rounded bg-[#F9F1E7] object-cover object-center hover:cursor-pointer hover:scale-110"
                 onClick={() => setIndex(i)}
-              />
+              />)
             ))}
           </div>
 
           {/* Main product Image */}
           <div className="flex-1 flex justify-center items-start mb-6 lg:mb-0 h-[440px]">
             <Image
-              className="rounded object-cover  hover:scale-110"
+              className="rounded"
               //loader={()=>urlFor(product.images[0]).url()}
               src={urlFor(product?.images && product.images[index]).url()}
               alt={product.images[index]}
@@ -95,7 +96,7 @@ const ProductDetail = ({ product }: any) => {
               </span>
             </div>
             <p className="text-sm lg:text-base text-black mb-4">
-              {product.description}
+              {product.about}
             </p>
             <div className="flex flex-col gap-4 mb-6">
               <div>
@@ -147,9 +148,9 @@ const ProductDetail = ({ product }: any) => {
               </Link>
             </div>
             <ul className="text-sm lg:text-base text-[#9F9F9F] gap-5">
-              <li className="pt-5">SKU: {product.fakePrice}</li>
-              <li className="py-5">Category: {product.category.name}</li>
-              <li className="pb-5">Tags: Sofa, Chair, Home, Shop</li>
+              <li className="pt-5">SKU: {product.sku}</li>
+              <li className="py-5">Category: {product.category?.name}</li>
+              <li className="pb-5">Tags: {product.tags}</li>
               <li className="flex items-center gap-2">
                 Share: <FaFacebook className="text-black" />{" "}
                 <FaLinkedin className="text-black" />{" "}

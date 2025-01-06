@@ -1,11 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */ eslint: {
+const nextConfig = {
+  eslint: {
     ignoreDuringBuilds: true, 
-  }, 
+  },
   images: {
- 
     remotePatterns: [
       {
         protocol: "https",
@@ -16,4 +13,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

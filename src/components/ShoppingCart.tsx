@@ -13,12 +13,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet2";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { CartContext } from "@/app/context/CartContext";
 import { urlFor } from "@/sanity/lib/image";
 
 const ShoppingCart = () => {
-  const { cartItems = [], quantity, totalQuantity, onRemove, totalPrice }: any = useContext(CartContext);
+  const { cartItems = [], totalQuantity, onRemove, totalPrice }: any = useContext(CartContext);
   
   //console.log("cartItemsfinder", cartItems);
   
