@@ -6,17 +6,25 @@ import {
 } from "@/components/ui/popover";
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/app/context/CartContext";
 import Link from "next/link";
+import { useAtom } from "jotai";
+import { cartAtom } from "@/lib/atom";
 export default function CheckoutPage() {
-  const { cartItems, totalQuantity, totalPrice }: any = useContext(CartContext);
-  const [message, setmessage] = useState<string | undefined>();
+  const [cartItems, setCartItems] = useAtom(cartAtom);
 
-  const handlesucceeded = () => {
-    setTimeout(() => {
-      setmessage("Your Order was successfully placed");
-    }, 2000);
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = item?.product?.price || 0;
+      const quantity = item?.quantity || 0;
+
+      // Ensure price and quantity are numbers
+      if (typeof price !== "number" || typeof quantity !== "number") {
+        console.error("Invalid price or quantity for item:", item);
+        return total; // Skip this item
+      }
+
+      return total + price * quantity;
+    }, 0);
   };
 
   return (
@@ -176,37 +184,37 @@ export default function CheckoutPage() {
           </div>
           {/*place order */}
 
-          <div className="px-8 py-8 h-[700px]">
-            <div className="flex-row flex justify-between">
-              {cartItems.map((product: any) => (
-                <div key={product._id} className="flex flex-col ">
-                  <h2 className="text-[24px] leading-6 text-black font-[500px]  mb-4">
-                    Product
-                  </h2>
+          <div className="px-8 py-8 h-auto">
+            <div className="flex justify-between px-8">
+              <p className="font-bold text-[18px]">Product</p>
+              <p className="font-bold text-[18px]">Subtotal</p>
+            </div>
+
+            <div className="mt-4 flex flex-col gap-2 justify-between px-8">
+              {cartItems.map((cartItem) => (
+                <div
+                  key={cartItem.product._id}
+                  className="flex justify-between">
                   <p className="text-[16px] leading-6 text-[#9F9F9F] font-[400px] mb-4">
-                    {product.name}{" "}
-                    <span className="text-black ml-2">x {totalQuantity}</span>
+                    {cartItem.product.title}{" "}
+                    <span className="font-bold text-black">
+                      X {cartItem.quantity}
+                    </span>
                   </p>
-                  <p className="text-[16px] leading-6 text-black font-[400px] mb-4">
-                    Subtotal{" "}
-                  </p>
-                  <p className="text-[16px] leading-6 text-black font-[400px] mb-4">
-                    Total
+                  <p>
+                    {Number(cartItem.product.price) * Number(cartItem.quantity)}
                   </p>
                 </div>
               ))}
-              <div className="flex flex-col">
-                <h2 className=" text-[24px] leading-6 text-black font-[500px] mb-4">
-                  Subtotal
-                </h2>
-                <p className="text-[16px] leading-6 text-black font-[300px] mb-4">
-                  {totalPrice}
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3 justify-between px-8">
+              <div className="flex justify-between">
+                <p className="text-[18px] font-semibold leading-6 text-black ">
+                  Total
                 </p>
-                <p className="text-[16px] leading-6 text-black font-[300px] mb-4">
-                  {totalPrice}
-                </p>
-                <p className="text-xl font-semibold text-primary mb-4">
-                  {totalPrice}
+                <p className="text-primary font-bold text-[20px]">
+                  Rs. {calculateSubtotal()}
                 </p>
               </div>
             </div>
@@ -250,9 +258,7 @@ export default function CheckoutPage() {
             <div className="justify-center items-center text-center">
               <Popover>
                 <PopoverTrigger>
-                  <button
-                    className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none"
-                    onClick={handlesucceeded}>
+                  <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none">
                     Place order
                   </button>
                 </PopoverTrigger>

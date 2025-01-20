@@ -1,38 +1,39 @@
-import { client } from '@/sanity/lib/client';
-import RelatedProducts from '@/components/RelatedProduct';
-//import { useParams } from 'next/navigation';
-import { groq } from 'next-sanity';
-import ProductDetail from '@/components/ProductDetail';
-//import { useParams } from 'next/navigation';
+import { client } from "@/sanity/lib/client";
+import RelatedProducts from "@/components/RelatedProduct";
+import ProductDetail from "@/components/ProductDetail";
+interface Product {
+  title: string;
+  imageUrl: string;
+  price: number;
+  slug: string;
+  description: string;
+  dicountPercentage: number;
+  new: boolean;
+  productImage: string;
+}
+interface Props {
+  params: {
+    slug: string;
+  };
+}
 
-type tParams = Promise<{
-  slug: { current: string };
- }>
+const page = async (props: Props) => {
+  const uniqueId: string = props.params.slug;
 
-const page = async ({params}: {params: tParams}) => {
-  const { slug }: any = await params // Correctly destructure the slug parameter
-  const products = await client.fetch(groq `*[_type=="Product"] {
-    slug,
-    images,
-    name,
-    orignalPrice,
-    fakePrice,
-    about,
-    sku,
-    new,
+  const qurry: string = `*[_type=="product" && slug.current == '${uniqueId}'][0]{
+    title,
+    "slug":slug.current,
+    "imageUrl" : productImage.asset -> url, 
+    price,
     tags,
-    discount,
+    dicountPercentage,
     description,
-    category -> {
-      name
-    }
-  }
-    `);
-  const product = products.find((product:any)=>product.slug.current == slug);
+  }`;
+  const product: Product = await client.fetch(qurry);
+
   return (
     <div>
-
-    <ProductDetail product = {product} />
+      <ProductDetail product={product} />
 
       <RelatedProducts />
     </div>

@@ -1,83 +1,147 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+"use client"
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { IoMdShare } from "react-icons/io";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
-import { urlFor } from '@/sanity/lib/image';
-const Card = ( {product}: any) => {
-  //console.log(product);
+import { urlFor } from "@/sanity/lib/image";
+import { useAtom } from "jotai";
+import { wishlistAtom } from "@/lib/atom";
+import { toast, Bounce, } from "react-toastify";
+import { itemQuantity } from "@/lib/atom";
+interface Product {
+    title: string;
+    imageUrl: string;
+    price: number;
+    slug: string;
+    description: string;
+    dicountPercentage: number;
+    new: boolean;
+    productImage: string;
+  
+  }
+const Card = ({ product }: { product: Product }) => { 
+   const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
+   const [quantity, setQuantity] = useAtom(itemQuantity);
+  function addProductToWishlist() {
+    // Check if the product is already in the wishlist
+    const currentWishlistItem = wishlistItems.find(
+      (wishlistItem) => wishlistItem.product.title === product.title
+    );
+  
+    if (currentWishlistItem) {
+      // Update quantity if the product is already in the wishlist
+      const updatedWishlistItems = wishlistItems.map((wishlistItem) =>
+        wishlistItem.product.title === product.title
+          ? { ...wishlistItem, quantity: wishlistItem.quantity + quantity }
+          : wishlistItem
+      );
+      setWishlistItems(updatedWishlistItems);
+    } 
+      
+  
+    // Reset the local quantity to 1 after adding to the wishlist
+    setQuantity(1);
+  
+    // Display a toast notification
+    toast.success("Product added to wishlist successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+      transition: Bounce,
+    });
+  }
+  
+  
+
+if(!product){
+  return <p>Loading...</p>}
+
+  //console.log("chacha",product.dicountPercentage);
   return (
     <>
-    <div className="bg-white group w-[285px] h-[420px] rounded-lg shadow-md overflow-hidden border-gray-200 border">
-    {" "}
-    {/* Add `group` here */}
-    <div className="relative">
-       <Image
-        src={urlFor(product?.images && product.images[0]).url()}
-        alt={product.slug}
-        width={170}
-        height={150}
-        className="object-cover w-full h-100"
-      />  
-      {product.discount && (
-        <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
-          -{product.discount}
+      <div
+        className="bg-white rounded-lg shadow-md border border-gray-300 justify-center items-center w-[280px] h-[400px]" // Fixed card size
+      >
+        <div className="relative w-full h-[270px]">
+          {" "}
+          {/* Fixed image container */}
+          <Image
+            //src={urlFor(product?.images && product.images[0]).url()}
+            //alt={product.slug}
+            src={urlFor(product.productImage).url()}
+            alt={product.slug}
+            fill // Use fill to ensure the image fits the container
+            className="object-cover rounded-t-lg" // Ensure the image covers the container
+            quality={100}
+          />
+          {product.dicountPercentage && (
+            <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
+              -{product.dicountPercentage}%
+              
+            </div>
+          )}
+          {product.new && (
+            <div className="absolute top-2 left-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
+              NEW
+            </div>
+          )}
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+            <Link href={`/shop/${product.slug}`}>
+              <button className="bg-white text-primary px-4 py-2 mb-4 rounded hover:cursor-pointer">
+                Add to Cart
+              </button>
+            </Link>
+            <div className="flex space-x-4 text-white">
+              <button className="hover:text-primary flex items-center">
+                <IoMdShare />
+                Share
+              </button>
+              <Link href={"/comparison"}>
+                <button className="hover:text-primary flex items-center">
+                  <FaArrowRightArrowLeft />
+                  Compare
+                </button>
+              </Link>
+             <Link href={""}>
+             <button className="hover:text-primary flex items-center"
+             onClick={addProductToWishlist}
+             >
+                <FaRegHeart />
+                Like
+              </button> 
+             </Link>
+            </div>
+          </div>
         </div>
-      )}
-      {product.new && (
-        <div className="absolute top-2 right-2 bg-accent1 text-white text-sm px-2 py-3 rounded-full">
-          NEW
-        </div>
-      )}
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-        <Link href={`/shop/${product.slug.current}`}>
-          <button className="bg-white text-primary hover:cursor-pointer px-4 py-2 mb-4 rounded">
-            Add to Cart
-          </button>
-        </Link>
-        <div className="flex space-x-4 text-white">
-          <button className="hover:text-primary flex items-center">
-           <IoMdShare />
-            Share
-          </button>
-         <Link href={'/comparsion'}> <button className="hover:text-primary  flex items-center">
-           <FaArrowRightArrowLeft />
-            Compare
-          </button> </Link>
-          <button className="hover:text-primary  flex items-center">
-            <FaRegHeart />
-            Like
-          </button>
+        <div className="p-4">
+          <h3 className="text-lg font-semibold font-poppins text-text2 truncate">
+            {product.title}
+          </h3>
+          <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+            {product.description}
+          </p>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-lg font-semibold text-text2">
+              ${product.price}
+            </span>
+            {/* {product.fakePrice && (
+              <span className="text-sm text-gray-500 line-through">
+                ${product.fakePrice}
+              </span> 
+            )}*/}
+          </div>
         </div>
       </div>
-    </div>
-    <div className="p-4">
-      <h3 className="text-xl font-semibold font-poppins text-text2">
-        {product.name}
-      </h3>
-      <p className="text-sm text-gray4 mt-2">{product.description}</p>
-      <div className="flex items-center justify-between mt-2">
-      
-        <span className="text-lg font-semibold text-text2">
-        ${product.orignalPrice}
-        </span>
-       
-        {product.fakePrice && (
-          <span className="text-sm text-gray4 line-through">
-            ${product.fakePrice}
-          </span>
-        )}
-      </div>
-    </div>
-  </div>
+    </>
+    
+  );
+};
 
-  
-</>
-  
-  )
-}
-
-export default Card
+export default Card;

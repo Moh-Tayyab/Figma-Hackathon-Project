@@ -17,6 +17,7 @@ const FuniroFurniture = () => {
       alt={""}
       width={1800}
       height={400}
+      quality={100}
       className="w-full mt-9"
     />
   </div>

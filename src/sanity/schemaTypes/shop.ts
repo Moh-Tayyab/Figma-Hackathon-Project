@@ -1,0 +1,113 @@
+import {BasketIcon} from "@sanity/icons"
+export const shop = {
+    name: 'shop',
+    title: 'Shop',
+    type: 'document',
+    icon: BasketIcon,
+    fields: [
+      {
+        name: 'id',
+        title: 'Product ID',
+        type: 'number', // ID as number
+      },
+      {
+        name: 'title',
+        title: 'Product Name',
+        type: 'string',
+      },
+      {
+        name: 'description',
+        title: 'Product Description',
+        type: 'text',
+      },
+      {
+        name: "category",
+        title: "Category",
+        type: "reference",
+        to: [{ type: "category" }],
+      },
+      {
+        name: 'price',
+        title: 'Price',
+        type: 'number',
+      },
+      {
+        name: 'price',
+        title: 'Price',
+        type: 'number',
+      },
+      {
+        name: 'stock',
+        title: 'Stock',
+        type: 'number',
+      },
+      {
+        name: 'slug',
+        title: 'Slug',
+        type: 'slug',
+        options: {
+          source: 'name',
+          maxLength: 96,
+        },
+      },
+      {
+        name: 'productImage',
+        title: 'Image',
+        type: 'image',
+        options: {
+          hotspot: true,
+        },
+      },
+      {
+        name: 'rating',
+        title: 'Rating',
+        type: 'object',
+        fields: [
+          {
+            name: 'rate',
+            title: 'Rating Rate',
+            type: 'number',
+          },
+          {
+            name: 'count',
+            title: 'Rating Count',
+            type: 'number',
+          },
+        ],
+      },
+      {
+        name: 'tags',
+        title: 'Tags',
+        type: 'array',
+        of: [{ type: 'string' }],
+      },
+      {
+        name: 'dimensions',
+        title: 'Dimensions',
+        type: 'object',
+        fields: [
+          {
+            name: 'height',
+            title: 'Height',
+            type: 'number',
+          },
+          {
+            name: 'width',
+            title: 'Width',
+            type: 'number',
+          },
+          {
+            name: 'depth',
+            title: 'Depth',
+            type: 'number',
+          },
+        ],
+      },
+      {
+        name: 'dicountPercentage',
+        title: 'Discount percentage',
+        type: 'number',
+      },
+    ],
+  };
+  

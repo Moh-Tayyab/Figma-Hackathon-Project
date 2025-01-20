@@ -1,38 +1,44 @@
-import React from 'react'
+import React from 'react'  //this shop page
 import Image from 'next/image'
 import Link from 'next/link'
 import Services from '@/components/Services'
  import SubHero from '@/components/SubHero'
-import { client } from '@/sanity/lib/client';
-import { groq } from 'next-sanity';
+import { client } from '@/sanity/lib/client'
 import Card from '@/components/Card';
 import { PiCirclesFourFill } from "react-icons/pi";
 import { IoReorderThree } from "react-icons/io5";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+interface Product {
+  title: string;
+  imageUrl: string;
+  price: number;
+  slug: string;
+  description: string;
+  dicountPercentage: number;
+  new: boolean;
+  productImage: string
+}
 
 
 const Product = async () => {
-  const res = await client.fetch(groq `*[_type=="Product"] {
-    slug,
-    images,
-    name,
-    orignalPrice,
-    fakePrice,
-    about,
-    sku,
-    new,
-    tags,
-    discount,
-    description,
-    category -> {
-      name
-    }
-  }`);
-//console.log(res) 
+
+
+const query:string = `*[ _type=="product"]{
+  "slug":slug.current,
+  productImage,
+  title,
+  price,
+  description,
+  discountPercentage,
+  }[8..24]`
+
+  const res = await client.fetch(query)
   return (
     <>
     {/*subhero Section */}
     <SubHero  title = "Shop" home = "Home" linkUrl='/shop'/>
-     {/* filter */}
+     {/* filter */} 
 
      <div className="p-4 border-b border-gray-200 bg-[#F9F1E7]">
   <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
@@ -90,34 +96,40 @@ const Product = async () => {
 
     <div className="container px-5 py-10">
       {/* Wrapper div for flex grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center justify-center gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 justify-items-center">
         {/* Map Method to render product cards */}
-        {res.map((product: any, index: any) => { 
-           return(
-            <Card key={index} product= {product} />
-          );
-        })}
+        {res.map((product: Product) => { 
+          return (
+
+            <Card key={product.slug} product={product} />
+          
+        )})}
       </div>
     </div>
    
 
 {/*Buttons */}
 <div className=" text-center flex-row space-x-4 py-10 w-auto">
+  <Link href = {"/shop"}>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     1
   </button>
-<Link href={'/shop'}>
+  </Link>
+<Link href={'/page2'}>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     2
   </button>
 </Link>
+<Link href={'/page3'}>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     3
   </button>
-
+</Link>
+<Link href={"/shop"}>
   <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
     Next
   </button>
+  </Link>
 </div>
 
     <div className='px-4 py-10'>

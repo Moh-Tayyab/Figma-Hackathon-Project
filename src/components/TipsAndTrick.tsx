@@ -20,6 +20,7 @@ const TipsAndTrick = () => {
               alt="hero"
               width={404}
               height={350}
+              quality= {100}
               src="/craft.png"
             />
             {/* <div>
@@ -35,6 +36,7 @@ const TipsAndTrick = () => {
               alt="hero"
               width={404}
               height={582}
+              quality= {100}
               src="/living-room.png"
             />
             {/* <div>
@@ -50,6 +52,7 @@ const TipsAndTrick = () => {
               alt="hero"
               width={404}
               height={582}
+              quality= {100}
               src="/work-space.png"
             />
             {/* <div>

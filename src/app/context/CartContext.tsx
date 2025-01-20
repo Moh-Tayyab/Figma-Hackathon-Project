@@ -38,12 +38,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       });
       setCartItems(updatedCartItems);
     } else
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       (product.quantity = quantity),
         setCartItems([...cartItems, { ...product }]);
   };
 
   const toggleCartItemQty = (id: any, value: any) => {
-    let foundProduct = cartItems.find((item) => item._id === id);
+    const foundProduct = cartItems.find((item) => item._id === id);
     const index = cartItems.findIndex((product) => product._id === id);
     const updatedCartItems = [...cartItems];
 
@@ -69,7 +70,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const onRemove = (product: any) => {
-    let foundProduct = cartItems.find((item) => item._id === product._id);
+    const foundProduct = cartItems.find((item) => item._id === product._id);
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
     setCartItems(newCartItems);

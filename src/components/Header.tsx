@@ -1,20 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-//import { MdOutlineShoppingCart } from "react-icons/md";
 import { TbUserExclamation } from "react-icons/tb";
-//import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-//import { CartContext } from "./context/CartContext";
 import ShoppingCart from "@/components/ShoppingCart";
-
+import Link from "next/link";
+import {  useAtom } from "jotai";
+import { wishlistAtom } from "@/lib/atom";
+//import { itemQuantity } from "@/lib/atom";
 const Header = () => {
-  //const [totalQuantity, setTotalQuantity] = useState(0);
-
+   //const [quantity, setQuantity] = useAtom(itemQuantity);
+    const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
   const [menuOpen] = useState(false);
 
   //const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -49,15 +48,13 @@ const Header = () => {
                   <Link href={"/"}>
                     <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-[#f7e9d9]" />
                   </Link>
-                  <Link href={"/checkout"}>
+                  <Link href={"/whishlist"}>
                     <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
+                    <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
+
                   </Link>
                    <ShoppingCart /> 
 
-                  {/* <MdOutlineShoppingCart className="h-[32px] w-[32px] hover:scale-110 hover:text-primary hover:cursor-pointer" />
-                  <span className="absolute text-[12px] top-6 right-12  bg-primary w-[18px] h-[18px] rounded-3xl text-center text-white font-urbanist  font-black">
-                    1
-                  </span> */}
                 </div>
                 <li className="font-bold font-helvetica text-[#FFF3E3] text-[14px] sm:text-[16px]">
                   <Link href="/">Home</Link>
@@ -111,8 +108,10 @@ const Header = () => {
           <Link href={"/"}>
             <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
           </Link>
-          <Link href={"/checkout"}>
+          <Link href={"/whishlist"}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
+            <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
+
           </Link>
            <ShoppingCart /> 
           {/* <MdOutlineShoppingCart className="h-[34px] w-[34px] hover:scale-110  hover:cursor-pointer border bg-white border-gray-300 rounded-lg " />

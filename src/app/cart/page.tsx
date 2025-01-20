@@ -4,17 +4,35 @@ import SubHero from "@/components/SubHero";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import Services from "@/components/Services";
-import { CartContext } from "@/app/context/CartContext";
-import { useContext } from 'react';
-
-import { urlFor } from "@/sanity/lib/image";
-
+//import { useAtomValue} from "jotai"
+//import { urlFor } from "@/sanity/lib/image";
+import { useAtom } from "jotai";
+import { cartAtom} from "@/lib/atom";
+// import { cartAtom } from "@/lib/atom";
 export default function Cart() {
-  const { cartItems ,quantity, totalQuantity, onRemove, totalPrice }: any = useContext(CartContext);
+const [cartItems, setCartItems] = useAtom(cartAtom);
+
+  const removeItem = (slug: string) => {
+    setCartItems(prevCart => prevCart.filter(item => item.product.slug!== slug));
+  };
+
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = item?.product?.price || 0;
+      const quantity = item?.quantity || 0;
+  
+      // Ensure price and quantity are numbers
+      if (typeof price !== "number" || typeof quantity !== "number") {
+        //console.error("Invalid price or quantity for item:", item);
+        return total; // Skip this item
+      }
+  
+      return total + price * quantity;
+    }, 0);
+  };
   return (
     <>
       <SubHero  title = "Cart" home = "Home" linkUrl="/cart"/>
-
       {/* Cart Container */}
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-20 mx-auto flex flex-wrap ">
@@ -29,31 +47,36 @@ export default function Cart() {
             </div>
             <div className="flex flex-col gap-4 p-4">
               {/* Product Row */}
-              {cartItems.map((product: any) => (
+              {cartItems.map(cartItem => (
 
-              <div key={product._id} className="flex justify-between items-center gap-2 mt-4 px-4">
+              <div key={cartItem.product.slug} className="flex justify-between items-center gap-2 mt-4 px-4">
                 <Link href={"/singleproduct"}>
                   <Image
-                    src={urlFor(product.images[0]).url()} 
+                    src={(cartItem.product.imageUrl)} 
                     width={50}
                     height={50}
-                    alt={product.images[0]}
-                    className="hover:scale-110 hover:cursor-pointer"
+                    alt={cartItem.product.title}
+                    className="hover:scale-110 hover:ursor-pointer"
                   />
                 </Link>
-                <p >{product.name}</p>
-                <p>{totalPrice}</p>
+                <p >{cartItem.product.title}</p>
+                <p>
+                  {cartItem.product.price}
+                </p>
 
                 <input
                   type="number"
                   className="w-16 border rounded-md p-1"
-                  defaultValue={totalQuantity}
+                  defaultValue={cartItem.quantity}
                 />
-                <p>{totalPrice}</p>
+                <p>
+                    {Number(cartItem.product.price) * Number(cartItem.quantity)}
+                  </p>
                 <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer" 
-                onClick={() => onRemove(product._id)}
+                onClick={() => removeItem(cartItem.product.slug)}
                 />
               </div>))}
+
             </div>
           </div>
 
@@ -63,16 +86,18 @@ export default function Cart() {
               Cart Totals
             </h2>
             <p className="text-[#9F9F9F]">
+            <p>
+                  </p>
               <span className="pb-4 text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
                 Subtotal:
               </span>{" "}
-              {totalPrice}
+              {calculateSubtotal().toFixed(2)}
             </p>
             <p className="text-[#B88E2F]">
               <span className="text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
                 Total:
-              </span>{" "}
-              {totalPrice}
+              </span>{" "}  
+              {calculateSubtotal().toFixed(2)}
             </p>
             <Link href={"/checkout"}>
               <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
@@ -88,3 +113,4 @@ export default function Cart() {
     </>
   );
 }
+

@@ -4,11 +4,11 @@ import React from "react";
 import Link from "next/link";
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
-import { useState, useContext } from "react";
-import { CartContext } from "@/app/context/CartContext";
 import { urlFor } from "@/sanity/lib/image";
+import { cartAtom } from "@/lib/atom";
+import { useAtom } from "jotai";
 const page = () => {
-  const { cartItems }: any = useContext(CartContext);
+  const [cartItems, setCartItems] = useAtom(cartAtom);;
   return (
     <>
       {/* First Section */}
@@ -31,21 +31,21 @@ const page = () => {
           </div>
 
           {/* Product 1 */}
-          {cartItems.length > 0 &&
-            cartItems.map((product: any) => (
-              <div className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
+          
+            {cartItems.map((cartItem => (
+              <div key={cartItem.product._id} className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <Image
-                  src={urlFor(product.images[0]).url()}
-                  alt={product.images[0]}
+                  src={urlFor(cartItem.product.images[0]).url() || urlFor(cartItem.product.productImage).url()}
+                  alt={ cartItem.product.name || cartItem.product.title}
                   width={270}
                   height={177}
                   className="rounded-lg bg-[#FAF3EA] object-cover hover:scale-110"
                 />
                 <h2 className="text-2xl font-medium leading-[30.36px] pt-3 pb-2">
-                  {product.name}
+                  {cartItem.product.title || cartItem.product.name}
                 </h2>
                 <p className="font-medium text-[18px] leading-[30.36px] pb-2">
-                  {product.orignalPrice}
+                  Rs.{cartItem.product.price ||cartItem.product.orignalPrice}
                 </p>
                 <div className="flex items-center mb-4 justify-center sm:justify-start">
                   <p className="pr-2">4.7</p>
@@ -67,7 +67,7 @@ const page = () => {
                   </span>
                 </div>
               </div>
-            ))}
+            )))}
 
           {/* Product 2 */}
           <div className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
