@@ -25,10 +25,10 @@ const ForYouProduct = async () => {
 
         {/* Heading and View All Button */}
         <div className="text-start mb-12 flex justify-between items-center">
-        <h1 className="sm:text-4xl text-3xl font-poppins title-font text-Text2">
+        <h1 className="sm:text-4xl text-3xl font-poppins font-[500px] text-black">
         Just For You
         </h1>
-        <button className="text-Text2 bg-primary px-8 hover:scale-110 py-2 rounded-md border text-[16px] font-medium">
+        <button className="text-Text2 bg-white text-black hover:text-white hover:bg-black px-8 hover:scale-110 py-2 rounded-md border text-[16px] font-medium">
         View All 
         </button>
       </div>
