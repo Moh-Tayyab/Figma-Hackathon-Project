@@ -19,7 +19,6 @@ export default function CheckoutPage() {
 
       // Ensure price and quantity are numbers
       if (typeof price !== "number" || typeof quantity !== "number") {
-        console.error("Invalid price or quantity for item:", item);
         return total; // Skip this item
       }
 

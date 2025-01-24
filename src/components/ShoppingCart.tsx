@@ -11,7 +11,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTrigger,
-} from "@/components/ui/sheet2";
+} from "@/components/ui/shoppingcartsheet";
 import { useAtom, useAtomValue } from "jotai";
 import { cartAtom, cartQuantity } from "@/lib/atom";
 
@@ -26,7 +26,6 @@ const ShoppingCart = () => {
  
   const calculateSubtotal = () => {
     if (!cartItems || cartItems.length === 0) {
-      console.warn("Cart is empty or undefined.");
       return 0;
     }
 
@@ -42,11 +41,7 @@ const ShoppingCart = () => {
       return total + price * quantity;
     }, 0);
   };
-  //const subtotal = calculateSubtotal()
 
-  //console.log("sub", subtotal)
-  //console.log("cartItem", cartItems)
-  //const {index, setIndex, incQty, decQty }: any = useContext(CartContext);
   return (
     <>
       <Sheet>
@@ -136,7 +131,7 @@ const ShoppingCart = () => {
                   Checkout
                 </Button>
               </Link>
-              <Link href="/comparsion" passHref>
+              <Link href="/comparison" passHref>
                 <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-4 border hover:text-white hover:bg-primary">
                   Comparison
                 </Button>

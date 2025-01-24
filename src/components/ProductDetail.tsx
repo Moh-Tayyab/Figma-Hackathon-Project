@@ -8,6 +8,7 @@ import { useAtom } from "jotai";
 import { cartAtom, itemQuantity } from "@/lib/atom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { urlFor } from "@/sanity/lib/image";
  const ProductDetail = ({product}: any)=> {
   const [quantity, setQuantity] = useAtom(itemQuantity);
   
@@ -77,18 +78,13 @@ import "react-toastify/dist/ReactToastify.css";
       </div>
       
       <div className="font-poppins overflow-hidden container mx-auto px-4 md:px-20 pt-20">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-start items-center lg:gap-6">
           {/* Left Section */}
-          <div className="flex lg:flex-col lg:h-[391px] lg:justify-start gap-4 mb-6 lg:mb-0">
-            {/* {product?.images.map((items: any, i: number) => (
-              product.images && (<Image
-              key={i}
-                //loader={()=>urlForImage(product.images[i]).url()}
-                src={urlFor(product.images && product?.images[i]).url() */}
+          <div className="flex lg:flex-col lg:h-[391px] lg:justify-start justify-center gap-4 mb-6 lg:mb-0">
                   {[...Array(4)].map((_, i) => (
                     <Image
                   key={i}
-                  src={(product.imageUrl)}
+                  src={urlFor(product.imageUrl).url()}
                 alt={ product.slug}
                 width={90}
                 height={90}
@@ -103,9 +99,6 @@ import "react-toastify/dist/ReactToastify.css";
           <div  className="flex-1 flex justify-center items-start mb-6 lg:mb-0 h-[440px]">
           <Image
               className="rounded"
-              //loader={()=>urlFor(product.images[0]).url()}
-              // src={urlFor(product?.images && product.images[index]).url()}
-              // alt={product.images[index]}
               src={product.imageUrl}
               alt={product.title}
               width={481}
@@ -178,7 +171,7 @@ import "react-toastify/dist/ReactToastify.css";
                   Add to Cart
                 </button>
               {/* </Link> */}
-              <Link href="/comparsion">
+              <Link href="/comparison">
                 <button className="hover:text-white hover:bg-black border border-black px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:scale-110 transition sm:w-auto">
                   Compare
                 </button>

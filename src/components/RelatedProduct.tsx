@@ -29,14 +29,14 @@ const relatedProducts = await client.fetch(groq `*[_type == "myproduct"] {
     <div className="container px-5 py-10">
         <h2 className="text-3xl font-bold text-center py-10 leading-10">Related Products</h2>
       {/* Wrapper div for flex grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 justify-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
      
        
         {/* Map Method to render RelatedProduct cards */}
         {relatedProducts.map((RelatedProduct: any, i: any) => {
           return (
             <div key = {i}
-            className="bg-white rounded-lg shadow-md border border-gray-300 justify-center items-center w-[280px] h-[400px]" // Fixed card size
+            className= "bg-white rounded-lg shadow-md border border-gray-300 w-[90%] sm:w-[280px] h-[400px]" // Fixed card size
           >
             <div className="relative w-full h-[270px]">
               {" "}

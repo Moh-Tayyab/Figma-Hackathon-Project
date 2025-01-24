@@ -4,77 +4,68 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoMdShare } from "react-icons/io";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
+//import { FaRegHeart } from "react-icons/fa";
 import { urlFor } from "@/sanity/lib/image";
-import { useAtom } from "jotai";
-import { wishlistAtom } from "@/lib/atom";
-import { toast, Bounce, } from "react-toastify";
-import { itemQuantity } from "@/lib/atom";
-interface Product {
-    title: string;
-    imageUrl: string;
-    price: number;
-    slug: string;
-    description: string;
-    dicountPercentage: number;
-    new: boolean;
-    productImage: string;
+import WishList from "./WishList";
+// import { useAtom } from "jotai";
+//  import { wishlistAtom } from "@/lib/atom";
+//  import { toast, Bounce, } from "react-toastify";
+//  import { itemQuantity } from "@/lib/atom";
+const Card = ({ product }: any) => { 
+  //  const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
+  //  const [quantity, setQuantity] = useAtom(itemQuantity);
+  // function addProductToWishlist() {
+  //   // Check if the product is already in the wishlist
+  //   const currentWishlistItem = wishlistItems.find(
+  //     (wishlistItem) => wishlistItem.product.slug === product.slug
+  //   );
   
-  }
-const Card = ({ product }: { product: Product }) => { 
-   const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
-   const [quantity, setQuantity] = useAtom(itemQuantity);
-  function addProductToWishlist() {
-    // Check if the product is already in the wishlist
-    const currentWishlistItem = wishlistItems.find(
-      (wishlistItem) => wishlistItem.product.title === product.title
-    );
+  //   if (currentWishlistItem) {
+  //     // Update quantity if the product is already in the wishlist
+  //     const updatedWishlistItems = wishlistItems.map((wishlistItem) =>
+  //       wishlistItem.product.slug === product.slug
+  //         ? { ...wishlistItem, quantity: wishlistItem.quantity + quantity }
+  //         : wishlistItem
+  //     );
+  //     setWishlistItems(updatedWishlistItems);
+  //   }  else {
+  //     // Add new product to the wishlist
+  //     setWishlistItems((prevWishlist) => [
+  //       ...prevWishlist,
+  //       { product, quantity: quantity },
+  //     ]);
+  //   }
+  //   // Reset the local quantity to 1 after adding to the wishlist
+  //   setQuantity(1);
   
-    if (currentWishlistItem) {
-      // Update quantity if the product is already in the wishlist
-      const updatedWishlistItems = wishlistItems.map((wishlistItem) =>
-        wishlistItem.product.title === product.title
-          ? { ...wishlistItem, quantity: wishlistItem.quantity + quantity }
-          : wishlistItem
-      );
-      setWishlistItems(updatedWishlistItems);
-    } 
-      
-  
-    // Reset the local quantity to 1 after adding to the wishlist
-    setQuantity(1);
-  
-    // Display a toast notification
-    toast.success("Product added to wishlist successfully!", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "light",
-      transition: Bounce,
-    });
-  }
-  
-  
+  //   // Display a toast notification
+  //   toast.success("Product added to wishlist successfully!", {
+  //     position: "top-center",
+  //     autoClose: 3000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     theme: "light",
+  //     transition: Bounce,
+  //   });
+  // }
 
 if(!product){
-  return <p>Loading...</p>}
-
-  //console.log("chacha",product.dicountPercentage);
+  return <p className="text-red-600 text-2xl justify-center">
+    Product is not available!
+    </p>}
   return (
     <>
       <div
-        className="bg-white rounded-lg shadow-md border border-gray-300 justify-center items-center w-[280px] h-[400px]" // Fixed card size
+        className="bg-white rounded-lg shadow-md border border-gray-300 justify-center w-[90%] sm:w-[280px] items-center  h-[400px]" // Fixed card size
       >
         <div className="relative w-full h-[270px]">
           {" "}
           {/* Fixed image container */}
           <Image
-            //src={urlFor(product?.images && product.images[0]).url()}
-            //alt={product.slug}
-            src={urlFor(product.productImage).url()}
+            
+            src={urlFor(product.imageUrl).url()}
             alt={product.slug}
             fill // Use fill to ensure the image fits the container
             className="object-cover rounded-t-lg" // Ensure the image covers the container
@@ -110,19 +101,20 @@ if(!product){
                 </button>
               </Link>
              <Link href={""}>
-             <button className="hover:text-primary flex items-center"
+             {/* <button className="hover:text-primary flex items-center"
              onClick={addProductToWishlist}
              >
                 <FaRegHeart />
                 Like
-              </button> 
+              </button>  */}
+               <WishList /> 
              </Link>
             </div>
           </div>
         </div>
         <div className="p-4">
           <h3 className="text-lg font-semibold font-poppins text-text2 truncate">
-            {product.title}
+            {product.slug}
           </h3>
           <p className="text-sm text-gray-500 mt-2 line-clamp-2">
             {product.description}

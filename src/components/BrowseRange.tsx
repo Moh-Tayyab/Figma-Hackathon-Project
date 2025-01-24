@@ -9,7 +9,7 @@ const Cards = () => {
         <h1 className="text-[32px] leading-[48px] font-poppins font-[700] text-4xl mb-4 w-full text-text1">
           Browse The Range
         </h1>
-        <p className="leading-[30px] text-[20px] font-poppins font-[400px] text-text3 w-full">
+        <p className="leading-[30px] text-[20px] sm:text-[16px] font-poppins font-[400px] text-text3 w-full">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
       </div>
@@ -17,7 +17,7 @@ const Cards = () => {
       {/* Cards Section */}
       <div className="flex flex-wrap justify-center gap-8 p-8">
         {/* Card 1 */}
-        <div className="flex flex-col items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
+        <div className="flex flex-col justify-center items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
           <div className="flex justify-center items-center">
             <Image
               src={"/image 106.png"}
@@ -33,7 +33,7 @@ const Cards = () => {
         </div>
 
         {/* Card 2 */}
-        <div className="flex flex-col items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
+        <div className="flex flex-col items-center justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
           <div className="flex justify-center items-center">
             <Image
               src={"/image 100.png"}
@@ -49,7 +49,7 @@ const Cards = () => {
         </div>
 
         {/* Card 3 */}
-        <div className="flex flex-col items-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
+        <div className="flex flex-col items-center justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mb-8">
           <div className="flex justify-center items-center">
             <Image
               src={"/image 101.png"}

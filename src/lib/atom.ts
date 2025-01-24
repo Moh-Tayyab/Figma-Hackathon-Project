@@ -24,7 +24,7 @@ interface CartItem {
   quantity: number;
 }
 
-interface wishlistItem {
+interface WishlistItem {
   product: {
     slug: string
     _id: string;
@@ -49,7 +49,7 @@ interface wishlistItem {
 
 
 
-export const wishlistAtom = atom<wishlistItem[]>([]);
+export const wishlistAtom = atomWithStorage<WishlistItem[]>("wishlist", []);
 export const cartAtom = atomWithStorage<CartItem[]>("cart", []);
 
 

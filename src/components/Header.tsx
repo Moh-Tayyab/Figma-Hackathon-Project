@@ -5,11 +5,12 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { TbUserExclamation } from "react-icons/tb";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/smalldevicesheet";
 import ShoppingCart from "@/components/ShoppingCart";
 import Link from "next/link";
 import {  useAtom } from "jotai";
 import { wishlistAtom } from "@/lib/atom";
+import { SheetSide } from "./SheetSide";
 //import { itemQuantity } from "@/lib/atom";
 const Header = () => {
    //const [quantity, setQuantity] = useAtom(itemQuantity);
@@ -48,7 +49,7 @@ const Header = () => {
                   <Link href={"/"}>
                     <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-[#f7e9d9]" />
                   </Link>
-                  <Link href={"/whishlist"}>
+                  <Link href={"/wishlist"}>
                     <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
                     <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
 
@@ -106,9 +107,10 @@ const Header = () => {
             <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary" />
           </Link>
           <Link href={"/"}>
-            <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
+            {/* <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" /> */}
+            <SheetSide />
           </Link>
-          <Link href={"/whishlist"}>
+          <Link href={"/wishlist"}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
             <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
 
