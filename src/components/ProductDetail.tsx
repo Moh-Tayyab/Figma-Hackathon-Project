@@ -8,34 +8,31 @@ import { useAtom } from "jotai";
 import { cartAtom, itemQuantity } from "@/lib/atom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { urlFor } from "@/sanity/lib/image";
- const ProductDetail = ({product}: any)=> {
-  const [quantity, setQuantity] = useAtom(itemQuantity);
-  
-  const incQty = () => {
-    setQuantity((prev) => prev + 1);
-  };
+import { Product } from "../../interface";
 
-  const decQty = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-  
-  };
- const [cartItems, setCartItems] = useAtom(cartAtom);
+ const ProductDetail = ({product}:{product:Product})=> {
+  const [quantity, setQuantity] = useAtom(itemQuantity);
+  const [cartItems, setCartItems] = useAtom(cartAtom);
+
+  const incQty = () => setQuantity((prev) => prev + 1);
+  const decQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
   function addProductToCart() {
-    const currentCartItem = cartItems.find(cartItem => cartItem.product.title=== product.title);
+    const currentCartItem = cartItems.find(cartItem => cartItem.name === product.name);
+    
     if (currentCartItem) {
-      // Update quantity if product is already in cart
+      // Fixed: Changed 'Quantity' to 'quantity'
       const updatedCartItems = cartItems.map((cartItem) =>
-        cartItem.product.title === product.title
-          ? { ...cartItem, quantity: cartItem.quantity + quantity }
+        cartItem.name === product.name
+          ? { ...cartItem, quantity: cartItem.Quantity + quantity }
           : cartItem
       );
       setCartItems(updatedCartItems);
     } else {
-      // Add new product to cart
+      // Fixed: Changed cartItems to product in the spread operator
       setCartItems((prevCart) => [
         ...prevCart,
-        { product, quantity: quantity },
+        { ...product, quantity: quantity },
       ]);
     }
 
@@ -73,7 +70,7 @@ import { urlFor } from "@/sanity/lib/image";
           </Link>
           <IoIosArrowForward className="w-4 h-4" />
           <span> |</span>
-          <p className="pl-2 text-black">{product?.title}</p>
+          <p className="pl-2 text-black">{product?.name}</p>
         </ul>
       </div>
       
@@ -81,26 +78,15 @@ import { urlFor } from "@/sanity/lib/image";
         <div className="flex flex-col lg:flex-row lg:items-start items-center lg:gap-6">
           {/* Left Section */}
           <div className="flex lg:flex-col lg:h-[391px] lg:justify-start justify-center gap-4 mb-6 lg:mb-0">
-                  {[...Array(4)].map((_, i) => (
-                    <Image
-                  key={i}
-                  src={urlFor(product.imageUrl).url()}
-                alt={ product.slug}
-                width={90}
-                height={90}
-                quality={100}
-                className="rounded bg-[#F9F1E7] object-cover object-center hover:cursor-pointer hover:scale-110"
-                //onClick={() => setIndex(i)}
-              />
-            ))} 
+                  
           </div>
 
           {/* Main product Image */}
           <div  className="flex-1 flex justify-center items-start mb-6 lg:mb-0 h-[440px]">
           <Image
               className="rounded"
-              src={product.imageUrl}
-              alt={product.title}
+              src={product?.imageUrl}
+              alt={product?.name}
               width={481}
               height={400}
               quality={100}
@@ -111,10 +97,10 @@ import { urlFor } from "@/sanity/lib/image";
           {/* Right Section */}
           <div className="lg:w-1/2 text-start lg:pl-6 lg:mt-0">
             <h1 className="text-black text-2xl lg:text-4xl font-semibold mb-2">
-              {product.title }
+              {product?.name }
             </h1>
             <p className="text-[#9F9F9F] text-lg lg:text-2xl font-medium mb-4">
-              ${product.price}
+              ${product?.originalPrice}
             </p>
             <div className="flex items-center mb-4">
               <AiFillStar className="text-[#FFC700]" />
@@ -126,7 +112,7 @@ import { urlFor } from "@/sanity/lib/image";
               </span>
             </div>
             <p className="text-sm lg:text-base text-black mb-4 line-clamp-4">
-              {product.description }
+              {product?.description }
             </p>
             <div className="flex flex-col gap-4 mb-6">
               <div>
@@ -178,9 +164,9 @@ import { urlFor } from "@/sanity/lib/image";
               </Link>
             </div>
             <ul className="text-sm lg:text-base text-[#9F9F9F] gap-5">
-              <li className="pt-5">SKU: {product.sku}</li>
-              <li className="py-5">Category: {product.category}</li>
-              <li className="pb-5">Tags: {product.tags}</li>
+              <li className="pt-5">SKU: {}</li>
+              <li className="py-5">Category: {}</li>
+              <li className="pb-5">Tags: {product?.tags}</li>
               <li className="flex items-center gap-2">
                 Share: <FaFacebook className="text-black" />{" "}
                 <FaLinkedin className="text-black" />{" "}

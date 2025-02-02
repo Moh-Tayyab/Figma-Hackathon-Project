@@ -4,21 +4,18 @@ import SubHero from "@/components/SubHero";
 import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import Services from "@/components/Services";
-//import { useAtomValue} from "jotai"
-//import { urlFor } from "@/sanity/lib/image";
 import { useAtom } from "jotai";
 import { cartAtom} from "@/lib/atom";
-// import { cartAtom } from "@/lib/atom";
 export default function Cart() {
 const [cartItems, setCartItems] = useAtom(cartAtom);
 
   const removeItem = (slug: string) => {
-    setCartItems(prevCart => prevCart.filter(item => item.product.slug!== slug));
+    setCartItems(prevCart => prevCart.filter(item => item.slug!== slug));
   };
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
-      const price = item?.product?.price || 0;
+      const price = item?.price || 0;
       const quantity = item?.quantity || 0;
   
       // Ensure price and quantity are numbers
@@ -48,19 +45,19 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
               {/* Product Row */}
               {cartItems.map(cartItem => (
 
-              <div key={cartItem.product.slug} className="flex justify-between items-center gap-2 mt-4 px-4">
-                <Link href={"/singleproduct"}>
+              <div key={cartItem.slug} className="flex justify-between items-center gap-4 mt-4 px-2">
+                <div className="flex items-center gap-2">
                   <Image
-                    src={(cartItem.product.imageUrl)} 
+                    src={(cartItem.imageUrl)} 
                     width={50}
                     height={50}
-                    alt={cartItem.product.title}
+                    alt={cartItem.name}
                     className="hover:scale-110 hover:ursor-pointer"
                   />
-                </Link>
-                <p >{cartItem.product.title}</p>
+                <p >{cartItem.name}</p>
+                </div>
                 <p>
-                  {cartItem.product.price}
+                  {cartItem.price}
                 </p>
 
                 <input
@@ -69,10 +66,10 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
                   defaultValue={cartItem.quantity}
                 />
                 <p>
-                    {Number(cartItem.product.price) * Number(cartItem.quantity)}
+                    {Number(cartItem.price) * Number (cartItem.quantity)}
                   </p>
                 <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer" 
-                onClick={() => removeItem(cartItem.product.slug)}
+                onClick={() => removeItem(cartItem.slug)}
                 />
               </div>))}
 
@@ -90,15 +87,15 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
               <span className="pb-4 text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
                 Subtotal:
               </span>{" "}
-              {calculateSubtotal().toFixed(2)}
+              ${calculateSubtotal().toFixed(2)}
             </p>
             <p className="text-[#B88E2F]">
-              <span className="text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
+              <span className="text-[20px] leading-[36px] font-[520px] font-poppins text-black pr-12">
                 Total:
               </span>{" "}  
-              {calculateSubtotal().toFixed(2)}
+              ${calculateSubtotal().toFixed(2)}
             </p>
-            <Link href={"/checkout"}>
+            <Link href={cartItems.length > 0 ? "/checkout" : "#"}>
               <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
                 Check Out
               </button>

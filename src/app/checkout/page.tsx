@@ -14,7 +14,7 @@ export default function CheckoutPage() {
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
-      const price = item?.product?.price || 0;
+      const price = item?.price || 0;
       const quantity = item?.quantity || 0;
 
       // Ensure price and quantity are numbers
@@ -192,16 +192,16 @@ export default function CheckoutPage() {
             <div className="mt-4 flex flex-col gap-2 justify-between px-8">
               {cartItems.map((cartItem) => (
                 <div
-                  key={cartItem.product._id}
+                  key={cartItem.id}
                   className="flex justify-between">
                   <p className="text-[16px] leading-6 text-[#9F9F9F] font-[400px] mb-4">
-                    {cartItem.product.title}{" "}
+                    {cartItem.name}{" "}
                     <span className="font-bold text-black">
                       X {cartItem.quantity}
                     </span>
                   </p>
                   <p>
-                    {Number(cartItem.product.price) * Number(cartItem.quantity)}
+                    {Number(cartItem.price) * Number(cartItem.quantity)}
                   </p>
                 </div>
               ))}

@@ -9,7 +9,8 @@ import { IoReorderThree } from "react-icons/io5";
 import { groq } from 'next-sanity';
 import { urlFor } from '@/sanity/lib/image'
 import { IoMdShare } from 'react-icons/io'
-import { FaArrowRightArrowLeft, FaRegHeart } from 'react-icons/fa6'
+import { FaArrowRightArrowLeft } from 'react-icons/fa6'
+import WishListFunctionality from '@/components/WishListFunctionality'
 
 
 const Product = async () => {
@@ -133,10 +134,11 @@ const Product = async () => {
                     Compare
                   </button>
                 </Link>
-                <button className="hover:text-primary flex items-center">
+                {/* <button className="hover:text-primary flex items-center">
                   <FaRegHeart />
                   Like
-                </button>
+                </button> */}
+                <WishListFunctionality product ={product} quantity={product.Quantity}/>
               </div>
             </div>
           </div>

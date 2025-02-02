@@ -5,20 +5,28 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { TbUserExclamation } from "react-icons/tb";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/smalldevicesheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/smalldevicesheet";
 import ShoppingCart from "@/components/ShoppingCart";
 import Link from "next/link";
-import {  useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { wishlistAtom } from "@/lib/atom";
-import { SheetSide } from "./SheetSide";
-//import { itemQuantity } from "@/lib/atom";
+//import { SheetSide } from "./SheetSide";
+import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
+import SearchModal from "./SearchBar";
+
 const Header = () => {
-   //const [quantity, setQuantity] = useAtom(itemQuantity);
-    const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
+  const { isSignedIn } = useUser();
+  const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
   const [menuOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
 
-  //const toggleMenu = () => setMenuOpen(!menuOpen);
-
+  const toggleSearchModal = () => {
+    setIsSearchModalOpen((prev) => !prev);
+  };
   return (
     <header className="w-full bg-white shadow-md ">
       <div className="flex items-center justify-between px-5 py-4 lg:px-[20px]">
@@ -34,7 +42,7 @@ const Header = () => {
 
         {/* Toggle Button for Small Screens */}
 
-        <div className="md:hidden sm:ml-[400px] ml-16">
+        <div className="lg:hidden sm:ml-[400px] ml-16">
           <Sheet>
             <SheetTrigger>
               <Menu className="text-primary" size={24} />
@@ -43,19 +51,32 @@ const Header = () => {
               <ul className="flex flex-col text-[#333333] md:flex-row gap-4 p-4 items-center">
                 {/* Search and Icons */}
                 <div className="flex-row flex lg:flex gap-8 items-center  text-primary">
-                  <Link href={"/"}>
-                    <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-[#f7e9d9]" />
-                  </Link>
-                  <Link href={"/"}>
-                    <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-[#f7e9d9]" />
-                  </Link>
+                  {isSignedIn ? (
+                    <UserButton />
+                  ) : (
+                    <SignInButton>
+                      <button>
+                        <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary cursor-pointer" />
+                      </button>
+                    </SignInButton>
+                  )}
+                  {/* Search Icon for Large Screens */}
+
+                  {isSearchModalOpen && (
+                    <SearchModal onClose={() => setIsSearchModalOpen(false)} />
+                  )}
+                  <button
+                    onClick={toggleSearchModal}
+                    className="focus:outline-none">
+                    <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
+                  </button>
                   <Link href={"/wishlist"}>
                     <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-[#f7e9d9]" />
-                    <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
-
+                    <span className="absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black">
+                      {wishlistItems.length}
+                    </span>
                   </Link>
-                   <ShoppingCart /> 
-
+                  <ShoppingCart />
                 </div>
                 <li className="font-bold font-helvetica text-[#FFF3E3] text-[14px] sm:text-[16px]">
                   <Link href="/">Home</Link>
@@ -103,21 +124,30 @@ const Header = () => {
 
         {/* Search and Icons */}
         <div className="hidden lg:flex gap-8 items-center">
-          <Link href={"/"}>
-            <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary" />
-          </Link>
-          <Link href={"/"}>
-            {/* <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" /> */}
-            <SheetSide />
-          </Link>
+          {isSignedIn ? (
+            <UserButton />
+          ) : (
+            <SignInButton>
+              <button>
+                <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary cursor-pointer" />
+              </button>
+            </SignInButton>
+          )}
+          {/* Search Icon for Large Screens */}
+
+          {isSearchModalOpen && (
+            <SearchModal onClose={() => setIsSearchModalOpen(false)} />
+          )}
+          <button onClick={toggleSearchModal} className="focus:outline-none">
+            <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
+          </button>
           <Link href={"/wishlist"}>
             <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
-            <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{wishlistItems.length}</span>
-
+            <span className="absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black">
+              {wishlistItems.length}
+            </span>
           </Link>
-           <ShoppingCart /> 
-          {/* <MdOutlineShoppingCart className="h-[34px] w-[34px] hover:scale-110  hover:cursor-pointer border bg-white border-gray-300 rounded-lg " />
-          <span className='absolute text-[12px] top-7 right-14 bg-primary w-[18px] h-[18px] rounded-3xl text-center text-white font-urbanist  font-black'>{totalQuantity}</span> */}
+          <ShoppingCart />
         </div>
       </div>
     </header>

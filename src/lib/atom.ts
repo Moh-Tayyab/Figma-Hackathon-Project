@@ -1,53 +1,73 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-
+import { BillingDetails, Product } from "../../interface";
+//import { DetailPreview } from "sanity";
 interface CartItem {
-  product: {
-    slug: string
-    _id: string;
-    title: string;
-    imageUrl: string
-    name:string;
-    orignalPrice: number;
-    discount: number;
-    fakePrice: number;
-    sku: string;
-    new: boolean;
-    images:string;
-   productImage: string,
-      price: number
-      tags: string
-       dicountPercentage: number;
-      description: string
-      isNew: boolean
-  };
-  quantity: number;
-}
+  
+    imageUrl: string;
+	rating: {
+	  count: number;
+	  rate: number;
+	};
+	tags: string[];
+	price: number;
+	discount: number;
+	originalPrice: number;
+	slug: string;
+	categoryName: string;
+	name: string;
+	stock: number;
+	dimensions: {
+	  depth: number;
+	  width: number;
+	  height: number;
+	};
+	id: number;
+	description: string;
+	Quantity: number;
+	Finalprice: number;
+	quantity: number;
+  }
+ 
 
 interface WishlistItem {
-  product: {
-    slug: string
-    _id: string;
-    title: string;
-    imageUrl: string
-    name:string;
-    orignalPrice: number;
-    discount: number;
-    fakePrice: number;
-    sku: string;
-    new: boolean;
-    images:string;
-   productImage: string,
-      price: number
-      tags: string
-       dicountPercentage: number;
-      description: string
-      isNew: boolean
-  };
+  product :{
+    imageUrl: string;
+	rating: {
+	  count: number;
+	  rate: number;
+	};
+	tags: string[];
+	price: number;
+	discount: number;
+	originalPrice: number;
+	slug: string;
+	categoryName: string;
+	name: string;
+	stock: number;
+	dimensions: {
+	  depth: number;
+	  width: number;
+	  height: number;
+	};
+	id: number;
+	description: string;
+	Quantity: number;
+	Finalprice: number;
+  }
   quantity: number;
+
 }
 
-
+const initialBillingDetails: BillingDetails = {
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    paymentMethod: "cashOnDelivery", 
+  }
 
 export const wishlistAtom = atomWithStorage<WishlistItem[]>("wishlist", []);
 export const cartAtom = atomWithStorage<CartItem[]>("cart", []);
@@ -65,8 +85,13 @@ export const cartQuantity = atom((get) => {
 
 export const removeFromCartAtom = atom(null, (get, set, productId) => {
   const currentCart = get(cartAtom);
-  const updatedCart = currentCart.filter((item) => item.product._id !== productId);
+  const updatedCart = currentCart.filter((item) => item.id !== productId);
   set(cartAtom, updatedCart);
 });
 
 
+export const customerFormDetails = atomWithStorage<BillingDetails>('customerFormDetails', initialBillingDetails);
+
+
+// Manage Loading State in Jotai for stripe payment
+export const isStripeLoading = atom<boolean>(false);

@@ -7,22 +7,22 @@ import { client } from '@/sanity/lib/client'
 import { PiCirclesFourFill } from "react-icons/pi";
 import { IoReorderThree } from "react-icons/io5";
 import { groq } from 'next-sanity';
-import { urlFor } from '@/sanity/lib/image'
 import { IoMdShare } from 'react-icons/io'
-import { FaArrowRightArrowLeft, FaRegHeart } from 'react-icons/fa6'
+import { FaArrowRightArrowLeft } from 'react-icons/fa6'
+import WishListFunctionality from '@/components/WishListFunctionality'
 
 
 const Product = async () => {
   const res = await client.fetch(groq `*[_type == "myproduct"] {
-    name,
+      name,
       description,
       price,
-    slug,
+      slug,
       id,
       originalPrice,
       stock,
       dimensions,
-      "image": image.asset->url
+      "imageUrl": image.asset->url
   } [24...48]
 `);
 //console.log(res) 
@@ -98,7 +98,7 @@ const Product = async () => {
         >
           <div className="relative w-full h-[270px]"> {/* Fixed image container */}
             <Image
-              src={urlFor(product.image).url()}
+              src={(product.imageUrl)}
               alt={product.slug}
               fill // Use fill to ensure the image fits the container
               className="object-cover rounded-t-lg" // Ensure the image covers the container
@@ -133,10 +133,7 @@ const Product = async () => {
                     Compare
                   </button>
                 </Link>
-                <button className="hover:text-primary flex items-center">
-                  <FaRegHeart />
-                  Like
-                </button>
+                <WishListFunctionality product ={product} quantity={product.Quantity}/>
               </div>
             </div>
           </div>

@@ -33,19 +33,19 @@ const page = () => {
           {/* Product 1 */}
           
             {cartItems.map((cartItem => (
-              <div key={cartItem.product._id} className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <div key={cartItem.id} className="gap-3 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <Image
-                  src={ urlFor(cartItem.product.imageUrl).url()}
-                  alt={ cartItem.product.title}
+                  src={ urlFor(cartItem.imageUrl).url()}
+                  alt={ cartItem.name}
                   width={270}
                   height={177}
                   className="rounded-lg bg-[#FAF3EA] object-cover hover:scale-110"
                 />
                 <h2 className="text-2xl font-medium leading-[30.36px] pt-3 pb-2">
-                  {cartItem.product.title}
+                  {cartItem.name}
                 </h2>
                 <p className="font-medium text-[18px] leading-[30.36px] pb-2">
-                  Rs.{cartItem.product.price}
+                  Rs.{cartItem.originalPrice}
                 </p>
                 <div className="flex items-center mb-4 justify-center sm:justify-start">
                   <p className="pr-2">4.7</p>

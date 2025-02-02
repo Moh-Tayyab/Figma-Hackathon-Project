@@ -20,7 +20,7 @@ const ShoppingCart = () => {
  
   const [cartItems, setCartItems] = useAtom(cartAtom);
   const removeItem = (slug: string) => {
-    setCartItems(prevCart => prevCart.filter(item => item.product.slug !== slug));
+    setCartItems(prevCart => prevCart.filter(item => item.slug !== slug));
   };
 
  
@@ -30,7 +30,7 @@ const ShoppingCart = () => {
     }
 
     return cartItems.reduce((total, item) => {
-      const price = Number(item?.product?.price) || 0;
+      const price = Number(item?.originalPrice) || 0;
       const quantity = Number(item?.quantity) || 0;
 
       if (price === 0 || quantity === 0) {
@@ -70,12 +70,11 @@ const ShoppingCart = () => {
                 {cartItems && cartItems?.length > 0 ? (   
               cartItems.map((cartItem => (
                 <div
-                  key={cartItem.product.slug}
+                  key={cartItem.slug}
                   className="flex flex-col md:flex-row gap-4 items-center pr-3">
                   <Image
-                    //loader={()=>urlForImage(product.images[i]).url()}
-                    src={(cartItem.product.imageUrl)}
-                    alt={ cartItem.product.productImage}
+                    src={(cartItem.imageUrl)}
+                    alt={ cartItem.name}
                     width={108}
                     height={105}
                     className="bg-[#FAF3EA] rounded-xl w-[108px] h-[105px] hover:scale-110"
@@ -83,19 +82,19 @@ const ShoppingCart = () => {
 
                   <div className="text-center md:text-left items-center pl-2">
                     <h2 className="pb-3 text-black text-[14px] md:text-[16px]">
-                      {cartItem.product.title} 
+                      {cartItem.name} 
                     </h2>
                     <div className="flex justify-center md:justify-start gap-2">
                       <span className="pr-3">{ cartItem.quantity} 
                       </span>
                       <span className="pr-3">x</span>
                       <span className="text-[#B88E2F] text-[12px] md:text-[14px] font-poppins font-medium leading-[18px]">
-                        { cartItem.product.price} 
+                        { cartItem.originalPrice} 
                       </span>
                     </div>
                   </div>
                   <CiCircleRemove className="w-6 h-6 mt-4 md:mt-7 md:ml-7 bg-[#9F9F9F] text-white rounded-full hover:scale-110 text-[14px] hover:cursor-pointer"
-                    onClick={() => removeItem(cartItem.product.slug)}
+                    onClick={() => removeItem(cartItem.slug)}
                    />
                 </div>
               )))): (
@@ -113,7 +112,7 @@ const ShoppingCart = () => {
               Subtotal
             </h2>
             <h3 className="text-primary font-poppins font-semibold text-[14px] md:text-[16px] leading-[24px]">
-              {calculateSubtotal().toFixed(2)} 
+              ${calculateSubtotal().toFixed(2)} 
             </h3>
           </div>
           <SheetHeader>
