@@ -95,7 +95,7 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
               </span>{" "}  
               ${calculateSubtotal().toFixed(2)}
             </p>
-            <Link href={cartItems.length > 0 ? "/checkout" : "#"}>
+            <Link href={cartItems.length > 0 ? "/billing-summary" : "#"}>
               <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
                 Check Out
               </button>

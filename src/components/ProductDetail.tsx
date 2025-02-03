@@ -10,7 +10,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Product } from "../../interface";
 
- const ProductDetail = ({product}:{product:Product})=> {
+ const ProductDetail = ({product}: {product: Product})=> {
   const [quantity, setQuantity] = useAtom(itemQuantity);
   const [cartItems, setCartItems] = useAtom(cartAtom);
 

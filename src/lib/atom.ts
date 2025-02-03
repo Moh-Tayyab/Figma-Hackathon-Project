@@ -1,9 +1,8 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { BillingDetails, Product } from "../../interface";
+import { BillingDetails } from "../../interface";
 //import { DetailPreview } from "sanity";
 interface CartItem {
-  
     imageUrl: string;
 	rating: {
 	  count: number;
@@ -31,16 +30,15 @@ interface CartItem {
  
 
 interface WishlistItem {
-  product :{
-    imageUrl: string;
+	imageUrl: string;
 	rating: {
 	  count: number;
 	  rate: number;
 	};
 	tags: string[];
-	price: number;
-	discount: number;
-	originalPrice: number;
+	price: number;               // Current price (after discount)
+	discount: number;            // Discount percentage
+	originalPrice: number;       // Original price before discount
 	slug: string;
 	categoryName: string;
 	name: string;
@@ -52,11 +50,9 @@ interface WishlistItem {
 	};
 	id: number;
 	description: string;
-	Quantity: number;
-	Finalprice: number;
-  }
-  quantity: number;
-
+	quantity: number;            // Changed from Quantity to camelCase
+	finalPrice: number;          // Changed from Finalprice to camelCase
+	Quantity: number; 
 }
 
 const initialBillingDetails: BillingDetails = {

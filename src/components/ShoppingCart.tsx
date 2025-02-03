@@ -48,7 +48,7 @@ const ShoppingCart = () => {
         <SheetTrigger asChild>
           <div>
           <MdOutlineShoppingCart className="h-auto w-[32px] hover:scale-110 hover:text-primary hover:cursor-pointer" />
-          <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'>{cartItemsQuantity}</span></div>
+          <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'> {cartItemsQuantity} </span></div>
         </SheetTrigger>
         <SheetContent
           aria-describedby="shopping-cart-description"
@@ -85,7 +85,7 @@ const ShoppingCart = () => {
                       {cartItem.name} 
                     </h2>
                     <div className="flex justify-center md:justify-start gap-2">
-                      <span className="pr-3">{ cartItem.quantity} 
+                      <span className="pr-3">{cartItem.quantity} 
                       </span>
                       <span className="pr-3">x</span>
                       <span className="text-[#B88E2F] text-[12px] md:text-[14px] font-poppins font-medium leading-[18px]">

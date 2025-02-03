@@ -22,8 +22,8 @@ const OurPoduct = async () => {
         "slug":slug.current,
         "imageUrl": image.asset->url,
         rating,}
-    [0...8]
-    `); // fetch 8 items
+        [0...8]
+        `); // fetch 8 items
     
     const getTagColor = (tag: string) => {
       switch (tag.toLowerCase()) {
@@ -96,7 +96,7 @@ const OurPoduct = async () => {
                         Compare
                       </button>
                     </Link>
-               <WishListFunctionality product ={ourProduct} quantity={ourProduct.Quantity}/>
+               <WishListFunctionality product ={ourProduct} />
                   </div>
                 </div>
               </div>

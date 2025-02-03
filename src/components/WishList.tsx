@@ -10,7 +10,7 @@ const Wishlist = () => {
 
    const removeItemFromWishlist = (slug: string) => {
     setwishlistItems((prevWishlist) =>
-      prevWishlist.filter((item) => item.product?.slug !== slug)
+      prevWishlist.filter((item) => item.slug !== slug)
     );
    
   };
@@ -45,15 +45,15 @@ const Wishlist = () => {
             {/* Map Method to render wishlistItem.product cards */}
             {wishlistItems.map(wishlistItem =>  (
                 <div
-                  key={wishlistItem.product?.slug}
+                  key={wishlistItem.slug}
                   className="bg-white rounded-lg shadow-md border border-gray-300 justify-center items-center w-[280px] h-[400px]" // Fixed card size
                 >
                   <div className="relative w-full h-[270px]">
                     {" "}
                     {/* Fixed image container */}
                     <Image
-                      src={(wishlistItem.product?.imageUrl)}
-                      alt={wishlistItem.product?.slug}
+                      src={(wishlistItem.imageUrl)}
+                      alt={wishlistItem.slug}
                       fill 
                       className="object-cover rounded-t-lg" 
                       quality={100}
@@ -61,7 +61,7 @@ const Wishlist = () => {
                       <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-1 py-3 rounded-full">
                         
                         <RiDeleteBin6Line  className="h-6 w-6"
-                        onClick={ () => removeItemFromWishlist(wishlistItem.product?.slug)}
+                        onClick={ () => removeItemFromWishlist(wishlistItem.slug)}
                         />
                       </div>
                     
@@ -69,11 +69,11 @@ const Wishlist = () => {
                   </div>
                   <div className="p-4">
                     <h3 className="text-lg font-semibold font-poppins text-text2 truncate">
-                      {wishlistItem.product?.name}
+                      {wishlistItem.name}
                     </h3>
                     <div className="flex items-center justify-between mt-2">
                       <span className="text-lg font-semibold text-text2">
-                        ${wishlistItem.product?.price}
+                        ${wishlistItem.price}
                       </span>
                     </div>
                      {/* Rating Section */}
@@ -82,7 +82,7 @@ const Wishlist = () => {
               <svg
                 key={index}
                 xmlns="http://www.w3.org/2000/svg"
-                fill={index < Math.round(wishlistItem.product?.rating?.rate) ? "gold" : "none"}
+                fill={index < Math.round(wishlistItem.rating?.rate) ? "gold" : "none"}
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
@@ -95,7 +95,7 @@ const Wishlist = () => {
               </svg>
             ))}
             <span className="ml-2 text-gray-600 text-sm">
-              ({wishlistItem.product?.rating?.count} reviews)
+              ({wishlistItem.rating?.count} reviews)
             </span>
           </div>
                   </div>

@@ -4,48 +4,21 @@ import { wishlistAtom, itemQuantity } from "@/lib/atom"; // Ensure both atoms ar
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import { FaRegHeart } from 'react-icons/fa';
 import { useAtom } from 'jotai';
-
-interface Product {
-  product: {
-    imageUrl: string;
-    rating: {
-      count: number;
-      rate: number;
-    };
-    tags: string[];
-    price: number;
-    discount: number;
-    originalPrice: number;
-    slug: string;
-    categoryName: string;
-    name: string;
-    stock: number;
-    dimensions: {
-      depth: number;
-      width: number;
-      height: number;
-    };
-    id: number;
-    description: string;
-    Quantity: number;
-    Finalprice: number;
-  };
-  quantity: number;
-}
-const WishListFunctionality = (product:Product) => {
+import { Product } from '../../interface';
+const WishListFunctionality = ({product}:{product:Product}) => {
 
   const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
   const [quantity, setQuantity] = useAtom(itemQuantity);
 
-  function addProductToWishlist(slug:string) {
+  function addProductToWishlist(name:string) {
     // Check if the product is already in the wishlist
-    const currentWishlistItem = wishlistItems.find(wishlistItem => wishlistItem.product.name === slug
+    const currentWishlistItem = wishlistItems.find(wishlistItem => wishlistItem.name === name
     );
 
     if (currentWishlistItem) {
       // Update quantity if the product is already in the wishlist
       const updatedWishlistItems = wishlistItems.map((wishlistItem) =>
-        wishlistItem.product.name === slug
+        wishlistItem.name === name
           ? { ...wishlistItem, quantity: wishlistItem.quantity + quantity }
           : wishlistItem
       );
@@ -54,7 +27,7 @@ const WishListFunctionality = (product:Product) => {
       // Add new product to the wishlist
       setWishlistItems((prevWishlist) => [
         ...prevWishlist,
-        {...product, quantity: product.quantity },
+        {...product, quantity: quantity },
       ]);
     }
 
@@ -80,7 +53,7 @@ const WishListFunctionality = (product:Product) => {
       <section>
         <button
           className="hover:text-primary flex items-center"
-          onClick={ () =>addProductToWishlist(product.product?.slug)}
+          onClick={ () =>addProductToWishlist(product.name)}
         >
           <FaRegHeart />
           Like

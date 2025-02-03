@@ -100,7 +100,7 @@ const getTagColor = (tag: string) => {
                         Compare
                       </button>
                     </Link>
-               <WishListFunctionality product ={relatedProduct} quantity={relatedProduct.Quantity}/>
+               <WishListFunctionality product ={relatedProduct}/>
                   </div>
                 </div>
               </div>
