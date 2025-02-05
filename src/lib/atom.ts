@@ -24,7 +24,7 @@ interface CartItem {
 	id: number;
 	description: string;
 	Quantity: number;
-	Finalprice: number;
+	finalPrice: number;
 	quantity: number;
   }
  

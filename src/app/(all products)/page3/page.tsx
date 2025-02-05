@@ -11,6 +11,31 @@ import { IoMdShare } from 'react-icons/io'
 import { FaArrowRightArrowLeft } from 'react-icons/fa6'
 import WishListFunctionality from '@/components/WishListFunctionality'
 
+interface Product {
+	imageUrl: string;
+	rating: {
+	  count: number;
+	  rate: number;
+	};
+	tags: string[];
+	price: number;               
+	discount: number;            
+	originalPrice: number;       
+	slug: string;
+	categoryName: string;
+	name: string;
+	stock: number;
+	dimensions: {
+	  depth: number;
+	  width: number;
+	  height: number;
+	};
+	id: number;
+	description: string;
+	quantity: number;            
+	finalPrice: number;         
+	Quantity: number;            
+  }
 
 const Product = async () => {
   const res = await client.fetch(groq `*[_type == "myproduct"] {
@@ -23,9 +48,23 @@ const Product = async () => {
       stock,
       dimensions,
       "imageUrl": image.asset->url
-  } [24...48]
-`);
-//console.log(res) 
+  } [24...48]`);
+
+const getTagColor = (tag: string) => {
+  switch (tag.toLowerCase()) {
+    case "sale":
+      return "bg-green-500";
+    case "popular":
+      return "bg-yellow-500";
+    case "limited":
+      return "bg-blue-500";
+    case "discount":
+      return "bg-red-500";
+    default:
+      return "bg-gray-500";
+  }
+};
+
   return (
     <>
     {/*subhero Section */}
@@ -90,66 +129,99 @@ const Product = async () => {
   {/* Wrapper div for flex grid */}
   <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
     {/* Map Method to render product cards */}
-    {res.map((product: any, i: any) => {
+    {res.map((product: Product, i: number) => {
       return (
         <div
-          key={i}
-          className="bg-white rounded-lg shadow-md border border-gray-300 justify-center items-center w-[280px] h-[400px]" // Fixed card size
-        >
-          <div className="relative w-full h-[270px]"> {/* Fixed image container */}
-            <Image
-              src={(product.imageUrl)}
-              alt={product.slug}
-              fill // Use fill to ensure the image fits the container
-              className="object-cover rounded-t-lg" // Ensure the image covers the container
-              quality={100}
-            />
-            {product.discount && (
-              <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-2 py-1 rounded-full">
-                -{product.discount}
-              </div>
-            )}
-            {product.new && (
-              <div className="absolute top-2 left-2 bg-accent1 text-white text-sm px-2 py-1 rounded-full">
-                NEW
-              </div>
-            )}
-
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-              <Link href={`/shop/${product.slug.current}`}>
-                <button className="bg-white text-primary px-4 py-2 mb-4 rounded hover:cursor-pointer">
-                  Add to Cart
+        key={i}
+        className="bg-white rounded-lg shadow-md border border-gray-300 w-[90%] sm:w-[280px] h-[400px]" // Width adjusts on small screens
+      >
+        <div className="relative w-full h-[270px]">
+          <Image
+            src={(product.imageUrl)}
+            alt={product.slug}
+            fill
+            className="object-cover rounded-t-lg"
+            quality={100}
+          />
+          {product.discount && (
+      <div className="absolute top-2 right-2 bg-accent2 text-white text-sm px-2 py-1 rounded-lg">
+        -{product.discount}% off
+      </div>
+    )}
+    {/* Tags */}
+    {product.tags && (
+      <div className="absolute top-2 left-2 space-y-1">
+        {product.tags.slice(0, 1).map((tag, index) => (
+          <span
+            key={index}
+            className={`text-white text-xs font-semibold px-2 py-1 rounded-lg shadow-md ${getTagColor(
+              tag
+            )}`}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+            <Link href={`/shop/${product.slug}`}>
+              <button className="bg-white text-primary px-4 py-2 mb-4 rounded">
+                Add to Cart
+              </button>
+            </Link>
+            <div className="flex space-x-4 text-white">
+              <button className="hover:text-primary flex items-center">
+                <IoMdShare />
+                Share
+              </button>
+              <Link href={"/comparison"}>
+                <button className="hover:text-primary flex items-center">
+                  <FaArrowRightArrowLeft />
+                  Compare
                 </button>
               </Link>
-              <div className="flex space-x-4 text-white">
-                <button className="hover:text-primary flex items-center">
-                  <IoMdShare />
-                  Share
-                </button>
-                <Link href={'/comparison'}>
-                  <button className="hover:text-primary flex items-center">
-                    <FaArrowRightArrowLeft />
-                    Compare
-                  </button>
-                </Link>
-                <WishListFunctionality product ={product} quantity={product.Quantity}/>
-              </div>
-            </div>
-          </div>
-          <div className="p-4">
-            <h3 className="text-lg font-semibold font-poppins text-text2 truncate">
-              {product.name}
-            </h3>
-            <p className="text-sm text-gray-500 mt-2 line-clamp-2">{product.description}</p>
-            <div className="flex items-center justify-between mt-2">
-              <span className="text-lg font-semibold text-text2">${product.price}</span>
-              {product.fakePrice && (
-                <span className="text-sm text-gray-500 line-through">${product.fakePrice}</span>
-              )}
+         <WishListFunctionality product ={product} />
             </div>
           </div>
         </div>
+        <div className="p-4">
+          <h3 className="text-lg font-semibold font-poppins text-text2 truncate">
+            {product.name}
+          </h3>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-lg font-semibold text-text2">
+              ${product.originalPrice}
+            </span>
+            {/* {product.fakePrice && (
+              <span className="text-sm text-gray-500 line-through">
+                ${product.fakePrice}
+              </span>
+            )} */}
+          </div>
+          {/* Rating Section */}
+    <div className="flex items-center mt-2">
+      {[...Array(5)].map((_, index) => (
+        <svg
+          key={index}
+          xmlns="http://www.w3.org/2000/svg"
+          fill={index < Math.round(product.rating?.rate) ? "gold" : "none"}
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-5 h-5 text-yellow-500">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 17.25l6.172 3.83-1.638-7.07 5.466-4.86-7.22-.62L12 2.25l-2.78 6.28-7.22.62 5.466 4.86-1.638 7.07L12 17.25z"
+          />
+        </svg>
+      ))}
+      <span className="ml-2 text-gray-600 text-sm">
+        ({product.rating?.count} reviews)
+      </span>
+    </div>
+        </div>
+      </div>
       );
     })}
   </div>

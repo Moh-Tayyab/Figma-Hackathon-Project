@@ -8,7 +8,11 @@ import { urlFor } from "@/sanity/lib/image";
 import WishListFunctionality from "./WishListFunctionality";
 import { Product } from "../../interface";
 
-const Card = ({ product }: { product: Product }) => {
+interface CardProps {
+  product: Product;
+}
+
+const Card: React.FC<CardProps> = ({ product }) => {
   if (!product) {
     return (
       <p className="text-red-600 text-2xl justify-center">
@@ -32,7 +36,8 @@ const Card = ({ product }: { product: Product }) => {
   };
   return (
     <>
-      <div
+    <section>   
+    <div
         className="bg-white rounded-lg shadow-md border border-gray-300 justify-center w-[90%] sm:w-[280px] items-center  h-[400px]" // Fixed card size
       >
         <div className="relative w-full h-[270px]">
@@ -88,7 +93,7 @@ const Card = ({ product }: { product: Product }) => {
                 </button>
               </Link>
               <Link href={""}>
-                <WishListFunctionality product={product} quantity={product.Quantity} />
+                <WishListFunctionality product={product} />
               </Link>
             </div>
           </div>
@@ -124,6 +129,8 @@ const Card = ({ product }: { product: Product }) => {
           </div>
         </div>
       </div>
+      </section>
+      
     </>
   );
 };

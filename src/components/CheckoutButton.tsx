@@ -6,7 +6,6 @@ import { useAtom } from 'jotai';
 import { BillingDetails } from '../../interface';
 import { cartAtom, customerFormDetails, isStripeLoading } from '@/lib/atom';
 
-
 const CheckoutButton = ({disabled}:any) => {
 
   // console.log(disabled)
@@ -20,7 +19,7 @@ const CheckoutButton = ({disabled}:any) => {
     // Load Stripe.js with your publishable key
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!).then((loadedStripe) => {
       setStripe(loadedStripe);
-    }).catch(error => {
+    }).catch(error => {0
       console.error('Error loading Stripe:', error);
     });
   }, []);
@@ -66,12 +65,12 @@ const CheckoutButton = ({disabled}:any) => {
 
   return (
     <button
-      className={`${!disabled?"bg-blue-500 hover:bg-blue-600":"bg-gray-500 cursor-not-allowed"} w-full text-white p-2 rounded mt-4`}
+      className={`${!disabled?"bg-white hover:text-white hover:bg-black text-black text-[20px] leading-[30px] font-poppins":"bg-gray-500 cursor-not-allowed"}hover:text-white p-2  mt-4 px-6 py-3  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font-poppins hover:scale-110 focus:outline-none`}
       onClick={handleCheckout}
       disabled={!stripe || isLoading || cartItems.length === 0 || disabled}
 
     >
-      {isLoading ? 'Loading...' : 'checkout'}
+      {isLoading ? 'Loading...' : 'Checkout'}
     </button>
   );
 };

@@ -37,7 +37,7 @@ export const orderItem = defineType({
     prepare({ productName, quantity, price }) {
       return {
         title: `${productName || 'Unknown product'} × ${quantity}`,
-        subtitle: `Price: $${price?.toFixed(2)}`,
+        subtitle: `Price: $${price}`,
       };
     },
   },

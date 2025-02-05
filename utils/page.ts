@@ -5,13 +5,13 @@ import { Billing, Product } from "../interface";
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: "2023-01-01",
+  apiVersion: "2025-01-27",
   useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
 });
 
 //Function to save order to Sanity
-export const saveOrderToSanity = async (
+const saveOrderToSanity = async (
   billingDetails: Billing,
   cartItems: Product[],
   totalAmount: number
@@ -52,7 +52,7 @@ export const saveOrderToSanity = async (
       ? parseInt(lastOrder.orderId.split("-")[1], 10)
       : 0;
 
-    const newOrderId = `AvionOID-${(lastOrderNumber + 1)
+    const newOrderId = `FurniroID-${(lastOrderNumber + 1)
       .toString()
       .padStart(2, "0")}`;
 
@@ -66,9 +66,9 @@ export const saveOrderToSanity = async (
         _key: Math.random().toString(36).substring(2, 11), // Unique key for each item
         name: item.name,
         image: item.imageUrl,
-        quantity: item.Quantity,
-        unitPrice: item.Finalprice,
-        totalPrice: item.Finalprice * item.Quantity,
+        quantity: item.quantity,
+        unitPrice: item.price,
+        totalPrice: item.price * item.quantity,
       })),
       totalAmount,
       orderDate: new Date().toISOString(),
@@ -84,3 +84,5 @@ export const saveOrderToSanity = async (
     throw new Error("Failed to save order to Sanity");
   }
 };
+
+export default saveOrderToSanity;

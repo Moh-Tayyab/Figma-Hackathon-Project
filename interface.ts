@@ -25,44 +25,34 @@ export interface Product {
   }
   
   export interface BillingDetails {
-	firstName: string;
-  lastName: string;
-  company?: string;
-  country: string;
-  addressLine1: string;
-  city: string;
-  province: string;
-  zipCode: string;
-  email: string;
-  phoneNumber: string;
-  address2?: string;
-	paymentMethod: "cashOnDelivery" | "stripe";
+	fullName: string;
+	phoneNumber: string;
+	email: string;
+	addressLine1: string;
+	addressLine2?: string; 
+	city: string;
+	paymentMethod: "cashOnDelivery" | "stripe"; 
   }
   
-  export interface ProductDetail {
-	id: number;                  // Added essential identifier
+  
+export interface ProductDetail {
 	name: string;
 	imageUrl: string;
-	finalPrice: number;          // Consistent camelCase
-	quantity: number;            // Consistent camelCase
-	slug: string;                // Added for product linking
+	Finalprice: number;
+	Quantity: number;
   }
   
-  export interface Billing extends Omit<BillingDetails, 'paymentMethod'> {
+  export interface Billing{
 	fullName: string;
 	email: string;
-    phoneNumber: string;
-    addressLine1: string;
-    addressLine2?: string;
-    city: string;
+	phoneNumber: string;
+	addressLine1: string;
+	addressLine2?: string;
+	city: string;
   }
   
   export interface Order {
 	customerDetails: Billing;
 	cartItems: ProductDetail[];
 	totalAmount: number;
-	orderDate: Date;             // Added important order metadata
-	paymentStatus: "pending" | "completed" | "failed";
-	_id?: string;                // For database reference
-	_type?: string;              // For Sanity.io compatibility
   }

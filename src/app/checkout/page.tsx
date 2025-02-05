@@ -1,29 +1,68 @@
 "use client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
 import Link from "next/link";
 import { useAtom } from "jotai";
-import { cartAtom } from "@/lib/atom";
+import { useState } from "react";
+import { BillingDetails } from "../../../interface";
+import CheckoutButton from "@/components/CheckoutButton";
+import { cartAtom, customerFormDetails, isStripeLoading } from "@/lib/atom";
+
 export default function CheckoutPage() {
   const [cartItems, setCartItems] = useAtom(cartAtom);
+  const [billingDetails, setBillingDetails] = useAtom<BillingDetails>(customerFormDetails);
+  const [isLoading, setIsLoading] = useAtom<boolean>(isStripeLoading);
+  const [errors, setErrors] = useState({
+    phoneNumber: false,
+    email: false,
+  });
 
-  const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => {
-      const price = item?.price || 0;
-      const quantity = item?.quantity || 0;
+  // Validation Regex
+  const phoneRegex = /^[0-9]{11}$/; // 11 digit phone number
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
 
-      // Ensure price and quantity are numbers
-      if (typeof price !== "number" || typeof quantity !== "number") {
-        return total; // Skip this item
-      }
+  // Helper function to check if all required fields are filled
+  const isFormValid = () => {
+    const { fullName, phoneNumber, email, addressLine1, city } = billingDetails;
+    return (
+      fullName.trim() !== "" &&
+      phoneRegex.test(phoneNumber) &&
+      emailRegex.test(email) &&
+      addressLine1.trim() !== "" &&
+      city.trim() !== ""
+    );
+  };
 
-      return total + price * quantity;
-    }, 0);
+  const updatedCart = cartItems.map((item: { quantity: number; price: number }) => ({
+    ...item,
+    totalPrice: item.quantity * item.price,
+  }));
+
+  const totalAmount = updatedCart.reduce(
+    (acc: number, item: { totalPrice: number }) => acc + item.totalPrice,
+    0
+  );
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setBillingDetails((prev) => ({ ...prev, [name]: value }));
+
+    // Validation logic
+    if (name === "phoneNumber") {
+      setErrors((prev) => ({
+        ...prev,
+        phoneNumber: !phoneRegex.test(value),
+      }));
+    }
+    if (name === "email") {
+      setErrors((prev) => ({
+        ...prev,
+        email: !emailRegex.test(value),
+      }));
+    }
   };
 
   return (
@@ -33,243 +72,200 @@ export default function CheckoutPage() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-10">
             <div>
-              <h2 className="text-4xl leading-6 font-poppins font-[600px] mb-12">
-                Billing details
-              </h2>
-              <div className="grid gap-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block text-sm font-medium text-gray-700 mb-6">
-                      First name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      className="w-full px-2 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block text-sm font-medium text-gray-700 mb-6">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    />
-                  </div>
+              <h2 className="text-3xl font-semibold mb-8">Billing Details</h2>
+              <div className="grid gap-6">
+                <div>
+                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Full Name"
+                    value={billingDetails.fullName}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
                 </div>
                 <div>
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-gray-700 mb-6">
+                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
                     Company Name (Optional)
                   </label>
                   <input
                     type="text"
-                    id="company"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    name="company"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Country / Region
-                  </label>
-                  <select
-                    id="country"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                    <option value=""> Sri Lanka</option>
-                    <option value="us">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="ca">Canada</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="street"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Street address
+                  <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700 mb-2">
+                    Street Address
                   </label>
                   <input
                     type="text"
-                    id="street"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                    name="addressLine1"
+                    value={billingDetails.addressLine1}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    required
                   />
                 </div>
-
                 <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Town / City
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
+                    City
                   </label>
                   <input
                     type="text"
-                    id="city"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                    placeholder="Choose city"
+                    name="city"
+                    value={billingDetails.city}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="City"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Province
-                  </label>
-                  <select
-                    id="country"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                    <option value="">Western Province</option>
-                    <option value="us">Eastern Province</option>
-                    <option value="uk">Northern Province</option>
-                    <option value="ca">Southtern Province</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="zipCode"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Zip code
+                  <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-2">
+                    Zip Code
                   </label>
                   <input
                     type="text"
-                    id="zipCode"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    name="zipCode"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Email address
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
                   </label>
                   <input
                     type="email"
-                    id="email"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                    name="email"
+                    value={billingDetails.email}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border ${
+                      errors.email ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary`}
+                    required
                   />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email address.</p>}
                 </div>
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-6">
-                    Phone number
+                  <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
                   </label>
                   <input
                     type="tel"
-                    id="phone"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                    name="phoneNumber"
+                    value={billingDetails.phoneNumber}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border ${
+                      errors.phoneNumber ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary`}
+                    required
                   />
+                  {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">Please enter a valid 11-digit phone number.</p>}
                 </div>
                 <div>
-                  <label
-                    htmlFor="address2"
-                    className="block text-sm font-medium text-gray-700 mb-6"></label>
+                  <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700 mb-2">
+                    Additional Information (Optional)
+                  </label>
                   <input
                     type="text"
-                    id="address2"
                     placeholder="Additional information"
-                    className="w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                    name="addressLine2"
+                    value={billingDetails.addressLine2}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
             </div>
           </div>
-          {/*place order */}
 
-          <div className="px-8 py-8 h-auto">
-            <div className="flex justify-between px-8">
-              <p className="font-bold text-[18px]">Product</p>
-              <p className="font-bold text-[18px]">Subtotal</p>
+          {/* Place Order Section */}
+          <div className="bg-white border shadow-lg border-spacing-1 border-gray-300 p-8 rounded-lg">
+            <div className="flex justify-between mb-6">
+              <p className="font-semibold text-lg">Product</p>
+              <p className="font-semibold text-lg">Subtotal</p>
             </div>
 
-            <div className="mt-4 flex flex-col gap-2 justify-between px-8">
-              {cartItems.map((cartItem) => (
-                <div
-                  key={cartItem.id}
-                  className="flex justify-between">
-                  <p className="text-[16px] leading-6 text-[#9F9F9F] font-[400px] mb-4">
-                    {cartItem.name}{" "}
-                    <span className="font-bold text-black">
-                      X {cartItem.quantity}
-                    </span>
+            <div className="space-y-4 mb-6">
+              {cartItems.map((item) => (
+                <div key={item.name} className="flex justify-between">
+                  <p className="text-gray-600">
+                    {item.name} <span className="font-semibold text-black">X {item.quantity}</span>
                   </p>
-                  <p>
-                    {Number(cartItem.price) * Number(cartItem.quantity)}
-                  </p>
+                  <p className="font-semibold">${item.price * item.quantity}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 flex flex-col gap-3 justify-between px-8">
+            <div className="border-t pt-6 mb-6">
               <div className="flex justify-between">
-                <p className="text-[18px] font-semibold leading-6 text-black ">
-                  Total
+                <p className="font-semibold text-lg">Total</p>
+                <p className="font-bold text-xl text-primary">${totalAmount.toFixed(2)}</p>
+              </div>
+            </div>
+
+            <div className="border-t pt-6">
+              <div className="space-y-4">
+                <p className="text-gray-600">
+                  Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
                 </p>
-                <p className="text-primary font-bold text-[20px]">
-                  Rs. {calculateSubtotal()}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="stripe"
+                      checked={billingDetails.paymentMethod === "stripe"}
+                      onChange={handleInputChange}
+                      className="border-gray-300 rounded-full focus:ring-primary"
+                    />
+                    <span>Direct Bank Transfer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cashOnDelivery"
+                      checked={billingDetails.paymentMethod === "cashOnDelivery"}
+                      onChange={handleInputChange}
+                      className="border-gray-300 rounded-full focus:ring-primary"
+                    />
+                    <span>Cash on Delivery</span>
+                  </div>
+                </div>
+                <p className="text-gray-600">
+                  Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our{" "}
+                  <span className="font-semibold">privacy policy</span>.
                 </p>
               </div>
             </div>
 
-            <div className="mt-6  border-t pt-4">
-              <div className="flex flex-col text-sm">
-                <div className="flex-row flex gap-2">
-                  <button className="w-4 h-4 bg-black rounded-full " />
-                  <h2 className="font-[500px] text-black text-[16px] leading-6">
-                    Direct Bank Transfer
-                  </h2>
-                </div>
-                <p className="text-[#9F9F9F] text-[16px] leading-6 font-[300px] pt-6">
-                  Make your payment directly into our bank account. Please use
-                  your Order ID as the payment reference. Your order will not be
-                  shipped until the funds have cleared in our account.
-                </p>
-                <div className="flex-row flex gap-2 pt-6">
-                  <button className="w-4 h-4 border-black rounded-full border hover:bg-black" />
-                  <h2 className="font-[500px] text-[#9F9F9F] text-[16px] leading-6">
-                    {" "}
-                    Direct Bank Transfer
-                  </h2>{" "}
-                </div>
-                <div className="flex-row flex gap-2 py-2">
-                  <button className="w-4 h-4 border-black rounded-full border hover:bg-black" />
-                  <h2 className="font-[500px] text-[#9F9F9F] text-[16px] leading-6">
-                    {" "}
-                    Cash On Delivery
-                  </h2>{" "}
-                </div>
-
-                <p className="text-[16px] leading-6 font-[300px] py-6">
-                  Your personal data will be used to support your experience
-                  throughout this website, to manage access to your account, and
-                  for other purposes described in our{" "}
-                  <span className="font-semibold">privacy policy.</span>
-                </p>
-              </div>
-            </div>
-            <div className="justify-center items-center text-center">
-              <Popover>
-                <PopoverTrigger>
-                  <button className="mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none">
-                    Place order
+            <div className="mt-8 text-center">
+              {billingDetails.paymentMethod === "stripe" ? (
+                <CheckoutButton disabled={!isFormValid()} />
+              ) : (
+                <Link href={isFormValid() && !isLoading ? "/success" : "/checkout"}>
+                  <button
+                    onClick={() => isFormValid() && setCartItems([])}
+                    className={`mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none ${
+                      isFormValid() && !isLoading
+                        ? "hover:bg-black  bg-white hover:text-white  text-black"
+                        : " cursor-not-allowed"
+                    }`}
+                    disabled={!isFormValid() || isLoading}
+                  >
+                    Place Order
                   </button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <Link href="/orders">view orders</Link>
-                </PopoverContent>
-              </Popover>
+                </Link>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-28 ">
+      <div className="mt-28">
         <Services />
       </div>
     </>

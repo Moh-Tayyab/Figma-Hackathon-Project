@@ -1,12 +1,13 @@
 import React from "react"; //this shop page
 import Image from "next/image";
-import Link from "next/link";
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
 import { client } from "@/sanity/lib/client";
 import Card from "@/components/Card";
 import { PiCirclesFourFill } from "react-icons/pi";
 import { IoReorderThree } from "react-icons/io5";
+import Pagination from "@/components/Pagination";
+
 
 interface Product {
   imageUrl: string;
@@ -29,8 +30,9 @@ interface Product {
   };
   id: number;
   description: string;
+  quantity: number;
+  finalPrice: number;
   Quantity: number;
-  Finalprice: number;
 }
 
 const Product = async () => {
@@ -45,7 +47,7 @@ const Product = async () => {
         discount,
         originalPrice,
         "categoryName": category->name,
-        "slug":slug.current,
+        "slug": slug.current,
         "imageUrl": image.asset->url,
         rating
       }[8...24]`;
@@ -53,10 +55,9 @@ const Product = async () => {
   const res = await client.fetch(query);
   return (
     <>
-      {/*subhero Section */}
+      {/* Subhero Section */}
       <SubHero title="Shop" home="Home" linkUrl="/shop" />
-      {/* filter */}
-
+      {/* Filter Section */}
       <div className="p-4 border-b border-gray-200 bg-[#F9F1E7]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
           {/* Left Section */}
@@ -120,42 +121,22 @@ const Product = async () => {
         </div>
       </div>
 
+      {/* Product Cards */}
       <div className="container px-5 py-10">
-        {/* Wrapper div for flex grid */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
-          {/* Map Method to render product cards */}
           {res.map((product: Product) => {
             return <Card key={product.slug} product={product} />;
           })}
         </div>
       </div>
-      {/*Buttons */}
-      <div className=" text-center flex-row space-x-4 py-10 w-auto">
-        <Link href={"/shop"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            1
-          </button>
-        </Link>
-        <Link href={"/page2"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            2
-          </button>
-        </Link>
-        <Link href={"/page3"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            3
-          </button>
-        </Link>
-        <Link href={"/shop"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            Next
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-4 py-10">
-        <Services />
-      </div>
+      
+      {/* Pagination */}
+      <Pagination />
+      
+      {/* Services Section */}
+      <div className='px-4 py-10'>
+    <Services />
+    </div>
     </>
   );
 };

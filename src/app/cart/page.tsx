@@ -95,7 +95,7 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
               </span>{" "}  
               ${calculateSubtotal().toFixed(2)}
             </p>
-            <Link href={cartItems.length > 0 ? "/billing-summary" : "#"}>
+            <Link href={cartItems.length > 0 ? "/checkout" : "#"}>
               <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
                 Check Out
               </button>
@@ -104,8 +104,33 @@ const [cartItems, setCartItems] = useAtom(cartAtom);
         </div>
       </section>
 
-      {/* Features Section */}
-      <Services />
+     {/*Buttons */}
+     <div className=" text-center flex-row space-x-4 py-10 w-auto">
+        <Link href={"#"}>
+          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
+            1
+          </button>
+        </Link>
+        <Link href={"/page2"}>
+          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
+            2
+          </button>
+        </Link>
+        <Link href={"/page3"}>
+          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
+            3
+          </button>
+        </Link>
+        <Link href={"/shop"}>
+          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
+            Next
+          </button>
+        </Link>
+      </div>
+
+      <div className="px-4 py-10">
+        <Services />
+      </div>
     </>
   );
 }

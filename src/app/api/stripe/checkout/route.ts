@@ -1,20 +1,18 @@
-// /src/app/api/stripe/checkout/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { Product, BillingDetails } from "../../../../../interface";
+import saveOrderToSanity from "../../../../../utils/page";
 
 // Load environment variables
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-
 
 // Validate required environment variables
 if (!stripeSecretKey) throw new Error("STRIPE_SECRET_KEY is missing");
 if (!baseUrl) throw new Error("NEXT_PUBLIC_BASE_URL is missing");
 
 const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: "2025-01-31", // Ensure correct Stripe API version
+  apiVersion: "2025-01-27.acacia", // Use a valid Stripe API version
 });
 
 export const POST = async (req: NextRequest) => {
@@ -23,14 +21,20 @@ export const POST = async (req: NextRequest) => {
     console.log("Received Request Body:", JSON.stringify(body, null, 2));
 
     const { cartItems, billingDetails }: { cartItems: Product[]; billingDetails: BillingDetails } = body;
-    console.log("testing cartItems",cartItems)
+    //console.log("Testing cartItems:", cartItems);
+
     // Validate cartItems array
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return NextResponse.json({ error: "cartItems must be a non-empty array" }, { status: 400 });
     }
 
     // Validate billingDetails
-    if (!billingDetails || typeof billingDetails !== "object" || !billingDetails.name || !billingDetails.email) {
+    if (
+      !billingDetails ||
+      typeof billingDetails !== "object" ||
+      !billingDetails.fullName ||
+      !billingDetails.email
+    ) {
       return NextResponse.json({ error: "Invalid billing details structure" }, { status: 400 });
     }
 
@@ -40,7 +44,7 @@ export const POST = async (req: NextRequest) => {
         !item.id ||
         typeof item.name !== "string" ||
         typeof item.quantity !== "number" ||
-        typeof item.finalPrice !== "number" ||
+        typeof item.price !== "number" || // Use `price` instead of `finalPrice`
         !item.imageUrl
     );
 
@@ -49,9 +53,12 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ error: "Invalid cart items structure" }, { status: 400 });
     }
 
+    // Calculate total price
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
     // Prepare Stripe line items
     const lineItems = cartItems.map((item) => {
-      const unitAmount = Math.round(item.finalPrice * 100); // Convert to cents
+      const unitAmount = Math.round(item.price * 100); // Convert to cents
       const quantity = Number(item.quantity);
 
       if (isNaN(unitAmount) || unitAmount <= 0) {
@@ -92,13 +99,20 @@ export const POST = async (req: NextRequest) => {
       },
     });
 
-    console.log("Stripe Session Created:", session.id);
-    return NextResponse.json({ sessionId: session.id });
+    // Save the order to Sanity
+    try {
+      await saveOrderToSanity(billingDetails, cartItems, totalPrice / 100);
+    } catch (error) {
+      console.error("Error saving order to Sanity:", error);
+      return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
+    }
 
+    // Return session ID
+    return NextResponse.json({ sessionId: session.id });
   } catch (error) {
-    console.error("Checkout error:", error);
+    console.error("Error creating checkout session:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Payment processing failed" },
+      { error: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
     );
   }
