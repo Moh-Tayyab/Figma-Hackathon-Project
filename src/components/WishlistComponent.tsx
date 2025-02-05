@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useAtom } from "jotai";
-import { wishlistAtom } from "@/lib/atom"; // Define a wishlist atom
+import { wishlistAtom } from "@/lib/atom"; 
 
 const Wishlist = () => {
   const [wishlistItems, setwishlistItems] = useAtom(wishlistAtom);
