@@ -40,6 +40,7 @@
     "react-spinners": "^0.15.0",
     "react-toastify": "^11.0.3",
     "sanity": "^3.68.3",
+    "sharp": "^0.33.5",
     "stripe": "^17.6.0",
     "styled-components": "^6.1.13",
     "swiper": "^11.1.15",

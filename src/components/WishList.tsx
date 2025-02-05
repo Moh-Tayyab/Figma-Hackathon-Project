@@ -14,7 +14,6 @@ const Wishlist = () => {
     );
    
   };
-//console.log(" WishList Page", wishlistItems)
   if (wishlistItems.length === 0) {
     return (
       <div className="container mx-auto py-24 text-center">

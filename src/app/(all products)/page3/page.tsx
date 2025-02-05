@@ -6,7 +6,6 @@ import Services from '@/components/Services'
 import { client } from '@/sanity/lib/client'
 import { PiCirclesFourFill } from "react-icons/pi";
 import { IoReorderThree } from "react-icons/io5";
-import { groq } from 'next-sanity';
 import { IoMdShare } from 'react-icons/io'
 import { FaArrowRightArrowLeft } from 'react-icons/fa6'
 import WishListFunctionality from '@/components/WishListFunctionality'
@@ -38,17 +37,20 @@ interface Product {
   }
 
 const Product = async () => {
-  const res = await client.fetch(groq `*[_type == "myproduct"] {
-      name,
-      description,
-      price,
-      slug,
-      id,
-      originalPrice,
-      stock,
-      dimensions,
-      "imageUrl": image.asset->url
-  } [24...48]`);
+  const res = await client.fetch(`*[_type=="myproduct"]{
+       name,
+        tags,
+        price,
+        stock,
+        dimensions,
+        id,
+        description,
+        discount,
+        originalPrice,
+        "categoryName": category->name,
+        "slug":slug.current,
+        "imageUrl": image.asset->url,
+        rating,} [24...48]`);
 
 const getTagColor = (tag: string) => {
   switch (tag.toLowerCase()) {
