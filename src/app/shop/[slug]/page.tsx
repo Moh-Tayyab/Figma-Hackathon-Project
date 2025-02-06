@@ -23,7 +23,7 @@ const page = async (props: Props) => {
         discount,
         originalPrice,
         "categoryName": category->name,
-        "slug":slug.current,
+        "slug": slug.current,
         "imageUrl": image.asset->url,
         rating
   }`;

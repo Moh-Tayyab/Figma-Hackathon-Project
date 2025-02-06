@@ -1,34 +1,61 @@
-import Link from 'next/link'
-import React from 'react'
+import React from "react";
 
-const Pagination = () => {
+type PaginationProps = {
+  currentPage: number;
+  totalItems: number;
+  itemsPerPage: number;
+  onPageChange: (page: number) => void;
+};
+
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalItems,
+  itemsPerPage,
+  onPageChange,
+}) => {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
   return (
-	<>
-{/*Buttons */}
-<div className=" text-center flex-row space-x-4 py-10 w-auto">
-<Link href={`/shop`}>
-  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-    1
-  </button>
-  </Link>
-<Link href={'/page2'}>
-  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-    2
-  </button>
-</Link>
-<Link href={'/page3'}>
-  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-    3
-  </button>
-</Link>
-<Link href = {"/shop"}>
-  <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-    Next
-  </button>
-  </Link>
-</div>
-</>
-  )
-}
+    <div className="text-center flex space-x-4 py-10 justify-center items-center">
+      {/* Previous Button */}
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`py-2 px-4 rounded-lg text-xl ${
+          currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-[#FAF3EA] hover:bg-primary hover:text-white"
+        }`}
+      >
+        Prev
+      </button>
 
-export default Pagination
+      {/* Page Numbers */}
+      {[...Array(totalPages)].map((_, index) => {
+        const pageNum = index + 1;
+        return (
+          <button
+            key={pageNum}
+            onClick={() => onPageChange(pageNum)}
+            className={`py-2 px-4 rounded-lg text-xl ${
+              currentPage === pageNum ? "bg-primary text-white" : "bg-[#FAF3EA] hover:bg-primary hover:text-white"
+            }`}
+          >
+            {pageNum}
+          </button>
+        );
+      })}
+
+      {/* Next Button */}
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`py-2 px-4 rounded-lg text-xl ${
+          currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-[#FAF3EA] hover:bg-primary hover:text-white"
+        }`}
+      >
+        Next
+      </button>
+    </div>
+  );
+};
+
+export default Pagination;

@@ -52,11 +52,11 @@ const WishListFunctionality = ({product}:{product:Product}) => {
     <>
       <section>
         <button
-          className="hover:text-primary flex items-center"
+          className="flex items-center gap-1 text-sm hover:text-gray-200 transition-colors"
           onClick={ () =>addProductToWishlist(product.name)}
         >
-          <FaRegHeart />
-          Like
+          <FaRegHeart  className="text-lg" />
+          <span className="text-xs">Like</span>
         </button>
       </section>
       <section>

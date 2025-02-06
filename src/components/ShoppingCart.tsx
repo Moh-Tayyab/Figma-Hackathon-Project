@@ -9,137 +9,120 @@ import {
   Sheet,
   SheetContent,
   SheetFooter,
-  SheetHeader,
   SheetTrigger,
 } from "@/components/ui/shoppingcartsheet";
 import { useAtom, useAtomValue } from "jotai";
 import { cartAtom, cartQuantity } from "@/lib/atom";
 
 const ShoppingCart = () => {
-  const cartItemsQuantity = useAtomValue(cartQuantity)
- 
+  const cartItemsQuantity = useAtomValue(cartQuantity);
   const [cartItems, setCartItems] = useAtom(cartAtom);
+
   const removeItem = (slug: string) => {
     setCartItems(prevCart => prevCart.filter(item => item.slug !== slug));
   };
 
- 
   const calculateSubtotal = () => {
-    if (!cartItems || cartItems.length === 0) {
-      return 0;
-    }
-
     return cartItems.reduce((total, item) => {
       const price = Number(item?.originalPrice) || 0;
       const quantity = Number(item?.quantity) || 0;
-
-      if (price === 0 || quantity === 0) {
-        console.error("Invalid price or quantity for item:", item);
-        return total; // Skip invalid items
-      }
-
       return total + price * quantity;
     }, 0);
   };
 
   return (
-    <>
-      <Sheet>
-        <SheetTrigger asChild>
-          <div>
-          <MdOutlineShoppingCart className="h-auto w-[32px] hover:scale-110 hover:text-primary hover:cursor-pointer" />
-          <span className='absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black'> {cartItemsQuantity} </span></div>
-        </SheetTrigger>
-        <SheetContent
-          aria-describedby="shopping-cart-description"
-          id="shopping-cart-content">
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-center pb-8 pt-2 border-b-2 border-[#9F9F9F] h-auto">
-            <h2 className="font-poppins text-[20px] md:text-[24px] leading-9 font-semibold">
-              Shopping Cart
-            </h2>
-            <div className="flex items-center gap-2">
-              <BsBagX
-                size={24}
-                className="text-[#9F9F9F] hover: cursor-pointer"
-              />
-            </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div className="relative cursor-pointer">
+          <MdOutlineShoppingCart className="h-8 w-8 text-gray-600 hover:text-primary transition-colors" />
+          {cartItemsQuantity > 0 && (
+            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+              {cartItemsQuantity}
+            </span>
+          )}
+        </div>
+      </SheetTrigger>
+
+      <SheetContent className="w-full max-w-md" side="right">
+        <div className="flex h-full flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between border-b pb-4">
+            <h2 className="text-2xl font-semibold text-gray-900">Shopping Cart</h2>
+            <BsBagX className="h-6 w-6 text-gray-400 hover:text-primary cursor-pointer transition-colors" />
           </div>
 
-          <div className="grid gap-4 pt-10">
-            <div className="flex flex-col items-center gap-4 h-auto">
-                {cartItems && cartItems?.length > 0 ? (   
-              cartItems.map((cartItem => (
-                <div
-                  key={cartItem.slug}
-                  className="flex flex-col md:flex-row gap-4 items-center pr-3">
-                  <Image
-                    src={(cartItem.imageUrl)}
-                    alt={ cartItem.name}
-                    width={108}
-                    height={105}
-                    className="bg-[#FAF3EA] rounded-xl w-[108px] h-[105px] hover:scale-110"
-                  />
+          {/* Cart Items */}
+          <div className="flex-1 overflow-y-auto py-6">
+            {cartItems?.length > 0 ? (
+              <div className="space-y-6">
+                {cartItems.map((cartItem) => (
+                  <div
+                    key={cartItem.slug}
+                    className="flex items-center gap-4 rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100"
+                  >
+                    <Image
+                      src={cartItem.imageUrl}
+                      alt={cartItem.name}
+                      width={96}
+                      height={96}
+                      className="h-24 w-24 rounded-lg object-cover"
+                    />
 
-                  <div className="text-center md:text-left items-center pl-2">
-                    <h2 className="pb-3 text-black text-[14px] md:text-[16px]">
-                      {cartItem.name} 
-                    </h2>
-                    <div className="flex justify-center md:justify-start gap-2">
-                      <span className="pr-3">{cartItem.quantity} 
-                      </span>
-                      <span className="pr-3">x</span>
-                      <span className="text-[#B88E2F] text-[12px] md:text-[14px] font-poppins font-medium leading-[18px]">
-                        { cartItem.originalPrice} 
-                      </span>
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900">{cartItem.name}</h3>
+                      <div className="mt-2 flex items-center gap-4 text-sm">
+                        <span className="text-gray-600">Qty: {cartItem.quantity}</span>
+                        <span className="text-primary font-medium">
+                          ${(cartItem.originalPrice * cartItem.quantity).toFixed(2)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <CiCircleRemove className="w-6 h-6 mt-4 md:mt-7 md:ml-7 bg-[#9F9F9F] text-white rounded-full hover:scale-110 text-[14px] hover:cursor-pointer"
-                    onClick={() => removeItem(cartItem.slug)}
-                   />
-                </div>
-              )))): (
-                <div className="flex items-center justify-center ">
-                  <p className="text-[16px] text-[#9F9F9F] font-poppins font-medium">
-                    Your cart is empty
-                  </p>
-                </div>
-              )
-            }
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row text-start items-center gap-4 mt-20 justify-between border-b-2 border-[#9F9F9F] pb-10 w-auto h-auto">
-            <h2 className="text-black font-poppins font-medium text-[14px] md:text-[16px] leading-[24px]">
-              Subtotal
-            </h2>
-            <h3 className="text-primary font-poppins font-semibold text-[14px] md:text-[16px] leading-[24px]">
-              ${calculateSubtotal().toFixed(2)} 
-            </h3>
-          </div>
-          <SheetHeader>
-          </SheetHeader>
-          <SheetFooter>
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-center py-8 h-auto">
-              <Link href="/cart" passHref>
-                <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-8 border hover:text-white hover:bg-primary">
-                  Cart
-                </Button>
-              </Link>
 
-              <Link href="/checkout" passHref>
-                <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-4 border hover:text-white hover:bg-primary">
-                  Checkout
-                </Button>
-              </Link>
-              <Link href="/comparison" passHref>
-                <Button className="bg-white text-black hover:scale-110 rounded-full border-black px-4 border hover:text-white hover:bg-primary">
-                  Comparison
-                </Button>
-              </Link>
+                    <button
+                      onClick={() => removeItem(cartItem.slug)}
+                      className="text-gray-400 hover:text-primary transition-colors"
+                      aria-label="Remove item"
+                    >
+                      <CiCircleRemove className="h-6 w-6" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center">
+                <p className="text-gray-500">Your cart is empty</p>
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="border-t pt-4">
+            <div className="flex items-center justify-between py-4">
+              <span className="text-gray-600 text-lg">Subtotal:</span>
+              <span className="text-lg font-semibold text-primary">
+                ${calculateSubtotal().toFixed(2)}
+              </span>
             </div>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-    </>
+
+            <SheetFooter>
+              <div className="grid grid-cols-2 gap-4">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full rounded-lg border-gray-300 text-gray-700 hover:border-primary hover:text-primary"
+                >
+                  <Link href="/cart">View Cart</Link>
+                </Button>
+                
+                <Button asChild className="w-full rounded-lg bg-white border-gray-300 border hover:bg-black hover:text-white">
+                  <Link href="/checkout">Checkout</Link>
+                </Button>
+              </div>
+            </SheetFooter>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 

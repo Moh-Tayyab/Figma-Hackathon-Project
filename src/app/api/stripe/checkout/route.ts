@@ -12,7 +12,7 @@ if (!stripeSecretKey) throw new Error("STRIPE_SECRET_KEY is missing");
 if (!baseUrl) throw new Error("NEXT_PUBLIC_BASE_URL is missing");
 
 const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: "2025-01-27.acacia", // Use a valid Stripe API version
+  apiVersion: "2025-01-27.acacia" // Use a valid Stripe API version
 });
 
 export const POST = async (req: NextRequest) => {

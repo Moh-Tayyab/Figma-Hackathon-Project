@@ -2,6 +2,7 @@
 
 import Services from "@/components/Services";
 import SubHero from "@/components/SubHero";
+import Image from "next/image";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { useState } from "react";
@@ -11,8 +12,9 @@ import { cartAtom, customerFormDetails, isStripeLoading } from "@/lib/atom";
 
 export default function CheckoutPage() {
   const [cartItems, setCartItems] = useAtom(cartAtom);
-  const [billingDetails, setBillingDetails] = useAtom<BillingDetails>(customerFormDetails);
-  const [isLoading, setIsLoading] = useAtom<boolean>(isStripeLoading);
+  const [billingDetails, setBillingDetails] =
+    useAtom<BillingDetails>(customerFormDetails);
+  const [isLoading] = useAtom<boolean>(isStripeLoading);
   const [errors, setErrors] = useState({
     phoneNumber: false,
     email: false,
@@ -34,10 +36,12 @@ export default function CheckoutPage() {
     );
   };
 
-  const updatedCart = cartItems.map((item: { quantity: number; price: number }) => ({
-    ...item,
-    totalPrice: item.quantity * item.price,
-  }));
+  const updatedCart = cartItems.map(
+    (item: { quantity: number; price: number }) => ({
+      ...item,
+      totalPrice: item.quantity * item.price,
+    })
+  );
 
   const totalAmount = updatedCart.reduce(
     (acc: number, item: { totalPrice: number }) => acc + item.totalPrice,
@@ -75,7 +79,9 @@ export default function CheckoutPage() {
               <h2 className="text-3xl font-semibold mb-8">Billing Details</h2>
               <div className="grid gap-6">
                 <div>
-                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="fullName"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name
                   </label>
                   <input
@@ -88,7 +94,9 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="company"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Company Name (Optional)
                   </label>
                   <input
@@ -98,7 +106,9 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="addressLine1"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Street Address
                   </label>
                   <input
@@ -111,7 +121,9 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     City
                   </label>
                   <input
@@ -124,7 +136,9 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="zipCode"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Zip Code
                   </label>
                   <input
@@ -134,7 +148,9 @@ export default function CheckoutPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
                   <input
@@ -147,10 +163,16 @@ export default function CheckoutPage() {
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary`}
                     required
                   />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email address.</p>}
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Please enter a valid email address.
+                    </p>
+                  )}
                 </div>
                 <div>
-                  <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="phoneNumber"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
                   <input
@@ -163,10 +185,16 @@ export default function CheckoutPage() {
                     } rounded-lg focus:outline-none focus:ring-2 focus:ring-primary`}
                     required
                   />
-                  {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">Please enter a valid 11-digit phone number.</p>}
+                  {errors.phoneNumber && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Please enter a valid 11-digit phone number.
+                    </p>
+                  )}
                 </div>
                 <div>
-                  <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="addressLine2"
+                    className="block text-sm font-medium text-gray-700 mb-2">
                     Additional Information (Optional)
                   </label>
                   <input
@@ -186,14 +214,28 @@ export default function CheckoutPage() {
           <div className="bg-white border shadow-lg border-spacing-1 border-gray-300 p-8 rounded-lg">
             <div className="flex justify-between mb-6">
               <p className="font-semibold text-lg">Product</p>
+              <p className="font-semibold text-lg">Name & Quantity</p>
               <p className="font-semibold text-lg">Subtotal</p>
             </div>
 
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
-                <div key={item.name} className="flex justify-between">
+                <div
+                  key={item.name}
+                  className="flex justify-between items-center">
+                  <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+                    <Image
+                      src={item.imageUrl}
+                      fill
+                      alt={item?.name}
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="text-gray-600">
-                    {item.name} <span className="font-semibold text-black">X {item.quantity}</span>
+                    {item.name}{" "}
+                    <span className="font-semibold text-black">
+                      X {item.quantity}
+                    </span>
                   </p>
                   <p className="font-semibold">${item.price * item.quantity}</p>
                 </div>
@@ -203,14 +245,18 @@ export default function CheckoutPage() {
             <div className="border-t pt-6 mb-6">
               <div className="flex justify-between">
                 <p className="font-semibold text-lg">Total</p>
-                <p className="font-bold text-xl text-primary">${totalAmount.toFixed(2)}</p>
+                <p className="font-bold text-xl text-primary">
+                  ${totalAmount.toFixed(2)}
+                </p>
               </div>
             </div>
 
             <div className="border-t pt-6">
               <div className="space-y-4">
                 <p className="text-gray-600">
-                  Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                  Make your payment directly into our bank account. Please use
+                  your Order ID as the payment reference. Your order will not be
+                  shipped until the funds have cleared in our account.
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
@@ -229,7 +275,9 @@ export default function CheckoutPage() {
                       type="radio"
                       name="paymentMethod"
                       value="cashOnDelivery"
-                      checked={billingDetails.paymentMethod === "cashOnDelivery"}
+                      checked={
+                        billingDetails.paymentMethod === "cashOnDelivery"
+                      }
                       onChange={handleInputChange}
                       className="border-gray-300 rounded-full focus:ring-primary"
                     />
@@ -237,7 +285,9 @@ export default function CheckoutPage() {
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our{" "}
+                  Your personal data will be used to support your experience
+                  throughout this website, to manage access to your account, and
+                  for other purposes described in our{" "}
                   <span className="font-semibold">privacy policy</span>.
                 </p>
               </div>
@@ -247,7 +297,8 @@ export default function CheckoutPage() {
               {billingDetails.paymentMethod === "stripe" ? (
                 <CheckoutButton disabled={!isFormValid()} />
               ) : (
-                <Link href={isFormValid() && !isLoading ? "/success" : "/checkout"}>
+                <Link
+                  href={isFormValid() && !isLoading ? "/success" : "/checkout"}>
                   <button
                     onClick={() => isFormValid() && setCartItems([])}
                     className={`mt-6 px-8 py-4  border border-black text-black rounded-xl shadow-sm text-[20px] leading-[30px] font- hover:scale-110 focus:outline-none ${
@@ -255,8 +306,7 @@ export default function CheckoutPage() {
                         ? "hover:bg-black  bg-white hover:text-white  text-black"
                         : " cursor-not-allowed"
                     }`}
-                    disabled={!isFormValid() || isLoading}
-                  >
+                    disabled={!isFormValid() || isLoading}>
                     Place Order
                   </button>
                 </Link>

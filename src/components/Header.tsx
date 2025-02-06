@@ -5,44 +5,84 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { TbUserExclamation } from "react-icons/tb";
 import { Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/smalldevicesheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/smalldevicesheet";
 import ShoppingCart from "@/components/ShoppingCart";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { wishlistAtom } from "@/lib/atom";
-//import { SheetSide } from "./SheetSide";
 import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
 import SearchModal from "./SearchBar";
 
 const Header = () => {
   const { isSignedIn } = useUser();
-  const [wishlistItems, setWishlistItems] = useAtom(wishlistAtom);
-  const [menuOpen] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const [wishlistItems] = useAtom(wishlistAtom);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
-  const toggleSearchModal = () => {
-    setIsSearchModalOpen((prev) => !prev);
-  };
+  const toggleSearchModal = () => setIsSearchModalOpen(!isSearchModalOpen);
+
   return (
-    <header className="w-full bg-white shadow-md ">
-      <div className="flex items-center justify-between px-5 py-4 lg:px-[20px]">
-        {/* Logo */}
-        <div className="flex flex-row gap-3 items-center pr-20">
-          <Image src="/logo1.png" alt="Logo" width={50} height={32} />
-          <Link href="/">
-            <h1 className="text-3xl font-inter font-bold text-Text2 cursor-pointer lg:pr-20">
+    <header className="w-full bg-white shadow-sm top-0 z-50">
+      <div className="container mx-auto px-4 sm:px-4 lg:px-8 justify-between">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo1.png"
+              alt="Furniro Logo"
+              width={32}
+              height={32}
+              className="h-6 w-6"
+            />
+            <span className="text-2xl font-bold text-gray-900">
               Furniro
-            </h1>
+            </span>
           </Link>
-        </div>
 
-        {/* Toggle Button for Small Screens */}
+          {/* Desktop Navigation */}
+           <nav className="hidden md:flex items-center gap-8 mx-8">
+            <Link href="/" className="text-gray-600 hover:text-primary transition-colors font-medium">
+              Home
+            </Link>
+            <Link href="/shop" className="text-gray-600 hover:text-primary transition-colors font-medium">
+              Shop
+            </Link>
+            <Link href="/blog" className="text-gray-600 hover:text-primary transition-colors font-medium">
+              Blog
+            </Link>
+            <Link href="/contact" className="text-gray-600 hover:text-primary transition-colors font-medium">
+              Contact
+            </Link>
+          </nav> 
 
-        <div className="lg:hidden sm:ml-[400px] ml-16">
+          {/* Icons Section */}
+          <div className=" items-center gap-4 sm:gap-6 flex">
+            {/* Search Icon */}
+            <button
+              onClick={toggleSearchModal}
+              className="p-1 text-gray-600 hover:text-primary transition-colors hidden md:flex"
+            >
+              <IoSearch className="h-6 w-6" />
+            </button>
+
+            {/* Wishlist */}
+            <Link
+              href="/wishlist"
+              className="p-1 relative text-gray-600 hover:text-primary transition-colors hidden md:flex"
+            >
+              <FaRegHeart className="h-6 w-6" />
+              {wishlistItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 rounded-full  items-center justify-center hidden md:flex">
+                  {wishlistItems.length}
+                </span>
+              )}
+            </Link>
+
+            {/* Shopping Cart */}
+            <div className="p-1 text-gray-600 hover:text-primary transition-colors hidden md:flex">
+              <ShoppingCart />
+            </div>
+         {/* Toggle Button for Small Screens */}
+        <div className="md:hidden">
           <Sheet>
             <SheetTrigger>
               <Menu className="text-primary" size={24} />
@@ -51,15 +91,6 @@ const Header = () => {
               <ul className="flex flex-col text-[#333333] md:flex-row gap-4 p-4 items-center">
                 {/* Search and Icons */}
                 <div className="flex-row flex lg:flex gap-8 items-center  text-primary">
-                  {isSignedIn ? (
-                    <UserButton />
-                  ) : (
-                    <SignInButton>
-                      <button>
-                        <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary cursor-pointer" />
-                      </button>
-                    </SignInButton>
-                  )}
                   {/* Search Icon for Large Screens */}
 
                   {isSearchModalOpen && (
@@ -94,62 +125,31 @@ const Header = () => {
             </SheetContent>
           </Sheet>
         </div>
-
-        {/* Navigation Links */}
-        <nav
-          className={`${
-            menuOpen ? "flex" : "hidden"
-          } lg:flex lg:ml-4 absolute top-16 left-1 w-full flex-col items-center gap-6 bg-white py-4 shadow-md lg:relative lg:flex-row lg:gap-16 lg:top-0 lg:shadow-none`}>
-          <Link
-            href="/"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
-            Home
-          </Link>
-          <Link
-            href="/shop"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
-            Shop
-          </Link>
-          <Link
-            href="/blog"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
-            Blog
-          </Link>
-          <Link
-            href="/contact"
-            className="text-black hover:underline font-normal font-poppins text-[16px] hover:text-primary">
-            Contact
-          </Link>
-        </nav>
-
-        {/* Search and Icons */}
-        <div className="hidden lg:flex gap-8 items-center">
-          {isSignedIn ? (
-            <UserButton />
-          ) : (
-            <SignInButton>
-              <button>
-                <TbUserExclamation className="h-[32px] w-[32px] hover:scale-110 hover:text-primary cursor-pointer" />
-              </button>
-            </SignInButton>
-          )}
-          {/* Search Icon for Large Screens */}
-
-          {isSearchModalOpen && (
-            <SearchModal onClose={() => setIsSearchModalOpen(false)} />
-          )}
-          <button onClick={toggleSearchModal} className="focus:outline-none">
-            <IoSearch className="h-[32px] w-[32px] text-center hover:scale-110 hover:text-primary" />
-          </button>
-          <Link href={"/wishlist"}>
-            <FaRegHeart className="h-[32px] w-[32px] hover:scale-110  hover:text-primary" />
-            <span className="absolute text-[12px] top-6  bg-primary w-[18px] h-auto rounded-3xl text-center text-white font-urbanist  font-black">
-              {wishlistItems.length}
-            </span>
-          </Link>
-          <ShoppingCart />
+        
+         {/* User Account */}
+         <div className="p-1 text-gray-600 hover:text-primary transition-colors">
+              {isSignedIn ? (
+                <UserButton appearance={{
+                  elements: {
+                    avatarBox: "h-8 w-8",
+                  }
+                }} />
+              ) : (
+                <SignInButton>
+                  <button>
+                    <TbUserExclamation className="h-6 w-6" />
+                  </button>
+                </SignInButton>
+              )}
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Search Modal */}
+      {isSearchModalOpen && (
+        <SearchModal onClose={() => setIsSearchModalOpen(false)} />
+      )}
     </header>
   );
 };

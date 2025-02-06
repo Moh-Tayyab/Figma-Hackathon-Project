@@ -5,133 +5,147 @@ import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import Services from "@/components/Services";
 import { useAtom } from "jotai";
-import { cartAtom} from "@/lib/atom";
+import { cartAtom } from "@/lib/atom";
+
 export default function Cart() {
-const [cartItems, setCartItems] = useAtom(cartAtom);
+  const [cartItems, setCartItems] = useAtom(cartAtom);
 
   const removeItem = (slug: string) => {
-    setCartItems(prevCart => prevCart.filter(item => item.slug!== slug));
+    setCartItems(prevCart => prevCart.filter(item => item.slug !== slug));
+  };
+
+  const handleQuantityChange = (slug: string, newQuantity: number) => {
+    // Ensure the quantity doesn't drop below 1
+    const quantity = newQuantity < 1 ? 1 : newQuantity;
+    setCartItems(prevCart =>
+      prevCart.map(item =>
+        item.slug === slug ? { ...item, quantity } : item
+      )
+    );
   };
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
       const price = item?.price || 0;
       const quantity = item?.quantity || 0;
-  
-      // Ensure price and quantity are numbers
-      if (typeof price !== "number" || typeof quantity !== "number") {
-        return total; // Skip this item
-      }
-  
       return total + price * quantity;
     }, 0);
   };
+
   return (
     <>
-      <SubHero  title = "Cart" home = "Home" linkUrl="/cart"/>
+      <SubHero title="Cart" home="Home" linkUrl="/cart" />
+      
       {/* Cart Container */}
-      <section className="text-gray-600 body-font">
-        <div className="container px-5 py-20 mx-auto flex flex-wrap ">
-          {/* Left Section */}
-          <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-            {/* Product Details Section */}
-            <div className="producDetails flex justify-around  p-4 space-x-2  h-[4rem] bg-[#F9F1E7] rounded-sm">
-              <h2>Product</h2>
-              <h2>Price</h2>
-              <h2>Quantity</h2>
-              <h2>Subtotal</h2>
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Section - Cart Items */}
+          <div className="lg:w-3/5 w-full">
+            {/* Cart Header */}
+            <div className="hidden md:grid grid-cols-12 gap-4 bg-gray-50 px-6 py-4 rounded-lg shadow-sm">
+              <div className="col-span-5 font-medium text-gray-600">Product</div>
+              <div className="col-span-2 font-medium text-gray-600">Price</div>
+              <div className="col-span-2 font-medium text-gray-600">Quantity</div>
+              <div className="col-span-2 font-medium text-gray-600">Subtotal</div>
+              <div className="col-span-1"></div>
             </div>
-            <div className="flex flex-col gap-4 p-4">
-              {/* Product Row */}
-              {cartItems.map(cartItem => (
 
-              <div key={cartItem.slug} className="flex justify-between items-center gap-4 mt-4 px-2">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={(cartItem.imageUrl)} 
-                    width={50}
-                    height={50}
-                    alt={cartItem.name}
-                    className="hover:scale-110 hover:ursor-pointer"
-                  />
-                <p >{cartItem.name}</p>
-                </div>
-                <p>
-                  {cartItem.price}
-                </p>
+           {/* Cart Items */}
+<div className="mt-4 space-y-4">
+  {cartItems.map((cartItem) => (
+    <div
+      key={cartItem.slug}
+      className="grid grid-cols-12 sm:grid-cols-8 gap-4  items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+    >
+      {/* Product Info */}
+      <div className="col-span-5 sm:col-span-3 flex items-center space-x-4">
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden">
+          <Image
+            src={cartItem.imageUrl}
+            fill
+            alt={cartItem.name}
+            className="object-cover"
+          />
+        </div>
+        <p className="font-medium text-gray-800 sm:block hidden">
+          {cartItem.name}
+        </p>
+      </div>
 
-                <input
-                  type="number"
-                  className="w-16 border rounded-md p-1"
-                  defaultValue={cartItem.quantity}
-                />
-                <p>
-                    {Number(cartItem.price) * Number (cartItem.quantity)}
-                  </p>
-                <AiFillDelete className="w-6 h-6 text-primary hover:scale-110 hover:cursor-pointer" 
-                onClick={() => removeItem(cartItem.slug)}
-                />
-              </div>))}
+      {/* Price */}
+      <div className="col-span-2 sm:col-span-1 text-gray-600 text-sm sm:text-base">
+        ${cartItem.price.toFixed(2)}
+      </div>
 
-            </div>
+      {/* Quantity Input */}
+      <div className="col-span-4 sm:col-span-2">
+        <input
+          type="number"
+          min="1"
+          className="w-12 sm:w-20 px-2 py-1 sm:px-3 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          value={cartItem.quantity}
+          onChange={(e) =>
+            handleQuantityChange(cartItem.slug, parseInt(e.target.value) || 1)
+          }
+        />
+      </div>
+
+      {/* Subtotal */}
+      <div className="col-span-2 sm:col-span-1 font-medium text-gray-800 text-sm sm:text-base">
+        ${(cartItem.price * cartItem.quantity).toFixed(2)}
+      </div>
+
+      {/* Delete Button */}
+      <div className="col-span-1 flex justify-end">
+        <button
+          onClick={() => removeItem(cartItem.slug)}
+          className="text-primary hover:text-red-700 transition-colors"
+          aria-label="Remove item"
+        >
+          <AiFillDelete className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
           </div>
 
-          {/* Right Section */}
-          <div className="lg:w-2/6 md:w-1/2 bg-[#F9F1E7] flex flex-col md:ml-auto w-[293px] h-[290px] rounded-sm  md:mt-0 items-center text-center justify-center mt-32">
-            <h2 className="font-poppins text-[32px] leading-[48px] font-semibold  text-black pb-9">
-              Cart Totals
-            </h2>
-            <p className="text-[#9F9F9F]">
-            <p>
-                  </p>
-              <span className="pb-4 text-[16px] leading-[36px] font-[500px] font-poppins text-black pr-12">
-                Subtotal:
-              </span>{" "}
-              ${calculateSubtotal().toFixed(2)}
-            </p>
-            <p className="text-[#B88E2F]">
-              <span className="text-[20px] leading-[36px] font-[520px] font-poppins text-black pr-12">
-                Total:
-              </span>{" "}  
-              ${calculateSubtotal().toFixed(2)}
-            </p>
-            <Link href={cartItems.length > 0 ? "/checkout" : "#"}>
-              <button className="mt-5 rounded-md border-gray-900 border-2 p-2 px-5 hover:scale-110">
-                Check Out
-              </button>
-            </Link>
+          {/* Right Section - Cart Summary */}
+          <div className="lg:w-2/5 w-full">
+            <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Cart Summary</h2>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Subtotal:</span>
+                  <span className="font-medium text-gray-800">${calculateSubtotal().toFixed(2)}</span>
+                </div>
+                
+                <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                  <span className="text-lg font-semibold text-gray-800">Total:</span>
+                  <span className="text-lg font-bold text-primary">${calculateSubtotal().toFixed(2)}</span>
+                </div>
+              </div>
+
+              <Link href={cartItems.length > 0 ? "/checkout" : "#"}>
+                <button 
+                  className={`w-full mt-6 py-3 px-6 rounded-lg font-medium text-white transition-colors
+                    ${cartItems.length > 0 
+                      ? 'bg-primary hover:bg-primary-dark' 
+                      : 'bg-gray-400 cursor-not-allowed'}`}
+                >
+                  Proceed to Checkout
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-     {/*Buttons */}
-     <div className=" text-center flex-row space-x-4 py-10 w-auto">
-        <Link href={"#"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            1
-          </button>
-        </Link>
-        <Link href={"/page2"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            2
-          </button>
-        </Link>
-        <Link href={"/page3"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            3
-          </button>
-        </Link>
-        <Link href={"/shop"}>
-          <button className="bg-[#FAF3EA] text-black hover:text-white hover:bg-primary py-2 px-4 rounded-lg text-xl">
-            Next
-          </button>
-        </Link>
-      </div>
-
-      <div className="px-4 py-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Services />
       </div>
     </>
   );
 }
-
