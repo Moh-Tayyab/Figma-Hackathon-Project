@@ -7,7 +7,6 @@ const isPublicRoute = createRouteMatcher([
   '/shop',
   '/shop/(.*)',
   '/cart',
-  '/about-us',
   '/category/(.*)',
   '/api/(.*)'
 ]);
@@ -19,15 +18,16 @@ export default clerkMiddleware(async (auth, request) => {
     await auth.protect();
   }
 
-  // Custom logic to ensure `billing-summary` is accessed only via `cart` page
-  if (url.pathname === '/billing-summary') {
+  // Custom logic to ensure `checkout` is accessed only via `cart` page
+  if (url.pathname === '/checkout') {
     const referrer = request.headers.get('referer');
+    
     if (!referrer || !referrer.includes('/cart')) {
       // Redirect to cart page if not coming from there
       return Response.redirect(new URL('/cart', request.url));
     }
   }
-  // Custom logic to ensure `ordersuccess` is accessed only via `billing-summary` page
+  // Custom logic to ensure `ordersuccess` is accessed only via `checkout` page
   if (url.pathname === '/success') {
     const referrer = request.headers.get('referer');
   
@@ -36,8 +36,8 @@ export default clerkMiddleware(async (auth, request) => {
       return Response.redirect(new URL('/cart', request.url));
     }
   
-    // Check if the referrer is either from billing-summary or stripe.com
-    if (!referrer.includes('/billing-summary') && !referrer.includes('stripe.com')) {
+    // Check if the referrer is either from checkout or stripe.com
+    if (!referrer.includes('/checkout') && !referrer.includes('stripe.com')) {
       return Response.redirect(new URL('/cart', request.url));
     }
   }
@@ -45,7 +45,7 @@ export default clerkMiddleware(async (auth, request) => {
   if (url.pathname === '/cancel' ) {
     const referrer = request.headers.get('referer');
     if (!referrer || !referrer.includes('stripe.com')) {
-      // Redirect to billing-summary  page if not coming from there
+      // Redirect to checkout  page if not coming from there
       return Response.redirect(new URL('/cart', request.url));
     }
   }
