@@ -2,7 +2,7 @@
 import { CiCircleRemove } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
-import { BsBagX } from "react-icons/bs";
+//import { BsBagX } from "react-icons/bs";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +48,7 @@ const ShoppingCart = () => {
           {/* Header */}
           <div className="flex items-center justify-between border-b pb-4">
             <h2 className="text-2xl font-semibold text-gray-900">Shopping Cart</h2>
-            <BsBagX className="h-6 w-6 text-gray-400 hover:text-primary cursor-pointer transition-colors" />
+            {/* <BsBagX className="h-6 w-6 text-gray-400 hover:text-primary cursor-pointer transition-colors" /> */}
           </div>
 
           {/* Cart Items */}
@@ -105,7 +105,7 @@ const ShoppingCart = () => {
             </div>
 
             <SheetFooter>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 justify-center">
                 <Button
                   asChild
                   variant="outline"

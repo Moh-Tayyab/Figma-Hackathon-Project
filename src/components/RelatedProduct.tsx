@@ -104,7 +104,7 @@ const getTagColor = (tag: string) => {
               <IoMdShare className="text-lg" />
               <span className="text-xs">Share</span>
             </button>
-            <Link href="/comparison">
+            <Link href="#">
               <button className="flex items-center gap-1 text-sm hover:text-gray-200 transition-colors">
                 <FaArrowRightArrowLeft className="text-lg" />
                 <span className="text-xs">Compare</span>
@@ -122,16 +122,26 @@ const getTagColor = (tag: string) => {
           </h3>
         </Link>
 
-        {/* Pricing */}
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-xl font-bold text-gray-900">
-            ${relatedProduct.originalPrice}
-          </span>
-          {/* {relatedProduct.discount && (
-            <span className="text-sm text-gray-500 line-through">
+         {/* Pricing */}
+         <div className="flex items-center justify-between mb-3">
+          {relatedProduct.discount > 0 ? (
+            <p className="text-gray-800 text-lg font-bold">
+              $
+              {Math.round(relatedProduct.originalPrice * (1 - relatedProduct.discount / 100))}
+            </p>
+          ) : (
+            <span className="opacity-0">No Discount</span>
+          )}
+
+          {relatedProduct.discount > 0 ? (
+            <p className="text text-gray-500 line-through mr-8">
               ${relatedProduct.originalPrice}
-            </span>
-          )} */}
+            </p>
+          ) : (
+            <p className="text-black text-lg font-bold">
+              ${relatedProduct.originalPrice}
+            </p>
+          )}
         </div>
 
         {/* Rating */}

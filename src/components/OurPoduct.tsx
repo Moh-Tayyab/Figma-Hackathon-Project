@@ -102,7 +102,7 @@ const OurPoduct = async () => {
               <IoMdShare className="text-lg" />
               <span className="text-xs">Share</span>
             </button>
-            <Link href="/comparison">
+            <Link href="#">
               <button className="flex items-center gap-1 text-sm hover:text-gray-200 transition-colors">
                 <FaArrowRightArrowLeft className="text-lg" />
                 <span className="text-xs">Compare</span>
@@ -121,15 +121,25 @@ const OurPoduct = async () => {
         </Link>
 
         {/* Pricing */}
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-xl font-bold text-gray-900">
-            ${ourProduct.originalPrice}
-          </span>
-          {/* {ourProduct.discount && (
-            <span className="text-sm text-gray-500 line-through">
+        <div className="flex items-center justify-between mb-3">
+          {ourProduct.discount > 0 ? (
+            <p className="text-gray-800 text-lg font-bold">
+              $
+              {Math.round(ourProduct.originalPrice * (1 - ourProduct.discount / 100))}
+            </p>
+          ) : (
+            <span className="opacity-0">No Discount</span>
+          )}
+
+          {ourProduct.discount > 0 ? (
+            <p className="text text-gray-500 line-through mr-8">
               ${ourProduct.originalPrice}
-            </span>
-          )} */}
+            </p>
+          ) : (
+            <p className="text-black text-lg font-bold">
+              ${ourProduct.originalPrice}
+            </p>
+          )}
         </div>
 
         {/* Rating */}
